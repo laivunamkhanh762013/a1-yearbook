@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Quiz 7A1</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f0f0f0;
+}
+
+.quiz-box {
+  width: 500px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.quiz-box img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  display:block;
+  margin:10px auto;
+  padding:10px;
+  background:#4CAF50;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+  width:80%;
+}
+
+.btn:hover { background:#45a049; }
+
+/* rung */
+.shake { animation: shake 0.3s; }
+@keyframes shake {
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+/* popup */
+#popup {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+}
+
+.popup-content {
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  animation: zoomIn 0.3s;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.7); opacity:0; }
+  to { transform: scale(1); opacity:1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box" id="quizBox">
+  <img id="quizImage" src="lop.jpg">
+  <h2 id="question"></h2>
+
+  <button class="btn" onclick="checkAnswer('A')" id="A"></button>
+  <button class="btn" onclick="checkAnswer('B')" id="B"></button>
+  <button class="btn" onclick="checkAnswer('C')" id="C"></button>
+  <button class="btn" onclick="checkAnswer('D')" id="D"></button>
+</div>
+
+<!-- popup -->
+<div id="popup">
+  <div class="popup-content">
+    <h2 id="popupText"></h2>
+  </div>
+</div>
+
+<script>
+// câu hỏi
+const questions = [
+  {
+    question: "Hiện tại, lớp trưởng lớp 7A1 là ai?",
+    image: "lop.jpg",
+    options: [
+      "Trần Anh Khôi",
+      "Trần Gia Linh",
+      "Lê Minh Khang",
+      "Nguyễn Vũ Bảo An"
+    ],
+    answer: "B"
+  },
+  {
+    question: "Lớp 7A1 có cô giáo chủ nhiệm tên gì?",
+    image: "Teacher.jpg",
+    options: [
+      "Cô Lan",
+      "Cô Hương",
+      "Cô Linh",
+      "Cô Thảo"
+    ],
+    answer: "C"
+  },
+  {
+    question: "Lớp mình có số phòng là?",
+    image: "lop.jpg",
+    options: [
+      "D303",
+      "D305",
+      "D207",
+      "D301"
+    ],
+    answer: "D"
+  },
+  {
+    question: "Lớp 7A1 có bao nhiêu Nam và Nữ?",
+    image: "lop.jpg",
+    options: [
+      "19 Nam và 23 Nữ",
+      "18 Nam và 25 Nữ",
+      "67 Nam và 36 Nữ",
+      "20 Nam và 22 Nữ"
+    ],
+    answer: "A"
+  },
+  {
+    question: "Hiện tại GVCN lớp 7A1 đang dạy môn gì?",
+    image: "Teacher.jpg",
+    options: [
+      "Sử",
+      "Toán",
+      "Ngữ Văn",
+      "KHTN"
+    ],
+    answer: "A"
+  }
+];
+
+// 🔥 RANDOM CÂU HỎI
+questions.sort(() => Math.random() - 0.5);
+
+let current = 0;
+
+// load câu hỏi
+function loadQuestion() {
+  let q = questions[current];
+
+  document.getElementById("question").innerText = q.question;
+  document.getElementById("quizImage").src = q.image;
+
+  document.getElementById("A").innerText = "A. " + q.options[0];
+  document.getElementById("B").innerText = "B. " + q.options[1];
+  document.getElementById("C").innerText = "C. " + q.options[2];
+  document.getElementById("D").innerText = "D. " + q.options[3];
+}
+
+// popup
+function showPopup(text) {
+  const popup = document.getElementById("popup");
+  document.getElementById("popupText").innerText = text;
+  popup.style.display = "flex";
+}
+
+function hidePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+
+// check
+function checkAnswer(ans) {
+  let quiz = document.getElementById("quizBox");
+
+  if(ans === questions[current].answer) {
+    showPopup("✔️ Chính xác!");
+
+    setTimeout(() => {
+      hidePopup();
+      current++;
+
+      if(current < questions.length) {
+        loadQuestion();
+      } else {
+        showPopup("🎉 Bạn là học sinh lớp 7A1 rùi nè =))");
+
+        setTimeout(() => {
+          window.location.href = "main.html";
+        }, 1500);
+      }
+    }, 1000);
+
+  } else {
+    showPopup("❌ Sai rồi! Chọn lại nhé!");
+
+    quiz.classList.add("shake");
+    setTimeout(() => quiz.classList.remove("shake"), 300);
+
+    setTimeout(hidePopup, 1000);
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
