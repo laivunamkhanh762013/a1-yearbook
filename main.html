@@ -2,9 +2,55 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A1 (2025 - 2026)</title>
 
 <style>
+    /* 📱 MOBILE RESPONSIVE - ADD ONLY */
+@media (max-width: 768px) {
+
+  /* navbar */
+  .navbar {
+    flex-direction: column;
+    padding:10px;
+  }
+
+  .center-text {
+    position:static;
+    transform:none;
+    margin:5px 0;
+    font-size:14px;
+    text-align:center;
+  }
+
+  .menu {
+    margin-top:5px;
+  }
+
+  .menu a {
+    margin:0 10px;
+    font-size:14px;
+  }
+
+  /* ảnh lớp */
+  .image-container img {
+    max-width:95%;
+  }
+
+  /* member grid */
+  .members-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* timeline */
+  .timeline {
+    padding:0 10px;
+  }
+
+  .timeline div {
+    font-size:14px;
+  }
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 
 html {
