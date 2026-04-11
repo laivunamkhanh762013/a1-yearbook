@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>A1 (2025 - 2026)</title>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial;
+  background:#f0f0f0;
+}
+
+/* 🔝 NAVBAR */
+.navbar {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  color:white;
+  z-index:1000;
+}
+
+.logo { font-weight:bold; }
+
+.center-text {
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  font-weight:bold;
+}
+
+.menu a {
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.menu a:hover {
+  color:#90ee90;
+}
+
+/* SECTION */
+section {
+  padding-top:120px;
+  text-align:center;
+  min-height:100vh;
+  scroll-margin-top:100px;
+}
+
+/* 📸 ẢNH */
+.image-container {
+  position:relative;
+  display:inline-block;
+}
+
+.image-container img {
+  max-width:70%;
+  border-radius:10px;
+  border:3px solid #333;
+}
+
+.overlay {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  transition:0.5s;
+}
+
+.image-container:hover .overlay {
+  opacity:1;
+}
+
+.overlay button {
+  margin:10px;
+  padding:10px 20px;
+  background:#4CAF50;
+  border:none;
+  border-radius:5px;
+  color:white;
+  cursor:pointer;
+}
+
+/* 👥 MEMBERS */
+.members-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.member-card {
+  background:#fff;
+  border-radius:10px;
+  padding:10px;
+  transition:0.3s;
+}
+
+.member-card:hover {
+  transform:scale(1.05);
+}
+
+.member-card img {
+  width:100%;
+  border-radius:10px;
+}
+
+/* 📜 TIMELINE */
+.timeline {
+  max-width:600px;
+  margin:auto;
+  text-align:left;
+}
+
+.timeline div {
+  background:white;
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
+}
+
+/* 🔍 MODAL */
+.modal {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal img {
+  max-width:90%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="navbar">
+  <div class="logo">A1 - THCS CVA</div>
+  <div class="center-text">Made by ChatGPT =)))</div>
+  <div class="menu">
+    <a href="#home">Trang chủ</a>
+    <a href="#members">Thành viên</a>
+    <a href="#timeline">Dòng thời gian</a>
+  </div>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <h2>Ảnh lớp 7A1</h2>
+  <div class="image-container">
+    <img src="lop.jpg">
+    <div class="overlay">
+      <button onclick="document.getElementById('members').scrollIntoView()">Xem thành viên</button>
+      <button onclick="openModal()">Xem ảnh</button>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members">
+  <h2>Danh sách thành viên</h2>
+
+  <div class="members-grid">
+
+    <div class="member-card">
+  <img src="NguyenVuBaoAn.jpg">
+  <p><strong>Nguyễn Vũ Bảo An</strong><br>Ngày sinh: 13/04/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="PhamThuyAn.jpg">
+  <p><strong>Phạm Thúy An</strong><br>Ngày sinh: 06/06/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="TranNgocBaoAn.jpg">
+  <p><strong>Trần Ngọc Bảo An</strong><br>Ngày sinh: 12/03/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeBaoAnh.png">
+  <p><strong>Lê Bảo Anh</strong><br>Ngày sinh: 30/06/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenTungBach.jpg">
+  <p><strong>Nguyễn Tùng Bách</strong><br>Ngày sinh: 06/01/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="DuongThanhBinh.jpg">
+  <p><strong>Dương Thanh Bình</strong><br>Ngày sinh: 12/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenNgocBaoChau.jpg">
+  <p><strong>Nguyễn Ngọc Bảo Châu</strong><br>Ngày sinh: 06/08/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenThuyChi.jpg">
+  <p><strong>Nguyễn Thùy Chi</strong><br>Ngày sinh: 08/07/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeNguyenThuyDuong.jpg">
+  <p><strong>Lê Nguyễn Thùy Dương</strong><br>Ngày sinh: 05/04/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeNganHa.jpg">
+  <p><strong>Lê Ngân Hà</strong><br>Ngày sinh: 06/10/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenMinhHa.jpg">
+  <p><strong>Nguyễn Minh Hà</strong><br>Ngày sinh: 06/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenThanhHa.jpg">
+  <p><strong>Nguyễn Thanh Hà</strong><br>Ngày sinh: 27/05/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="VuTrungHieu.jpg">
+  <p><strong>Vũ Trung Hiếu</strong><br>Ngày sinh: 16/07/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenDinhPhucHung.jpg">
+  <p><strong>Nguyễn Đình Phúc Hưng</strong><br>Ngày sinh: 15/04/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeMinhKhang.jpg">
+  <p><strong>Lê Minh Khang</strong><br>Ngày sinh: 07/01/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenMinhKhang.jpg">
+  <p><strong>Nguyễn Minh Khang</strong><br>Ngày sinh: 24/08/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LaiVuNamKhanh.jpg">
+  <p><strong>Lại Vũ Nam Khánh</strong><br>Ngày sinh: 07/06/2013<br>Biệt danh: Lợn quay Lạng Sơn  - Thiên Tài IT</p>
+</div>
+
+<div class="member-card">
+  <img src="DoKhacNguyenKhoi.jpg">
+  <p><strong>Đỗ Khắc Nguyên Khôi</strong><br>Ngày sinh: 22/02/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="TranAnhKhoi.jpg">
+  <p><strong>Trần Anh Khôi</strong><br>Ngày sinh: 21/03/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeTranKhanhLinh.jpg">
+  <p><strong>Lê Trần Khánh Linh</strong><br>Ngày sinh: 05/03/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NgoGiaLinh.jpg">
+  <p><strong>Ngô Gia Linh</strong><br>Ngày sinh: 11/10/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="TranGiaLinh.jpg">
+  <p><strong>Trần Gia Linh</strong><br>Ngày sinh: 28/05/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="LeDuyBaoMinh.jpg">
+  <p><strong>Lê Duy Bảo Minh</strong><br>Ngày sinh: 16/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="DamKhanhNgan.jpg">
+  <p><strong>Đàm Khánh Ngân</strong><br>Ngày sinh: 30/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="PhamTuanNghia.jpg">
+  <p><strong>Phạm Tuấn Nghĩa</strong><br>Ngày sinh: 08/05/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="PhamBaoNgoc.jpg">
+  <p><strong>Phạm Bảo Ngọc</strong><br>Ngày sinh: 25/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="VuBaoNgoc.jpg">
+  <p><strong>Vũ Bảo Ngọc</strong><br>Ngày sinh: 28/10/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="TranKhoiNguyen.jpg">
+  <p><strong>Trần Khôi Nguyên</strong><br>Ngày sinh: 03/09/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenXuanNha.jpg">
+  <p><strong>Nguyễn Xuân Nhã</strong><br>Ngày sinh: 21/11/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="VuXuanPhuc.jpg">
+  <p><strong>Vũ Xuân Phúc</strong><br>Ngày sinh: 27/01/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenNhatPhuong.jpg">
+  <p><strong>Nguyễn Nhật Phương</strong><br>Ngày sinh: 24/09/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="QuanBichPhuong.jpg">
+  <p><strong>Quản Bích Phượng</strong><br>Ngày sinh: 05/04/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="PhamHuyQuang.jpg">
+  <p><strong>Phạm Huy Quang</strong><br>Ngày sinh: 09/04/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenManhQuan.jpg">
+  <p><strong>Nguyễn Mạnh Quân</strong><br>Ngày sinh: 14/08/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="TranMinhQuan.jpg">
+  <p><strong>Trần Minh Quân</strong><br>Ngày sinh: 07/01/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenHuongThao.jpg">
+  <p><strong>Nguyễn Hương Thảo</strong><br>Ngày sinh: 22/02/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="PhamAnhThu.jpg">
+  <p><strong>Phạm Anh Thư</strong><br>Ngày sinh: 08/02/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenKhanhTrang.jpg">
+  <p><strong>Nguyễn Khánh Trang</strong><br>Ngày sinh: 23/02/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="HoangCamTu.jpg">
+  <p><strong>Hoàng Cẩm Tú</strong><br>Ngày sinh: 05/11/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="NguyenMinhTuan.jpg">
+  <p><strong>Nguyễn Minh Tuấn</strong><br>Ngày sinh: 14/02/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="BuiLamTue.jpg">
+  <p><strong>Bùi Lâm Tuệ</strong><br>Ngày sinh: 16/12/2013<br>Biệt danh: ...</p>
+</div>
+
+<div class="member-card">
+  <img src="BuiTheVinh.jpg">
+  <p><strong>Bùi Thế Vinh</strong><br>Ngày sinh: 19/09/2013<br>Biệt danh: ...</p>
+</div>
+
+    <!-- 👉 bạn dán full danh sách vào đây -->
+
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2>Dòng thời gian</h2>
+  <div class="timeline">
+    <div>📅 2023 - Bắt đầu lớp 7A1</div>
+    <div>🎉 20/11 - Ngày nhà giáo Việt Nam</div>
+    <div>🏫 2024 - Kết thúc năm học</div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <img src="lop.jpg">
+</div>
+
+<script>
+function openModal() {
+  modal.style.display="flex";
+}
+
+function closeModal(e) {
+  if(e.target.id==="modal") modal.style.display="none";
+}
+</script>
+
+</body>
+</html>
