@@ -93,7 +93,8 @@ body {
 </div>
 
 <script>
-// câu hỏi
+
+// danh sách câu hỏi (đã thêm 2 câu mới)
 const questions = [
   {
     question: "Hiện tại, lớp trưởng lớp 7A1 là ai?",
@@ -128,16 +129,16 @@ const questions = [
     ],
     answer: "D"
   },
-  {
-    question: "Lớp 7A1 có bao nhiêu Nam và Nữ?",
+    {
+    question: "Lớp mình có bao nhiêu bạn Nam và Nữ?",
     image: "lop.jpg",
     options: [
+      "36 Nam và 67 Nữ",
       "19 Nam và 23 Nữ",
-      "18 Nam và 25 Nữ",
-      "67 Nam và 36 Nữ",
-      "20 Nam và 22 Nữ"
+      "23 Nam và 19 Nữ",
+      "13 Nam và 30 Nữ"
     ],
-    answer: "A"
+    answer: "B"
   },
   {
     question: "Hiện tại GVCN lớp 7A1 đang dạy môn gì?",
@@ -152,7 +153,7 @@ const questions = [
   }
 ];
 
-// 🔥 RANDOM CÂU HỎI
+// 👉 RANDOM câu hỏi
 questions.sort(() => Math.random() - 0.5);
 
 let current = 0;
@@ -171,9 +172,13 @@ function loadQuestion() {
 }
 
 // popup
-function showPopup(text) {
+function showPopup(text, color="#333") {
   const popup = document.getElementById("popup");
-  document.getElementById("popupText").innerText = text;
+  const txt = document.getElementById("popupText");
+
+  txt.innerText = text;
+  txt.style.color = color;
+
   popup.style.display = "flex";
 }
 
@@ -213,7 +218,9 @@ function checkAnswer(ans) {
   }
 }
 
+// chạy
 loadQuestion();
+
 </script>
 
 </body>
