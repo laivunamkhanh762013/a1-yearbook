@@ -116,8 +116,44 @@ const questions = [
       "Cô Thảo"
     ],
     answer: "C"
+  },
+  {
+    question: "Lớp mình có số phòng là?",
+    image: "lop.jpg",
+    options: [
+      "D303",
+      "D305",
+      "D207",
+      "D301"
+    ],
+    answer: "D"
+  },
+  {
+    question: "Lớp 7A1 có bao nhiêu Nam và Nữ?",
+    image: "lop.jpg",
+    options: [
+      "19 Nam và 23 Nữ",
+      "18 Nam và 25 Nữ",
+      "67 Nam và 36 Nữ",
+      "20 Nam và 22 Nữ"
+    ],
+    answer: "A"
+  },
+  {
+    question: "Hiện tại GVCN lớp 7A1 đang dạy môn gì?",
+    image: "Teacher.jpg",
+    options: [
+      "Sử",
+      "Toán",
+      "Ngữ Văn",
+      "KHTN"
+    ],
+    answer: "A"
   }
 ];
+
+// 🔥 RANDOM CÂU HỎI
+questions.sort(() => Math.random() - 0.5);
 
 let current = 0;
 
@@ -134,23 +170,18 @@ function loadQuestion() {
   document.getElementById("D").innerText = "D. " + q.options[3];
 }
 
-// hiện popup
-function showPopup(text, color="#333") {
+// popup
+function showPopup(text) {
   const popup = document.getElementById("popup");
-  const txt = document.getElementById("popupText");
-
-  txt.innerText = text;
-  txt.style.color = color;
-
+  document.getElementById("popupText").innerText = text;
   popup.style.display = "flex";
 }
 
-// ẩn popup
 function hidePopup() {
   document.getElementById("popup").style.display = "none";
 }
 
-// check đáp án
+// check
 function checkAnswer(ans) {
   let quiz = document.getElementById("quizBox");
 
@@ -175,7 +206,6 @@ function checkAnswer(ans) {
   } else {
     showPopup("❌ Sai rồi! Chọn lại nhé!");
 
-    // rung
     quiz.classList.add("shake");
     setTimeout(() => quiz.classList.remove("shake"), 300);
 
@@ -183,7 +213,6 @@ function checkAnswer(ans) {
   }
 }
 
-// chạy
 loadQuestion();
 </script>
 
