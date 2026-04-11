@@ -16,30 +16,37 @@ body {
   background:#f0f0f0;
 }
 
-/* 🔝 NAVBAR */
+/* 🌈 NAVBAR */
 .navbar {
   position: fixed;
   top:0;
   left:0;
   width:100%;
   display:flex;
-  justify-content:space-between;
+  flex-direction:column;
   align-items:center;
-  padding:15px 30px;
+  padding:20px 30px;
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(8px);
   color:white;
   z-index:1000;
+
+  /* 🔥 viền cầu vồng */
+  border:3px solid transparent;
+  border-radius:12px;
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                    linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 
 .logo { font-weight:bold; }
-
-.center-text {
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  font-weight:bold;
-}
 
 .menu a {
   margin-left:20px;
@@ -48,9 +55,7 @@ body {
   transition:0.3s;
 }
 
-.menu a:hover {
-  color:#90ee90;
-}
+.menu a:hover { color:#90ee90; }
 
 /* SECTION */
 section {
@@ -159,14 +164,26 @@ section {
 
 <!-- NAV -->
 <nav class="navbar">
-  <div class="logo">A1 - THCS CVA</div>
-  <div class="center-text">Made by ChatGPT & Copilot =)))</div>
-  <div class="menu">
-    <a href="#home">Trang chủ</a>
-    <a href="#members">Thành viên</a>
-    <a href="#timeline">Dòng thời gian</a>
+
+  <div style="display:flex; width:100%; justify-content:space-between; align-items:center;">
+    <div class="logo">A1 - THCS CVA</div>
+
+    <div class="menu">
+      <a href="#home">Trang chủ</a>
+      <a href="#members">Thành viên</a>
+      <a href="#timeline">Dòng thời gian</a>
+    </div>
   </div>
-</nav>
+
+  <div style="margin-top:10px; font-weight:bold;">
+    Made by ChatGPT & Copilot =))
+  </div>
+
+  <div style="font-size:14px; margin-top:5px;">
+    Creator & Tester: Thúy An & Dev Khánhh
+  </div>
+
+</nav>>
 
 <!-- HOME -->
 <section id="home">
