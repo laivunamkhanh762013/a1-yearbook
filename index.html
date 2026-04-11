@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta http-equiv="refresh" content="999; url=https://a1-yearbook.vercel.app/">
 <meta charset="UTF-8">
 <title>Quiz 7A1</title>
+
+<!-- ✅ THÊM redirect dự phòng -->
+<meta http-equiv="refresh" content="999; url=https://a1cvatt.vercel.app/">
 
 <style>
 body {
@@ -153,7 +155,7 @@ const questions = [
   }
 ];
 
-// 🔥 RANDOM CÂU HỎI
+// random
 questions.sort(() => Math.random() - 0.5);
 
 let current = 0;
@@ -199,7 +201,8 @@ function checkAnswer(ans) {
         showPopup("🎉 Bạn là học sinh lớp 7A1 rùi nè =))");
 
         setTimeout(() => {
-          window.location.href = "main.html";
+          // ✅ ĐÃ SỬA redirect
+          window.location.href = "https://a1cvatt.vercel.app/";
         }, 1500);
       }
     }, 1000);
@@ -219,4 +222,3 @@ loadQuestion();
 
 </body>
 </html>
-window.location.href = "https://a1cvatt.vercel.app/";
