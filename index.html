@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <title>Quiz 7A1</title>
 
-<!-- ✅ THÊM redirect dự phòng -->
-<meta http-equiv="refresh" content="999; url=https://a1cvatt.vercel.app/main.html">
-
 <style>
 body {
   font-family: Arial;
@@ -155,7 +152,7 @@ const questions = [
   }
 ];
 
-// random
+// 🔥 RANDOM CÂU HỎI
 questions.sort(() => Math.random() - 0.5);
 
 let current = 0;
@@ -198,11 +195,10 @@ function checkAnswer(ans) {
       if(current < questions.length) {
         loadQuestion();
       } else {
-        showPopup("🎉 Bạn là học sinh lớp 7A1 rùi nè =))");
+        showPopup("🎉 Bạn là thành viên lớp 7A1 - Chào Mừng Bạn!!!");
 
         setTimeout(() => {
-          // ✅ ĐÃ SỬA redirect
-          window.location.href = "https://a1cvatt.vercel.app/";
+          window.location.href = "main.html";
         }, 1500);
       }
     }, 1000);
