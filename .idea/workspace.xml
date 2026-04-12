@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="NguyenKhang">
+    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="BaoChau">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
     </list>
@@ -30,12 +30,12 @@
     &quot;assignee&quot;: &quot;laivunamkhanh762013&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/laivunamkhanh762013/a1-yearbook.git",
-    "accountId": "4afe81aa-28e7-4818-9548-f78f5b77a7f4"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/laivunamkhanh762013/a1-yearbook.git&quot;,
+    &quot;accountId&quot;: &quot;4afe81aa-28e7-4818-9548-f78f5b77a7f4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -101,7 +101,31 @@
       <option name="project" value="LOCAL" />
       <updated>1775955979947</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="NganHa">
+      <option name="closed" value="true" />
+      <created>1775958181739</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775958181739</updated>
+    </task>
+    <task id="LOCAL-00006" summary="BaoChau">
+      <option name="closed" value="true" />
+      <created>1775974534218</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775974534218</updated>
+    </task>
+    <task id="LOCAL-00007" summary="BaoChau">
+      <option name="closed" value="true" />
+      <created>1775974568342</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1775974568342</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -109,6 +133,8 @@
     <MESSAGE value="Creator" />
     <MESSAGE value="Creator An and Khánhh" />
     <MESSAGE value="NguyenKhang" />
-    <option name="LAST_COMMIT_MESSAGE" value="NguyenKhang" />
+    <MESSAGE value="NganHa" />
+    <MESSAGE value="BaoChau" />
+    <option name="LAST_COMMIT_MESSAGE" value="BaoChau" />
   </component>
 </project>

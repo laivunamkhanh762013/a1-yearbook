@@ -5,6 +5,20 @@
 <title>A1 (2025 - 2026)</title>
 
 <style>
+    /* 🔥 BACKGROUND BLUR XỊN */
+body::before {
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background: url("lop.jpg") center/cover no-repeat;
+
+  filter: blur(8px) brightness(0.6);
+  z-index:-1;
+}
 * { margin:0; padding:0; box-sizing:border-box; }
 
 html {
@@ -156,50 +170,29 @@ section {
 
 .modal img {
   max-width:90%;
-}
 </style>
-/* 🏆 TOP 10 */
-.top10-box {
-  max-width:60px;
-  margin:20px auto;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+
+  /* Ảnh nền */
+  background-image: url("Lop.jpg"); /* thay bằng tên ảnh nền của lớp */
+  background-size: cover;   /* phủ toàn màn hình */
+  background-position: center;
+  transition: all 0.5s ease; /* hiệu ứng mượt */
 }
 
-.rank {
-  background:white;
-  margin:10px;
-  padding:15px;
-  border-radius:10px;
-  font-weight:bold;
-  transition:0.3s;
+/* Khi di chuột ra ngoài body */
+body:hover {
+  filter: blur(3px);        /* làm mờ nhẹ */
+  transform: scale(1.05);   /* zoom nhẹ */
 }
 
-.rank:hover {
-  transform:scale(1.05);
-}
-
-/* 🥇🥈🥉 màu */
-.gold {
-  background:linear-gradient(45deg, gold, orange);
-  color:#000;
-}
-
-.silver {
-  background:linear-gradient(45deg, #ccc, #999);
-}
-
-.bronze {
-  background:linear-gradient(45deg, #cd7f32, #a0522d);
-.rank {
-  background:white;
-  margin:10px;
-  padding:15px;
-  border-radius:10px;
-  font-weight:bold;
-  font-size:9999px /* 👈 tăng chữ ở đây */
-}
 </head>
-
 <body>
+
+<div id="loading">Loading A1...</div>
 
 <!-- NAV -->
 <nav class="navbar">
