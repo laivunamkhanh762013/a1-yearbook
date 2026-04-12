@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="Creator An and Khánhh" />
+    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="NguyenKhang">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,13 +93,22 @@
       <option name="project" value="LOCAL" />
       <updated>1775955685493</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="NguyenKhang">
+      <option name="closed" value="true" />
+      <created>1775955979947</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775955979947</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Thaydoihinhanh" />
     <MESSAGE value="Creator" />
     <MESSAGE value="Creator An and Khánhh" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creator An and Khánhh" />
+    <MESSAGE value="NguyenKhang" />
+    <option name="LAST_COMMIT_MESSAGE" value="NguyenKhang" />
   </component>
 </project>
