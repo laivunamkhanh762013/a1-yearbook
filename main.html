@@ -198,7 +198,10 @@ body:hover {
 <nav class="navbar">
 
   <div style="display:flex; width:100%; justify-content:space-between; align-items:center;">
-    <div class="logo">A1 - THCS CVA ( 2024 - 2028 )</div>
+    <div class="logo" style="display:flex; align-items:center; gap:10px;">
+  <img src="Logolop.jpeg" style="width:40px; height:40px; border-radius:50%;">
+  A1 - THCS CVA ( 2024 - 2028 )
+</div>
 
     <div class="menu">
       <a href="#home">Trang chủ</a>
@@ -228,7 +231,18 @@ body:hover {
     </div>
   </div>
 </section>
-
+<div id="countdown" style="
+  margin: 30px auto;
+  padding: 15px;
+  width: fit-content;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+">
+  ⏳ Đang tải thời gian...
+</div>
 <!-- MEMBERS -->
 <section id="members">
   <h2>Danh sách thành viên ( 43 Thành viên )</h2>
@@ -482,6 +496,26 @@ function closeModal(e) {
   if(e.target.id==="modal") modal.style.display="none";
 }
 </script>
+<script>
+const examDate = new Date("2026-04-20 08:00:00").getTime();
 
+setInterval(() => {
+  const now = new Date().getTime();
+  const distance = examDate - now;
+
+  if (distance <= 0) {
+    document.getElementById("countdown").innerHTML = "🔥 ĐẾN NGÀY THI RỒI!!!";
+    return;
+  }
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / (1000 * 60)) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML =
+    `⏳ Thi cuối kì sau: ${days} ngày ${hours} giờ ${minutes}p ${seconds}s`;
+}, 1000);
+</script>
 </body>
 </html>
