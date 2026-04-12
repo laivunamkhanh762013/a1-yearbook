@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <link rel="icon" href="logolop.jpeg">
 <meta charset="UTF-8">
 <title>A1 (2025 - 2026)</title>
 
@@ -241,7 +242,11 @@ body:hover {
   font-weight: bold;
   text-align: center;
 ">
-  ⏳ Đang tải thời gian...
+  <div id="timeText">⏳ Đang tải thời gian...</div>
+
+  <div style="margin-top:8px; color:red;">
+    💪 Các bạn cố lên!!!
+  </div>
 </div>
 <!-- MEMBERS -->
 <section id="members">
@@ -497,25 +502,33 @@ function closeModal(e) {
 }
 </script>
 <script>
-const examDate = new Date("2026-04-20 00:00:00").getTime();
+window.onload = function() {
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const distance = examDate - now;
+  const examDate = new Date("2026-04-20 08:00:00").getTime();
 
-  if (distance <= 0) {
-    document.getElementById("countdown").innerHTML = "🔥 ĐẾN NGÀY THI RỒI!!!";
-    return;
-  }
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = examDate - now;
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((distance / (1000 * 60)) % 60);
-  const seconds = Math.floor((distance / 1000) % 60);
+    const el = document.getElementById("timeText");
+    if (!el) return; // tránh lỗi crash
 
-  document.getElementById("countdown").innerHTML =
-    `⏳ Thi cuối kì II sau: ${days} ngày ${hours} giờ ${minutes}p ${seconds}s (📅 20/04 )`;
-}, 1000);
+    if (distance <= 0) {
+      el.innerHTML = "🔥 ĐẾN NGÀY THI RỒI!!!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    el.innerHTML =
+      `⏳ Thi cuối kì sau: ${days} ngày ${hours}h ${minutes}m ${seconds}s`;
+
+  }, 1000);
+
+}
 </script>
 </body>
 </html>
