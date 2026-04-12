@@ -250,21 +250,41 @@ body:hover {
   <div style="
     font-size:26px;
     font-weight:bold;
-    margin-bottom:20px;
+    margin-bottom:10px;
     color:gold;
-    text-shadow:0 0 10px gold, 0 0 20px orange;
+    text-shadow:0 0 10px gold, 0 0 1px orange;
   ">
     🥇 Top 1: Lê Nguyễn Thùy Dương
   </div>
 
-  <!-- 🥈🥉 TOP KHÁC -->
+  <!-- 🥈 TOP 2 -->
+  <div style="
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:10px;
+    color:silver;
+    text-shadow:0 0 10px silver, 0 0 1px gray;
+  ">
+    🥈 Top 2: Lê Bảo Anh
+  </div>
+
+  <!-- 🥉 TOP 3 -->
+  <div style="
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#cd7f32;
+    text-shadow:0 0 10px #cd7f32, 0 0 1px orange;
+  ">
+    🥉 Top 3: Lại Vũ Nam Khánh (Dev)
+  </div>
+
+  <!-- TOP 4 → 10 -->
   <div style="font-size:20px; line-height:1.8;">
-    🥈 Top 2: Lê Bảo Anh <br>
-    🥉 Top 3: Lại Vũ Nam Khánh (Dev) <br>
     Top 4: Dương Thanh Bình <br>
     Top 5: Lê Minh Khang <br>
     Top 6: Bùi Lâm Tuệ <br>
-    Top 7 : Vũ Bảo Ngọc <br>
+    Top 7: Vũ Bảo Ngọc <br>
     Top 8: Phạm Anh Thư <br>
     Top 9: Nguyễn Thùy Chi <br>
     Top 10: Nguyễn Nhật Phương
@@ -563,7 +583,7 @@ window.onload = function() {
     const seconds = Math.floor((distance / 1000) % 60);
 
     el.innerHTML =
-      `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}m ${seconds}s`;
+      `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s (📅 20/04 )`;
 
   }, 1000);
 

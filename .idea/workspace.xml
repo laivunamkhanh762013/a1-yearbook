@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="Cre" />
+    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="ThaoPhoto">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -186,7 +189,31 @@
       <option name="project" value="LOCAL" />
       <updated>1776012810907</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="giờ">
+      <option name="closed" value="true" />
+      <created>1776013290061</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1776013290061</updated>
+    </task>
+    <task id="LOCAL-00017" summary="giờ">
+      <option name="closed" value="true" />
+      <created>1776013385875</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1776013385875</updated>
+    </task>
+    <task id="LOCAL-00018" summary="ThaoPhoto">
+      <option name="closed" value="true" />
+      <created>1776013626726</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1776013626726</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -211,6 +238,8 @@
     <MESSAGE value="Them thoigian" />
     <MESSAGE value="BXH" />
     <MESSAGE value="Cre" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cre" />
+    <MESSAGE value="giờ" />
+    <MESSAGE value="ThaoPhoto" />
+    <option name="LAST_COMMIT_MESSAGE" value="ThaoPhoto" />
   </component>
 </project>
