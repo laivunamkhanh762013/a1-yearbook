@@ -343,6 +343,28 @@ body:hover {
 <section id="members">
   <h2>Danh sách thành viên ( 43 Thành viên )</h2>
 
+<!-- 🔍 SEARCH -->
+<div style="
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+">
+  <input
+    type="text"
+    placeholder="🔍 Tìm thành viên..."
+    onkeyup="searchMember(this.value)"
+    style="
+      padding:20px;
+      width:80%;
+      max-width:600px;
+      border-radius:25px;
+      border:none;
+      outline:none;
+      font-size:18px;
+      text-align:center;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    ">
+</div>
   <div class="members-grid">
       <div class="member-card">
   <img src="Teacher.jpg">
@@ -620,6 +642,23 @@ window.onload = function() {
 
   }, 1000);
 
+}
+</script>
+<script>
+function searchMember(keyword){
+  const cards = document.querySelectorAll(".member-card");
+
+  keyword = keyword.toLowerCase();
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+
+    if(text.includes(keyword)){
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
 }
 </script>
 </body>
