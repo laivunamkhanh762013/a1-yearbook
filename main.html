@@ -396,21 +396,30 @@ animation:rainbowMove 3s linear infinite;    ">
   justify-content:center;
   margin:20px 0;
 ">
-  <input
-    type="text"
-    placeholder="🔍 Tìm thành viên..."
-    onkeyup="searchMember(this.value)"
-    style="
-      padding:20px;
-      width:80%;
-      max-width:600px;
-      border-radius:25px;
-      border:none;
-      outline:none;
-      font-size:18px;
-      text-align:center;
-      box-shadow:0 0 10px rgba(0,0,0,0.2);
-    ">
+<input id="searchInput" placeholder="🔍 Tìm thành viên..."
+style="
+  display:block;
+  margin:20px auto;
+  width:70%;
+  max-width:500px;
+  padding:15px;
+  border-radius:30px;
+  border:none;
+  outline:none;
+  font-size:18px;
+  text-align:center;
+  background:#eee;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+">
+    <div id="noResult" style="
+  display:none;
+  text-align:center;
+  color:red;
+  font-weight:bold;
+  margin-top:10px;
+">
+  ❌ Không tìm thấy
+</div>
 </div>
   <div class="members-grid">
       <div class="member-card">
@@ -654,45 +663,103 @@ animation:rainbowMove 3s linear infinite;    ">
 </div>
 
 <script>
-function updateSmooth() {
-  const start = new Date("2026-04-13").getTime();
-  const end = new Date("2026-04-20").getTime();
-  const now = new Date().getTime();
+window.addEventListener("DOMContentLoaded", function(){
 
-  const percent = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100));
+  /* ===================== */
+  /* 🔍 SEARCH PRO MAX */
+  /* ===================== */
+  const input = document.getElementById("searchInput");
+  const noResult = document.getElementById("noResult");
+  const members = document.querySelectorAll(".member-card");
 
-  const bar = document.getElementById("progressBar");
-  const text = document.getElementById("percentText");
-  const cd = document.getElementById("countdown");
+  // lưu nội dung gốc (để highlight không lỗi)
+  members.forEach(card => {
+    card.setAttribute("data-original", card.innerHTML);
+  });
 
-  // cập nhật thanh
-  if (bar) {
-    bar.style.width = percent + "%";
+  if(input){
+    input.addEventListener("input", function() {
+      const keyword = input.value.toLowerCase().trim();
+      let found = false;
+
+      members.forEach(card => {
+        const original = card.getAttribute("data-original");
+        const text = original.toLowerCase();
+
+        if (text.includes(keyword)) {
+          card.style.display = "block";
+          found = true;
+
+          // ✨ highlight
+          if(keyword !== ""){
+            const regex = new RegExp(`(${keyword})`, "gi");
+            card.innerHTML = original.replace(regex, "<mark>$1</mark>");
+          } else {
+            card.innerHTML = original;
+          }
+
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // ❌ không tìm thấy
+      if(noResult){
+        noResult.style.display = found ? "none" : "block";
+      }
+
+      // 🎯 scroll tới người đầu tiên
+      if(found){
+        const first = Array.from(members).find(card => card.style.display === "block");
+        if(first){
+          first.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }
+      }
+    });
   }
 
-  // % mượt (2 số lẻ)
-  if (text) {
-    text.innerText = percent.toFixed(2).replace(".", ",") + "%";
+  /* ===================== */
+  /* ⏳ COUNTDOWN + % MƯỢT */
+  /* ===================== */
+  function updateSmooth() {
+    const start = new Date("2026-04-13").getTime();
+    const end = new Date("2026-04-20").getTime();
+    const now = new Date().getTime();
+
+    const percent = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100));
+
+    const bar = document.getElementById("progressBar");
+    const text = document.getElementById("percentText");
+    const cd = document.getElementById("countdown");
+
+    if(bar){
+      bar.style.width = percent + "%";
+    }
+
+    if(text){
+      text.innerText = percent.toFixed(2).replace(".", ",") + "%";
+    }
+
+    if(cd){
+      const diff = end - now;
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const minutes = Math.floor((diff / (1000*60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      cd.innerText = `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s`;
+    }
+
+    requestAnimationFrame(updateSmooth);
   }
 
-  // countdown
-  if (cd) {
-    const diff = end - now;
+  updateSmooth();
 
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff / (1000*60*60)) % 24);
-    const minutes = Math.floor((diff / (1000*60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
-
-    cd.innerText = `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s`;
-  }
-
-  // 🔥 chạy lại liên tục (mượt)
-  requestAnimationFrame(updateSmooth);
-}
-
-// chạy
-updateSmooth();
+});
 </script>
-</body>
+    </body>
 </html>
