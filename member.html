@@ -1,10 +1,382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <link rel="icon" href="Logolop.jpeg">
+<meta charset="UTF-8">
+<title>A1 ( 2024 - 2028 )</title>
+
+<style>
+    /* 🔥 BACKGROUND BLUR XỊN */
+body::before {
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+
+  background: url("lop.jpg") center/cover no-repeat;
+
+  filter: blur(8px) brightness(0.6);
+  z-index:-1;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial;
+  background:#f0f0f0;
+}
+
+/* 🌈 NAVBAR */
+.navbar {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:20px 30px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  color:white;
+  z-index:1000;
+
+  /* 🔥 viền cầu vồng */
+  border:3px solid transparent;
+  border-radius:12px;
+  background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                    linear-gradient(270deg, red, orange, yellow, lime, cyan, blue, violet, red);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: rainbow 5s linear infinite;
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+.logo { font-weight:bold; }
+
+.menu a {
+  margin-left:20px;
+  text-decoration:none;
+  color:white;
+  transition:0.3s;
+}
+
+.menu a:hover { color:#90ee90; }
+
+/* SECTION */
+section {
+  padding-top:120px;
+  text-align:center;
+  min-height:100vh;
+  scroll-margin-top:100px;
+}
+
+/* 📸 ẢNH */
+.image-container {
+  position:relative;
+  display:inline-block;
+}
+
+.image-container img {
+  max-width:70%;
+  border-radius:10px;
+  border:3px solid #333;
+}
+
+.overlay {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.6);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  opacity:0;
+  transition:0.5s;
+}
+
+.image-container:hover .overlay {
+  opacity:1;
+}
+
+.overlay button {
+  margin:10px;
+  padding:10px 20px;
+  background:#4CAF50;
+  border:none;
+  border-radius:5px;
+  color:white;
+  cursor:pointer;
+}
+
+/* 👥 MEMBERS */
+.members-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.member-card {
+  background:#fff;
+  border-radius:10px;
+  padding:10px;
+  transition:0.3s;
+}
+
+.member-card:hover {
+  transform:scale(1.05);
+}
+
+.member-card img {
+  width:100%;
+  border-radius:10px;
+}
+
+/* 📜 TIMELINE */
+.timeline {
+  max-width:600px;
+  margin:auto;
+  text-align:left;
+}
+
+.timeline div {
+  background:white;
+  margin:10px;
+  padding:15px;
+  border-radius:10px;
+}
+
+/* 🔍 MODAL */
+.modal {
+  display:none;
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+}
+
+.modal img {
+  max-width:90%;
+</style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+
+  /* Ảnh nền */
+  background-image: url("Lop.jpg"); /* thay bằng tên ảnh nền của lớp */
+  background-size: cover;   /* phủ toàn màn hình */
+  background-position: center;
+  transition: all 0.5s ease; /* hiệu ứng mượt */
+}
+
+/* Khi di chuột ra ngoài body */
+body:hover {
+  filter: blur(3px);        /* làm mờ nhẹ */
+  transform: scale(1.05);   /* zoom nhẹ */
+}
+
+</head>
+<body>
+
+<div id="loading">Loading A1...</div>
+
+<!-- NAV -->
+<nav class="navbar">
+
+<div style="display:flex; width:100%; align-items:center; justify-content:space-between;">
+
+  <!-- 🔥 BÊN TRÁI -->
+  <div style="display:flex; align-items:center; gap:10px;">
+    <img src="Logolop.jpeg" style="height:40px;">
+    <div class="logo">A1 - THCS CVA ( 2024 - 2028 )</div>
+  </div>
+
+  <!-- 🔥 ẢNH TRÁI (Phạm Thúy An) -->
+  <div style="display:flex; align-items:center;">
+    <img src="PTA's.jpg"
+     style="
+     height:60px;
+     width:60px;
+     object-fit:cover;
+     border-radius:50%;
+     border:3px solid white;
+     box-shadow:0 0 10px white, 0 0 20px cyan;
+     ">
+  </div>
+
+  <!-- 🔥 Ở GIỮA -->
+  <div style="text-align:center;">
+    <div style="font-weight:bold;font-size:20px">
+      Made by ChatGPT & Copilot =))
+    </div>
+    <div style="font-size:30px;">
+      Creator & Tester: Thúy An & Dev Khánhh
+    </div>
+  </div>
+
+  <!-- 🔥 ẢNH PHẢI (KHÁNH) -->
+  <div style="display:flex; align-items:center;">
+    <img src="LaiVuNamKhanh.jpg"
+     style="
+     height:60px;
+     width:60px;
+     object-fit:cover;
+     border-radius:50%;
+     border:3px solid white;
+     box-shadow:0 0 10px white, 0 0 20px cyan;
+     ">
+  </div>
+
+  <!-- 🔥 MENU -->
+  <div class="menu">
+    <a href="#home">Trang chủ</a>
+    <a href="#members">Thành viên</a>
+    <a href="#timeline">Dòng thời gian</a>
+  </div>
+
+</div>
+
+</nav>>
+
+<!-- HOME -->
+<section id="home">
+  <h2>Ảnh lớp 7A1</h2>
+  <div class="image-container">
+    <img src="lop.jpg">
+    <div class="overlay">
+      <button onclick="document.getElementById('members').scrollIntoView()">Xem thành viên</button>
+      <button onclick="openModal()">Xem ảnh</button>
+    </div>
+  </div>
+</section>
+<div id="countdown" style="
+  margin: 30px auto;
+  padding: 15px;
+  width: fit-content;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+">
+  <div id="timeText">⏳ Đang tải thời gian...</div>
+
+  <div style="margin-top:8px; color:red;">
+    💪 Các bạn ơi cố gắng lên!!! 💪
+  </div>
+</div>
+<div style="
+  margin:40px auto;
+  width:80%;
+  background:rgba(255,255,255,0.95);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(0,0,0,0.3);
+">
+
+  <h2 style="font-size:28px; margin-bottom:20px;">
+    🏆 BẢNG XẾP HẠNG TOP 10 - TUẦN 29 🏆
+  </h2>
+
+  <!-- 🥇 TOP 1 -->
+  <div style="
+    font-size:26px;
+    font-weight:bold;
+    margin-bottom:10px;
+    color:gold;
+    text-shadow:0 0 10px gold, 0 0 1px orange;
+  ">
+    🥇 Top 1: Lê Nguyễn Thùy Dương
+  </div>
+
+  <!-- 🥈 TOP 2 -->
+  <div style="
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:10px;
+    color:silver;
+    text-shadow:0 0 10px silver, 0 0 1px gray;
+  ">
+    🥈 Top 2: Lê Bảo Anh
+  </div>
+
+  <!-- 🥉 TOP 3 -->
+  <div style="
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:15px;
+    color:#cd7f32;
+    text-shadow:0 0 10px #cd7f32, 0 0 1px orange;
+  ">
+    🥉 Top 3: Lại Vũ Nam Khánh (Dev)
+  </div>
+
+  <!-- TOP 4 → 10 -->
+  <div style="font-size:20px; line-height:1.8;">
+    Top 4: Dương Thanh Bình <br>
+    Top 5: Lê Minh Khang <br>
+    Top 6: Bùi Lâm Tuệ <br>
+    Top 7: Vũ Bảo Ngọc <br>
+    Top 8: Phạm Anh Thư <br>
+    Top 9: Nguyễn Thùy Chi <br>
+    Top 10: Nguyễn Nhật Phương
+  </div>
+
+</div>
+<!-- MEMBERS -->
+<section id="members">
+  <h2>Danh sách thành viên ( 43 Thành viên )</h2>
+
+<!-- 🔍 SEARCH -->
+<div style="
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+">
+  <input
+    type="text"
+    placeholder="🔍 Tìm thành viên..."
+    onkeyup="searchMember(this.value)"
+    style="
+      padding:20px;
+      width:80%;
+      max-width:600px;
+      border-radius:25px;
+      border:none;
+      outline:none;
+      font-size:18px;
+      text-align:center;
+      box-shadow:0 0 10px rgba(0,0,0,0.2);
+    ">
+</div>
+  <div class="members-grid">
+      <div class="member-card">
+  <img src="Teacher.jpg">
+  <p><strong>Nguyễn Thùy Linh</strong><br>Ngày sinh: 25/07/1998<br>Biệt danh: Linhh Sử</p>
+</div>
       <div class="member-card">
   <img src="NguyenVuBaoAn.jpg">
   <p><strong>Nguyễn Vũ Bảo An</strong><br>Ngày sinh: 13/04/2013<br>Biệt danh: Thiên Tài Tiếng Anh</p>
 </div>
 
 <div class="member-card">
-  <img src="PhamThuyAn.jpg">
+  <img src="PTA's.jpg">
   <p><strong>Phạm Thúy An</strong><br>Ngày sinh: 06/06/2013<br>Biệt danh: An hay Sleep...</p>
 </div>
 
@@ -14,7 +386,7 @@
 </div>
 
 <div class="member-card">
-  <img src="LeBaoAnh.png">
+  <img src="LeBaoAnh.jpg">
   <p><strong>Lê Bảo Anh</strong><br>Ngày sinh: 30/06/2013<br>Biệt danh: ...</p>
 </div>
 
@@ -30,7 +402,7 @@
 
 <div class="member-card">
   <img src="NguyenNgocBaoChau.jpg">
-  <p><strong>Nguyễn Ngọc Bảo Châu</strong><br>Ngày sinh: 06/08/2013<br>Biệt danh: ...</p>
+  <p><strong>Nguyễn Ngọc Bảo Châu</strong><br>Ngày sinh: 06/08/2013<br>Biệt danh: Châu Chấu</p>
 </div>
 
 <div class="member-card">
@@ -65,7 +437,7 @@
 
 <div class="member-card">
   <img src="NguyenDinhPhucHung.jpg">
-  <p><strong>Nguyễn Đình Phúc Hưng</strong><br>Ngày sinh: 15/04/2013<br>Biệt danh: ...</p>
+  <p><strong>Nguyễn Đình Phúc Hưng</strong><br>Ngày sinh: 15/04/2013<br>Biệt danh: Lau sàn Hiphop</p>
 </div>
 
 <div class="member-card">
@@ -210,3 +582,84 @@
 
   </div>
 </section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2>Dòng thời gian</h2>
+  <div class="timeline">
+    <div>📅 06/09/2025 - Bắt đầu lớp 7A1</div>
+      <div>📅 03/11/2025 - Thi Giữa Học Kì I</div>
+    <div>🎉 20/11/2025 - Ngày nhà giáo Việt Nam</div>
+      <div>🏃‍♂️‍➡️️‍ 08/12/2025 - Hoạt động ngoại khóa lần 1🏃‍♂️</div>
+      <div>📅 22/12/2025 - Thi Cuối Học Kì I</div>
+      <div>📅 06/02 - Hội Chợ Xuân</div>
+      <div>🎉 08/03 - Ngày dành cho 23 bạn nữ💖</div>
+      <div>📅 16/03 - Thi Giữa Kì II</div>
+      <div>📅 20/04 - Thi Cuối Kì II</div>
+      <div>🏃‍♂️‍➡️ 04/05 - 28/05 -- Hoạt động ngoại khóa lần 2🏃‍♂️</div>
+    <div>🏫 29/05 - Tổng kết và Kết thúc năm học</div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal(event)">
+  <img src="lop.jpg">
+</div>
+
+<script>
+function openModal() {
+  modal.style.display="flex";
+}
+
+function closeModal(e) {
+  if(e.target.id==="modal") modal.style.display="none";
+}
+</script>
+<script>
+window.onload = function() {
+
+  const examDate = new Date("2026-04-20 00:00:00").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = examDate - now;
+
+    const el = document.getElementById("timeText");
+    if (!el) return; // tránh lỗi crash
+
+    if (distance <= 0) {
+      el.innerHTML = "🔥 ĐẾN NGÀY THI RỒI!!!";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    el.innerHTML =
+      `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s (📅 20/04 )`;
+
+  }, 1000);
+
+}
+</script>
+<script>
+function searchMember(keyword){
+  const cards = document.querySelectorAll(".member-card");
+
+  keyword = keyword.toLowerCase();
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+
+    if(text.includes(keyword)){
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+</script>
+</body>
+</html>

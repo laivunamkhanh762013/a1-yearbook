@@ -2,218 +2,186 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>A1 (2025 - 2026)</title>
-
-<style>
-body {
-  font-family: Arial;
-  text-align: center;
-  background: #f0f0f0;
-}
-
-.quiz-box {
-  width: 500px;
-  margin: 30px auto;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  transition: 0.2s;
-}
-
-.quiz-box img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.btn {
-  display:block;
-  margin:10px auto;
-  padding:10px;
-  background:#4CAF50;
-  color:white;
-  border-radius:5px;
-  cursor:pointer;
-  width:80%;
-}
-
-.btn:hover { background:#45a049; }
-
-/* rung */
-.shake { animation: shake 0.3s; }
-@keyframes shake {
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-}
-
-/* popup */
-#popup {
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
-  display:none;
-  justify-content:center;
-  align-items:center;
-}
-
-.popup-content {
-  background:white;
-  padding:25px;
-  border-radius:15px;
-  text-align:center;
-  animation: zoomIn 0.3s;
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.7); opacity:0; }
-  to { transform: scale(1); opacity:1; }
-}
-</style>
+<title>A1 Login</title>
 </head>
 
-<body>
+<body style="
+  margin:0;
+  font-family:Arial;
+  background:#d9d4d8;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+">
 
-<div class="quiz-box" id="quizBox">
-  <img id="quizImage" src="lop.jpg">
-  <h2 id="question"></h2>
+<div id="box" style="text-align:center;">
 
-  <button class="btn" onclick="checkAnswer('A')" id="A"></button>
-  <button class="btn" onclick="checkAnswer('B')" id="B"></button>
-  <button class="btn" onclick="checkAnswer('C')" id="C"></button>
-  <button class="btn" onclick="checkAnswer('D')" id="D"></button>
+  <div style="
+    color:#ff4da6;
+    font-size:24px;
+    margin-bottom:20px;
+    font-weight:bold;
+  ">
+    🔐 Nhập Password
+  </div>
+
+  <!-- dots -->
+  <div id="dots" style="
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-bottom:15px;
+  ">
+    <div class="dot" style="width:15px;height:15px;border:2px solid #ff4da6;border-radius:50%;"></div>
+    <div class="dot" style="width:15px;height:15px;border:2px solid #ff4da6;border-radius:50%;"></div>
+    <div class="dot" style="width:15px;height:15px;border:2px solid #ff4da6;border-radius:50%;"></div>
+    <div class="dot" style="width:15px;height:15px;border:2px solid #ff4da6;border-radius:50%;"></div>
+  </div>
+
+  <!-- hint -->
+  <div style="
+    font-size:15px;
+    color:white;
+    margin-bottom:25px;
+    background:linear-gradient(45deg,#ff4da6,#ffcc00);
+    padding:10px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(255,77,166,0.6);
+  ">
+    💡 GỢI Ý: Năm sinh của tụi mình 😉
+  </div>
+
+  <!-- keypad -->
+  <div style="
+    display:grid;
+    grid-template-columns:repeat(3,80px);
+    gap:20px;
+    justify-content:center;
+  ">
+
+    <div onclick="press(1)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">1</div>
+    <div onclick="press(2)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">2</div>
+    <div onclick="press(3)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">3</div>
+
+    <div onclick="press(4)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">4</div>
+    <div onclick="press(5)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">5</div>
+    <div onclick="press(6)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">6</div>
+
+    <div onclick="press(7)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">7</div>
+    <div onclick="press(8)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">8</div>
+    <div onclick="press(9)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">9</div>
+
+    <div></div>
+    <div onclick="press(0)" style="width:80px;height:80px;border-radius:50%;background:#eee;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">0</div>
+    <div onclick="del()" style="width:80px;height:80px;border-radius:50%;background:#ffd6e7;display:flex;align-items:center;justify-content:center;font-size:24px;color:#ff4da6;">⌫</div>
+
+  </div>
+
 </div>
 
-<!-- popup -->
-<div id="popup">
-  <div class="popup-content">
-    <h2 id="popupText"></h2>
+<!-- 🎉 overlay -->
+<div id="overlay" style="
+  display:none;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  backdrop-filter:blur(8px);
+  background:rgba(0,0,0,0.5);
+  justify-content:center;
+  align-items:center;
+">
+
+  <div id="popup" style="
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+    box-shadow:0 0 25px rgba(255,255,255,0.7);
+    transform:scale(0.5);
+    opacity:0;
+  ">
+    🎉 Bạn là thành viên lớp 7A1 🎉<br>
+    Chào mừng bạn!!! 🚀
   </div>
+
 </div>
 
 <script>
-// câu hỏi
-const questions = [
-  {
-    question: "Hiện tại, lớp trưởng lớp 7A1 là ai?",
-    image: "lop.jpg",
-    options: [
-      "Trần Anh Khôi",
-      "Trần Gia Linh",
-      "Lê Minh Khang",
-      "Nguyễn Vũ Bảo An"
-    ],
-    answer: "B"
-  },
-  {
-    question: "Lớp 7A1 có cô giáo chủ nhiệm tên gì?",
-    image: "Teacher.jpg",
-    options: [
-      "Cô Lan",
-      "Cô Hương",
-      "Cô Linh",
-      "Cô Thảo"
-    ],
-    answer: "C"
-  },
-  {
-    question: "Lớp mình có số phòng là?",
-    image: "lop.jpg",
-    options: [
-      "D303",
-      "D305",
-      "D207",
-      "D301"
-    ],
-    answer: "D"
-  },
-  {
-    question: "Lớp 7A1 có bao nhiêu Nam và Nữ?",
-    image: "lop.jpg",
-    options: [
-      "19 Nam và 23 Nữ",
-      "18 Nam và 25 Nữ",
-      "67 Nam và 36 Nữ",
-      "20 Nam và 22 Nữ"
-    ],
-    answer: "A"
-  },
-  {
-    question: "Hiện tại GVCN lớp 7A1 đang dạy môn gì?",
-    image: "Teacher.jpg",
-    options: [
-      "Sử",
-      "Toán",
-      "Ngữ Văn",
-      "KHTN"
-    ],
-    answer: "A"
+let input = "";
+const PASS = "2013";
+
+const dots = document.querySelectorAll(".dot");
+
+function updateDots(){
+  dots.forEach((d,i)=>{
+    d.style.background = i < input.length ? "#ff4da6" : "transparent";
+  });
+}
+
+function press(num){
+  if(input.length >= 4) return;
+
+  input += num;
+  updateDots();
+
+  if(input.length === 4){
+    check();
   }
-];
-
-// 🔥 RANDOM CÂU HỎI
-questions.sort(() => Math.random() - 0.5);
-
-let current = 0;
-
-// load câu hỏi
-function loadQuestion() {
-  let q = questions[current];
-
-  document.getElementById("question").innerText = q.question;
-  document.getElementById("quizImage").src = q.image;
-
-  document.getElementById("A").innerText = "A. " + q.options[0];
-  document.getElementById("B").innerText = "B. " + q.options[1];
-  document.getElementById("C").innerText = "C. " + q.options[2];
-  document.getElementById("D").innerText = "D. " + q.options[3];
 }
 
-// popup
-function showPopup(text) {
-  const popup = document.getElementById("popup");
-  document.getElementById("popupText").innerText = text;
-  popup.style.display = "flex";
+function del(){
+  input = input.slice(0,-1);
+  updateDots();
 }
 
-function hidePopup() {
-  document.getElementById("popup").style.display = "none";
-}
+function check(){
+  if(input === PASS){
 
-// check
-function checkAnswer(ans) {
-  let quiz = document.getElementById("quizBox");
+    const overlay = document.getElementById("overlay");
+    const popup = document.getElementById("popup");
 
-  if(ans === questions[current].answer) {
-    showPopup("✔️ Chính xác!");
+    overlay.style.display = "flex";
 
-    setTimeout(() => {
-      hidePopup();
-      current++;
+    // animation JS
+    let scale = 0.5;
+    let opacity = 0;
 
-      if(current < questions.length) {
-        loadQuestion();
-      } else {
-        showPopup("🎉 Bạn là thành viên lớp 7A1 - Chào Mừng Bạn!!!");
+    let anim = setInterval(()=>{
+      scale += 0.05;
+      opacity += 0.08;
 
-        setTimeout(() => {
-          window.location.href = "main.html";
-        }, 1500);
+      popup.style.transform = "scale(" + scale + ")";
+      popup.style.opacity = opacity;
+
+      if(scale >= 1){
+        clearInterval(anim);
       }
-    }, 1000);
+    },30);
 
-  } else {
-    showPopup("❌ Sai rồi! Chọn lại nhé!");
+    // chuyển trang
+    setTimeout(()=>{
+      window.location.href = "main.html";
+    },1500);
 
-    quiz.classList.add("shake");
-    setTimeout(() => quiz.classList.remove("shake"), 300);
-
-    setTimeout(hidePopup, 1000);
+  }else{
+    alert("Sai rồi 😅");
+    input="";
+    updateDots();
   }
 }
 
-loadQuestion();
+/* bàn phím */
+document.addEventListener("keydown",(e)=>{
+  if(e.key >= "0" && e.key <= "9"){
+    press(e.key);
+  }
+  if(e.key === "Backspace"){
+    del();
+  }
+});
 </script>
 
 </body>
