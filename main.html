@@ -281,7 +281,7 @@ body:hover {
     box-shadow:0 0 15px rgba(0,0,0,0.3);
   ">
 
-    <div id="countdown" style="font-size:18px; font-weight:bold;">
+    <div id="countdown" style="font-size:18px; font-weight:bold;color:red">
       ⏳ Thi cuối kì II sau: ...
     </div>
 
@@ -751,7 +751,7 @@ window.addEventListener("DOMContentLoaded", function(){
       const minutes = Math.floor((diff / (1000*60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      cd.innerText = `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s`;
+      cd.innerText = `⏳ Thi cuối kì II sau: ${days} ngày ${hours}h ${minutes}p ${seconds}s⏳`;
     }
 
     requestAnimationFrame(updateSmooth);
