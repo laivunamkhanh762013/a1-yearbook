@@ -703,8 +703,8 @@ members.forEach(card => {
     profile.style.display = "flex";
 
     document.getElementById("pName").innerText = card.dataset.name;
-    document.getElementById("pDob").innerText = "🎂 " + card.dataset.dob;
-    document.getElementById("pNick").innerText = "✨ " + card.dataset.nick;
+    document.getElementById("pDob").innerText = "Ngày sinh: " + card.dataset.dob;
+    document.getElementById("pNick").innerText = "Biệt danh: " + card.dataset.nick;
     document.getElementById("pImg").src = card.dataset.img;
   });
 });
