@@ -725,8 +725,8 @@ window.addEventListener("DOMContentLoaded", function(){
   /* ⏳ COUNTDOWN + % MƯỢT */
   /* ===================== */
   function updateSmooth() {
-    const start = new Date("2026-04-13").getTime();
-    const end = new Date("2026-04-20").getTime();
+    const start = new Date("2026-04-13T00:00:00").getTime();
+    const end = new Date("2026-04-20T00:00:00").getTime();
     const now = new Date().getTime();
 
     const percent = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100));
@@ -761,5 +761,5 @@ window.addEventListener("DOMContentLoaded", function(){
 
 });
 </script>
-    </body>
+</body>
 </html>
