@@ -433,7 +433,7 @@ animation:rainbowMove 3s linear infinite;    ">
 
   box-shadow:0 0 10px rgba(255,255,255,0.5);
 ">
-  👤 Click avatar để xem profile
+  👤 Click avatar để xem Profile 👤
 </div>
 
 <style>
@@ -634,9 +634,9 @@ animation:rainbowMove 3s linear infinite;    ">
 <p><strong>Nguyễn Hương Thảo</strong><br>Ngày sinh: 22/02/2013<br>Biệt danh: ...</p>
 </div>
 
-<div class="member-card" data-name="Phạm Anh Thư" data-dob="08/02/2013" data-nick="Thiên Tài Tiếng Anh" data-img="PhamAnhThu.jpg">
+<div class="member-card" data-name="Phạm Anh Thư" data-dob="08/02/2013" data-nick="Tiểu Thư Cao Quý✨ - Thiên Tài Tiếng Anh" data-img="PhamAnhThu.jpg">
 <img src="PhamAnhThu.jpg">
-<p><strong>Phạm Anh Thư</strong><br>Ngày sinh: 08/02/2013<br>Biệt danh: Thiên Tài Tiếng Anh</p>
+<p><strong>Phạm Anh Thư</strong><br>Ngày sinh: 08/02/2013<br>Biệt danh: Tiểu Thư Cao Quý✨ - Thiên Tài Tiếng Anh</p>
 </div>
 
 <div class="member-card" data-name="Nguyễn Khánh Trang" data-dob="23/02/2013" data-nick="..." data-img="NguyenKhanhTrang.jpg">
@@ -683,11 +683,6 @@ animation:rainbowMove 3s linear infinite;    ">
   </div>
 </section>
 
-<!-- MODAL -->
-<div class="modal" id="modal" onclick="closeModal(event)">
-  <img src="lop.jpg">
-</div>
-
 <script>
 window.addEventListener("DOMContentLoaded", function(){
 
@@ -696,42 +691,34 @@ window.addEventListener("DOMContentLoaded", function(){
   const members = document.querySelectorAll(".member-card");
 
   /* ===================== */
-  /* 🔍 SEARCH + HIGHLIGHT */
+  /* 🔍 SEARCH */
   /* ===================== */
-members.forEach(card => {
-  card.addEventListener("click", function(){
-    profile.style.display = "flex";
-
-    document.getElementById("pName").innerText = card.dataset.name;
-    document.getElementById("pDob").innerText = "Ngày sinh: " + card.dataset.dob;
-    document.getElementById("pNick").innerText = "Biệt danh: " + card.dataset.nick;
-    document.getElementById("pImg").src = card.dataset.img;
-  });
-});
-
   if(input){
     input.addEventListener("input", function(){
+
       const keyword = input.value.toLowerCase().trim();
       let found = false;
 
       members.forEach(card => {
-        const nameTag = card.querySelector("strong");
-        const name = nameTag ? nameTag.getAttribute("data-name") : "";
 
-        if(name.toLowerCase().includes(keyword)){
+        const name = card.dataset.name.toLowerCase();
+        const nameTag = card.querySelector("strong");
+
+        if(name.includes(keyword)){
           card.style.display = "block";
           found = true;
 
           if(keyword !== ""){
             const regex = new RegExp(`(${keyword})`, "gi");
-            nameTag.innerHTML = name.replace(regex, "<mark>$1</mark>");
+            nameTag.innerHTML = card.dataset.name.replace(regex, "<mark>$1</mark>");
           } else {
-            nameTag.innerHTML = name;
+            nameTag.innerText = card.dataset.name;
           }
 
         } else {
           card.style.display = "none";
         }
+
       });
 
       if(noResult){
@@ -744,15 +731,16 @@ members.forEach(card => {
           first.scrollIntoView({behavior:"smooth", block:"center"});
         }
       }
+
     });
   }
 
   /* ===================== */
-  /* ⏳ COUNTDOWN + % */
+  /* ⏳ COUNTDOWN */
   /* ===================== */
   function updateSmooth() {
-    const start = new Date("2026-04-13").getTime();
-    const end = new Date("2026-04-20").getTime();
+    const start = new Date("2026-04-13T00:00:00").getTime();
+    const end = new Date("2026-04-20T00:00:00").getTime();
     const now = new Date().getTime();
 
     const percent = Math.min(100, Math.max(0, ((now - start) / (end - start)) * 100));
@@ -780,9 +768,10 @@ members.forEach(card => {
   updateSmooth();
 
   /* ===================== */
-  /* 💎 TẠO PROFILE BOX */
+  /* 💎 PROFILE BOX */
   /* ===================== */
   const profile = document.createElement("div");
+
   profile.style = `
     position:fixed;
     top:0; left:0;
@@ -802,10 +791,12 @@ members.forEach(card => {
       background:white;
       border-radius:20px;
       display:flex;
+      align-items:stretch;
       overflow:hidden;
       box-shadow:0 0 25px rgba(0,0,0,0.4);
       position:relative;
     ">
+
       <span id="closeP" style="
         position:absolute;
         top:10px;
@@ -816,14 +807,37 @@ members.forEach(card => {
       ">✖</span>
 
       <div style="width:45%; background:#111;">
-        <img id="pImg" style="width:100%; height:100%; object-fit:cover; cursor:pointer;">
+        <img id="pImg" style="
+          width:100%;
+          height:100%;
+          object-fit:cover;
+          display:block;
+          cursor:pointer;
+        ">
       </div>
 
-      <div style="width:55%; padding:20px;">
-        <h2 id="pName"></h2>
-        <p id="pDob"></p>
-        <p id="pNick"></p>
+      <div style="
+        width:55%;
+        padding:20px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        gap:10px;
+      ">
+        <h2 id="pName" style="margin:0; font-size:26px;"></h2>
+        <p id="pDob" style="margin:0; font-size:20px;"></p>
+        <p id="pNick" style="margin:0; font-size:20px; color:#555;"></p>
+
+        <div style="
+          margin-top:10px;
+          padding:10px;
+          background:#f2f2f2;
+          border-radius:10px;
+        ">
+          🎯 Thành viên lớp 7A1
+        </div>
       </div>
+
     </div>
   `;
 
@@ -832,17 +846,16 @@ members.forEach(card => {
   /* ===================== */
   /* 👤 CLICK MEMBER */
   /* ===================== */
-  members.forEach(card => {
-    card.addEventListener("click", function(e){
-      if(e.target.tagName === "IMG") return;
+  document.addEventListener("click", function(e){
+    const card = e.target.closest(".member-card");
+    if(!card) return;
 
-      profile.style.display = "flex";
+    profile.style.display = "flex";
 
-      document.getElementById("pName").innerText = card.dataset.name;
-      document.getElementById("pDob").innerText = "🎂 " + card.dataset.dob;
-      document.getElementById("pNick").innerText = "✨ " + card.dataset.nick;
-      document.getElementById("pImg").src = card.dataset.img;
-    });
+    document.getElementById("pName").innerText = card.dataset.name;
+    document.getElementById("pDob").innerText = "Ngày sinh🎂:  " + card.dataset.dob;
+    document.getElementById("pNick").innerText = "Biệt danh✨:  " + card.dataset.nick;
+    document.getElementById("pImg").src = card.dataset.img;
   });
 
   /* đóng profile */
@@ -872,39 +885,11 @@ members.forEach(card => {
   zoom.appendChild(zoomImg);
   document.body.appendChild(zoom);
 
-  let scale = 1, isDragging=false, startX, startY, x=0, y=0;
-
   document.addEventListener("click", function(e){
     if(e.target.id === "pImg"){
       zoom.style.display = "flex";
       zoomImg.src = e.target.src;
-      scale = 1; x = 0; y = 0;
-      zoomImg.style.transform = "scale(1)";
     }
-  });
-
-  zoom.addEventListener("wheel", function(e){
-    e.preventDefault();
-    scale += e.deltaY * -0.001;
-    scale = Math.min(Math.max(0.5, scale), 5);
-    zoomImg.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
-  });
-
-  zoomImg.addEventListener("mousedown", function(e){
-    isDragging = true;
-    startX = e.clientX - x;
-    startY = e.clientY - y;
-  });
-
-  window.addEventListener("mousemove", function(e){
-    if(!isDragging) return;
-    x = e.clientX - startX;
-    y = e.clientY - startY;
-    zoomImg.style.transform = `scale(${scale}) translate(${x}px, ${y}px)`;
-  });
-
-  window.addEventListener("mouseup", function(){
-    isDragging = false;
   });
 
   zoom.addEventListener("click", function(){
