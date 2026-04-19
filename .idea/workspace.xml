@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="pass">
+    <list default="true" id="4a72c423-f009-414e-b40d-7940083298aa" name="Changes" comment="Profile">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2026_11_28_CH_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_04_2026_11_28_CH__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_04_2026_7_59_SA_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_04_2026_7_59_SA__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTA's.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/main.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -280,7 +285,71 @@
       <option name="project" value="LOCAL" />
       <updated>1776233710570</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="DSTV">
+      <option name="closed" value="true" />
+      <created>1776257994231</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1776257994231</updated>
+    </task>
+    <task id="LOCAL-00028" summary="DSTV">
+      <option name="closed" value="true" />
+      <created>1776258053728</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1776258053728</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776261839498</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1776261839499</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776262486828</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1776262486828</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776262999489</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1776262999489</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776267711197</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1776267711197</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776347307995</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1776347307995</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Profile">
+      <option name="closed" value="true" />
+      <created>1776347316338</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1776347316338</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -310,6 +379,8 @@
     <MESSAGE value="Pass" />
     <MESSAGE value="TG" />
     <MESSAGE value="pass" />
-    <option name="LAST_COMMIT_MESSAGE" value="pass" />
+    <MESSAGE value="DSTV" />
+    <MESSAGE value="Profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Profile" />
   </component>
 </project>
