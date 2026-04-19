@@ -806,7 +806,7 @@ function updateExamCountdown(){
     const m = Math.floor((diff/60000)%60);
     const sec = Math.floor((diff/1000)%60);
 
-    cd.innerText = `📚 Môn tiếp theo: ${next.name} ( Còn ${h}h ${m}p ${sec}s )`;
+    cd.innerText = `📚 Môn thi tiếp theo: ${next.name} ( Còn ${h}h ${m}p ${sec}s )`;
 
     startBox.innerText = "⏰ " + formatTime(next.start);
     endBox.innerText = formatTime(next.end) + " ⏰";
@@ -817,7 +817,7 @@ function updateExamCountdown(){
 
   // 🎉 HẾT
   else{
-    cd.innerText = "🎉 Thi xong rồi!!!";
+    cd.innerText = "🎉 Thi xong CUỐI HỌC KÌ II rồi!!!";
 
     startBox.innerText = "⏰ --:--";
     endBox.innerText = "--:-- ⏰";
