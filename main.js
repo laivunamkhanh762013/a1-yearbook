@@ -536,6 +536,18 @@ const WEEKLY_POLLS = [
 ];
 
 const poll = WEEKLY_POLLS[0];
+
+// Tự động thay thế bạn chuyển trường trong poll bằng 1 bạn đang đi học ngẫu nhiên
+const activeStudentNamesList = activeMembers.slice(1).map(m => m.name);
+poll.candidates = poll.candidates.map(candidate => {
+  if (transferredNames.includes(candidate)) {
+    const pool = activeStudentNamesList.filter(n => !poll.candidates.includes(n));
+    if (pool.length > 0) {
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+  }
+  return candidate;
+});
 const VOTE_KEY = 'polls/votes_' + poll.id;
 const MY_KEY = 'myvote_' + poll.id;
 
