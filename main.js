@@ -257,7 +257,7 @@ if (grid) {
     card.dataset.category = cat;
     const imgSrc = getImgUrl(m.img);
     card.innerHTML = `
-      ${isTransferred ? '<div class="transferred-badge">🎯 Đã từng là thành viên lớp A1 – THCS CVA</div>' : ''}
+      ${isTransferred ? '<div class="transferred-badge">🎓 Chuyển trường</div>' : ''}
       <img src="${imgSrc}" loading="lazy" data-retry="0" onerror="retryImage(this)" onload="onImageLoaded(this)" alt="${m.name}" class="img-loading">
       <div class="mc-name">${m.name}</div>
       <div class="mc-dob">${m.dob}</div>
@@ -336,6 +336,15 @@ function openProfile(m) {
   document.getElementById('pName').textContent = m.name;
   document.getElementById('pDob').textContent  = '🎂 Ngày sinh: '+m.dob;
   document.getElementById('pNick').textContent = '✨ Biệt danh: '+(m.nick||'...');
+  
+  const isTransferred = transferredNames.includes(m.name);
+  const badgeEl = document.getElementById('pBadge');
+  if (badgeEl) {
+    badgeEl.textContent = isTransferred 
+      ? '🎯 Đã từng là thành viên lớp A1 – THCS CVA' 
+      : '🎯 Thành viên lớp A1 – THCS CVA';
+  }
+
   const img = document.getElementById('pImg');
   img.src = getImgUrl(m.img); // patch: fix local assets/ path
   img.onerror = ()=>{ img.src='https://via.placeholder.com/200/0d0d14/ffffff?text=?'; };
