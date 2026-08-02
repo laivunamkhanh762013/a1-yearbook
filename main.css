@@ -131,7 +131,15 @@ body::after {
   background: radial-gradient(ellipse at center, #0d0d20 0%, #06060f 100%);
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
+  animation: fadeOutLoading 0.6s ease forwards 0.8s;
   pointer-events: none;
+}
+@keyframes fadeOutLoading {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 #loadingScreen::before {
   content: ''; position: absolute; inset: 0;
