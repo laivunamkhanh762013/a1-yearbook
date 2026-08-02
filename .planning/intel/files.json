@@ -1,0 +1,33 @@
+{
+  "_meta": {
+    "updated_at": "2024-05-19T14:15:00Z",
+    "version": 2
+  },
+  "entries": {
+    "index.html": {
+      "exports": ["press", "del", "check", "updateDots"],
+      "imports": ["main.html"],
+      "type": "entry-point"
+    },
+    "main.html": {
+      "exports": ["openProfile", "closeProfile", "pickRandom", "updateSummer", "doVote", "renderPoll", "openPollModal", "closePollModal", "openZoom", "openProfileByName"],
+      "imports": ["firebase-app-compat.js", "firebase-database-compat.js"],
+      "type": "module"
+    },
+    "firebase.js": {
+      "exports": ["sendMessage", "handleKey", "loadMessages"],
+      "imports": ["firebase-app.js", "firebase-database.js"],
+      "type": "module"
+    },
+    "style.css": {
+      "exports": [],
+      "imports": [],
+      "type": "style"
+    },
+    "script.js": {
+      "exports": [],
+      "imports": [],
+      "type": "script"
+    }
+  }
+}

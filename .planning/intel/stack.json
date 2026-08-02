@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "updated_at": "2024-05-19T14:04:00Z",
+    "version": 1
+  },
+  "languages": ["HTML", "CSS", "JavaScript"],
+  "frameworks": ["Firebase Realtime Database", "Google Fonts"],
+  "tools": [],
+  "build_system": "none",
+  "test_framework": "none",
+  "package_manager": "none",
+  "content_formats": ["HTML", "CSS", "JavaScript", "JPEG"]
+}

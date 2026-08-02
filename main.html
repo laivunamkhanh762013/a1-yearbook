@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0a12">
+<script>sessionStorage.setItem('a1_authenticated','true');</script>
+<title>A1 ( 2024 - 2028 )</title>
+<link rel="icon" href="Logolop.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="gallery.css">
+<link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<!-- BIRTHDAY BANNER -->
+<div class="birthday-overlay" id="birthdayOverlay">
+  <div class="birthday-banner" id="birthdayBanner">
+    <button class="birthday-close" id="birthdayClose">✖</button>
+    <span class="birthday-emoji" id="birthdayEmoji">🎂</span>
+    <div class="birthday-name" id="birthdayName"></div>
+    <div class="birthday-age" id="birthdayAge"></div>
+    <div class="birthday-msg" id="birthdayMsg">🎉 Chúc mừng sinh nhật! Chúc bạn luôn vui vẻ, học giỏi và tỏa sáng nhé! 💫</div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div class="load-title">A1 — THCS CVA - TT 🎓</div>
+  <div class="load-bar-wrap"><div class="load-bar" id="loadBar"></div></div>
+  <div class="load-sub">Loading</div>
+  <!-- Loading particles -->
+  <div class="load-particle" style="left:15%;--dur:3.2s;--delay:0s"></div>
+  <div class="load-particle" style="left:35%;--dur:4.1s;--delay:0.3s"></div>
+  <div class="load-particle" style="left:55%;--dur:3.8s;--delay:0.7s"></div>
+  <div class="load-particle" style="left:72%;--dur:4.5s;--delay:1.1s"></div>
+  <div class="load-particle" style="left:88%;--dur:3.5s;--delay:0.5s"></div>
+  <div class="load-particle" style="left:25%;--dur:4.8s;--delay:1.4s"></div>
+  <div class="load-particle" style="left:62%;--dur:3.0s;--delay:0.9s"></div>
+  <div class="load-particle" style="left:45%;--dur:5.0s;--delay:0.1s"></div>
+  <div class="load-particle" style="left:80%;--dur:4.2s;--delay:1.7s"></div>
+  <div class="load-particle" style="left:10%;--dur:3.6s;--delay:2.0s"></div>
+</div>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLE NETWORK CANVAS -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- CURSOR GLOW -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="mainNavbar">
+  <div class="navbar-logo">
+    <img src="Logolop.jpeg" alt="logo" onclick="location.reload()" style="cursor:pointer;">
+    <div class="navbar-title" style="cursor:pointer;" onclick="location.reload()">A1 — THCS CVA - TT (2024–2028)</div>
+  </div>
+  <div class="navbar-center">
+    <img src="PhamThuyAn.jpg" id="creatorAvatar" onerror="this.style.display='none'" class="navbar-avatar" alt="Creator: Thúy An" style="animation-delay:0.3s;cursor:pointer;">
+    <div>
+      <div class="navbar-made">Made by ChatGPT &amp; Copilot &amp; Claude Code &amp; Gemini CLI &amp; Blackbox AI &amp; DeepSeek V4 Flash 😄</div>
+      <div class="navbar-creator">Creator & Tester: Thúy An &amp; Dev Khánhh</div>
+    </div>
+    <img src="LaiVuNamKhanh.jpg" id="testerAvatar" onerror="this.style.display='none'" class="navbar-avatar" alt="Tester: Dev Khánh" style="animation-delay:0.6s;cursor:pointer;">
+  </div>
+  <nav class="navbar-menu" id="navbarMenu">
+    <a href="#memories">Khoảnh khắc</a>
+    <a href="#members">Thành viên</a>
+    <a href="#timeline">Timeline</a>
+  </nav>
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</nav>
+
+<!-- MOBILE OVERLAY MENU -->
+<div class="mobile-overlay" id="mobileOverlay">
+  <a href="#memories" data-close-overlay>📸 Khoảnh khắc</a>
+  <a href="#members" data-close-overlay>👥 Thành viên</a>
+  <a href="#timeline" data-close-overlay>📅 Timeline</a>
+</div>
+
+<!-- BOTTOM NAV (MOBILE) -->
+<nav class="bottom-nav" id="bottomNav">
+  <a href="#memories">
+    <span class="nav-icon">📸</span>
+    <span>Khoảnh khắc</span>
+  </a>
+  <a href="#members">
+    <span class="nav-icon">👥</span>
+    <span>Thành viên</span>
+  </a>
+  <a href="#timeline">
+    <span class="nav-icon">📅</span>
+    <span>Timeline</span>
+  </a>
+</nav>
+
+<!-- HOME -->
+<section id="home">
+  <div class="hero-block reveal">
+    <p class="hero-eyebrow">✦ THCS Chu Văn An · Thanh Trì ✦</p>
+    <h1 class="hero-title">🎓 Chào mừng đến lớp A1</h1>
+    <p class="hero-subtitle">Kỷ yếu số · 2024 – 2028 · Lưu giữ khoảnh khắc, kết nối cả lớp 💫</p>
+    <div class="hero-tags">
+      <span class="hero-tag">📸 149+ Khoảnh khắc</span>
+      <span class="hero-tag" id="heroMemberTag">👥 37 Thành viên</span>
+      <span class="hero-tag">🎂 Gen 2013</span>
+    </div>
+  </div>
+  <div class="class-photo-wrap">
+    <img src="assets/Lop.jpg" id="classPhoto" loading="lazy" alt="Ảnh lớp A1">
+    <div class="class-photo-overlay">
+      <button class="overlay-btn" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">👥 Xem thành viên</button>
+    </div>
+  </div>
+
+  <div class="class-stats reveal reveal-children">
+    <div class="class-stat"><span class="class-stat-icon">👥</span><div class="class-stat-info"><div class="class-stat-number" id="statMemberCount">37</div><div class="class-stat-label">Thành viên</div></div></div>
+    <div class="class-stat"><span class="class-stat-icon">👩‍🏫</span><div class="class-stat-info"><div class="class-stat-number">1</div><div class="class-stat-label">Giáo viên</div></div></div>
+    <div class="class-stat"><span class="class-stat-icon">📸</span><div class="class-stat-info"><div class="class-stat-number">149+</div><div class="class-stat-label">Khoảnh khắc</div></div></div>
+    <div class="class-stat"><span class="class-stat-icon">🎂</span><div class="class-stat-info"><div class="class-stat-number">2013</div><div class="class-stat-label">Năm sinh</div></div></div>
+  </div>
+
+  <!-- COUNTDOWN BOX (merged) -->
+  <div class="countdown-box reveal" id="countdownBox">
+    <!-- Summer -->
+    <div class="cd-section cd-summer">
+      <div class="cd-label">☀️ ĐẾM NGƯỢC NGHỈ HÈ</div>
+      <div class="cd-top">
+        <div class="cd-count" id="summerDays">--</div>
+        <div class="cd-sub" id="summerSub">ngày nữa thôi!</div>
+      </div>
+      <div class="prog-row">
+        <span class="prog-label" id="summerStart">--/--</span>
+        <div class="prog-track"><div class="prog-fill summer-fill loading" id="summerBar" style="width:0%"></div></div>
+        <span class="prog-label" id="summerEnd">--/--</span>
+      </div>
+      <div class="prog-pct" id="summerPct">0%</div>
+    </div>
+
+    <div class="cd-divider"><span>✦</span></div>
+
+    <!-- School -->
+    <div class="cd-section cd-school">
+      <div class="cd-label cd-label-blue">📚 ĐẾM NGƯỢC ĐI HỌC LẠI</div>
+      <div class="cd-top">
+        <div class="cd-count cd-count-blue" id="schoolDays">--</div>
+        <div class="cd-sub cd-sub-blue" id="schoolSub">ngày nữa thôi!</div>
+      </div>
+      <div class="prog-row">
+        <span class="prog-label" id="schoolStart">Hè ( 28/05 )</span>
+        <div class="prog-track"><div class="prog-fill school-fill loading" id="schoolBar" style="width:0%"></div></div>
+        <span class="prog-label" id="schoolEnd">05/09</span>
+      </div>
+      <div class="prog-pct prog-pct-blue" id="schoolPct">0%</div>
+    </div>
+  </div>
+
+  <div class="random-box reveal">
+    <h3>🎲 Thành viên ngẫu nhiên</h3>
+    <div class="rand-card" id="randCard" onclick="handleRandCardClick()">
+      <img id="randImg" src="" onerror="this.style.display='none'" alt="">
+      <div class="rand-info">
+        <div class="rand-emoji" id="randEmoji">🎲</div>
+        <strong class="rand-name" id="randName">Bấm Random để bắt đầu!</strong>
+        <small class="rand-detail" id="randDob"></small>
+        <small class="rand-detail" id="randNick"></small>
+      </div>
+    </div>
+    <button class="btn-rainbow" id="btnRandom" onclick="pickRandom()">🔀 Random</button>
+    <div id="spinStatus"></div>
+  </div>
+</section>
+
+<!-- MEMORIES GALLERY -->
+<section id="memories" class="memories-a1-section reveal">
+  <h2 class="memories-a1-title"><span class="title-emoji">📸</span> Khoảnh Khắc Đáng Nhớ <span class="title-sub">( Chi tiết hơn 🥰 )</span></h2>
+  <div class="memories-a1-container">
+    <!-- Load tự động từ gallery.js -->
+  </div>
+  <div class="memories-a1-load-more">
+    <button id="loadMoreA1" class="memories-a1-btn">Xem thêm</button>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section id="members">
+  <h2 class="section-title">👥 Danh sách thành viên (43 thành viên)</h2>
+  <div class="search-wrap">
+    <div class="search-input-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="searchInput" placeholder="Tìm thành viên...">
+    </div>
+  </div>
+  <div id="noResult" style="display:none;">❌ Không tìm thấy thành viên</div>
+  <div class="rainbow-banner"><span>👤 Click vào thành viên để xem Profile &amp; cảm xúc 👤 <br> Nếu không thấy ảnh hãy bấm vào logo lớp A1 góc trên trái!</span></div>
+
+  <div class="members-grid" id="membersGrid"></div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <h2 class="section-title">Dòng thời gian lớp A1</h2>
+  <div class="timeline-enhanced" id="timelineList"></div>
+</section>
+
+<!-- PROFILE -->
+<div id="profileModal">
+  <div class="profile-inner">
+    <span id="closeProfile">✖</span>
+    <div class="profile-img-side">
+      <img id="pImg" src="" alt="" onclick="openZoom(this.src)">
+      <div class="profile-emoji-overlay" id="profileEmoji"></div>
+    </div>
+    <div class="profile-info-side">
+      <h2 id="pName"></h2>
+      <p id="pDob"></p>
+      <p id="pNick"></p>
+      <div class="profile-badge">🎯 Thành viên lớp A1 – THCS CVA</div>
+      <div id="pMood"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ZOOM -- Enhanced -->
+<div id="zoomModal">
+  <button class="zoom-close-btn" id="zoomCloseBtn">✖</button>
+  <div class="zoom-content">
+    <div class="zoom-spinner" id="zoomSpinner"></div>
+    <img id="zoomImg" src="" alt="">
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Lên đầu trang">↑</button>
+
+<!-- POLL BUTTON -->
+<button id="pollBtn" onclick="openPollModal()">🗳️ Bình chọn</button>
+
+<!-- POLL MODAL -->
+<div id="pollModal">
+  <div class="poll-inner" onclick="event.stopPropagation()">
+    <span id="closePoll" onclick="closePollModal()">✖</span>
+    <div class="poll-title">🗳️ Bình chọn lớp A1</div>
+    <div class="poll-sub">Ẩn danh · Vote 1 lần · Mở vĩnh viễn ♾️</div>
+    <div id="pollTimer"></div>
+    <div id="pollContainer"></div>
+    <div style="text-align:center;font-size:15px;color:#2ef218;margin-top:12px;">Cập nhật liên tục...</div>
+  </div>
+</div>
+
+<!-- A1 BOT LAUNCHER -->
+<div class="bot-launcher" id="botLauncher">
+  <div class="launcher-icon">🤖</div>
+  <span class="launcher-text">A1 Bot</span>
+</div>
+
+<!-- A1 BOT CHAT BOX -->
+<div class="chat-container" id="chatContainer">
+  <header class="chat-header">
+    <div class="bot-info">
+      <div class="bot-avatar">🤖</div>
+      <div class="bot-details">
+        <h3>A1 Bot</h3>
+        <div class="bot-status">
+          <span class="status-dot"></span>
+          Đang hoạt động
+        </div>
+      </div>
+    </div>
+    <button class="close-btn" id="closeBtn">×</button>
+  </header>
+  <main class="message-area" id="messageArea">
+    <div class="message bot">Hế lô! A1 Bot đang cập nhật nha =)</div>
+    <div class="typing-indicator" id="typingIndicator">
+      <span></span><span></span><span></span>
+    </div>
+  </main>
+    <div class="suggestion-chips" id="chatChips">
+      <span class="chip" data-msg="Lớp mình có bao nhiêu người?">👥 Sĩ số</span>
+      <span class="chip" data-msg="Sự kiện sắp tới của lớp">📅 Sự kiện</span>
+      <span class="chip" data-msg="Hôm nay sinh nhật ai?">🎂 Sinh nhật</span>
+      <span class="chip" data-msg="Ai là lớp trưởng?">👑 Lớp trưởng</span>
+      <span class="chip" data-msg="Cô chủ nhiệm là ai?">👩‍🏫 GVCN</span>
+    </div>
+  <footer class="input-area">
+    <div class="input-group">
+      <input type="text" id="userInput" placeholder="Nhập tin nhắn..." autocomplete="off">
+      <button id="sendBtn" title="Gửi tin nhắn">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+      </button>
+    </div>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<script src="main.js"></script>
+<script src="gallery.js"></script>
+</body>
+</html>

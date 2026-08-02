@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "updated_at": "2024-05-19T14:06:00Z",
+    "version": 1
+  },
+  "entries": {
+    "Firebase RTDB: polls/votes_{id}": {
+      "method": "GET/SET/ON",
+      "path": "polls/votes_{id}",
+      "params": ["id"],
+      "file": "main.html",
+      "description": "Voting data for class polls"
+    },
+    "Firebase RTDB: chat": {
+      "method": "PUSH/ON",
+      "path": "chat",
+      "params": [],
+      "file": "firebase.js",
+      "description": "Chat messages data"
+    },
+    "UI Route: /index.html": {
+      "method": "GET",
+      "path": "/index.html",
+      "params": [],
+      "file": "index.html",
+      "description": "Login page with passcode entry"
+    },
+    "UI Route: /main.html": {
+      "method": "GET",
+      "path": "/main.html",
+      "params": [],
+      "file": "main.html",
+      "description": "Main dashboard with student list, random picker, and polls"
+    }
+  }
+}

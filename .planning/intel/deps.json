@@ -1,0 +1,26 @@
+{
+  "_meta": {
+    "updated_at": "2024-05-19T14:07:00Z",
+    "version": 1
+  },
+  "entries": {
+    "firebase-app": {
+      "version": "10.13.0",
+      "type": "production",
+      "used_by": ["main.html", "firebase.js"],
+      "invocation": "script tag / import"
+    },
+    "firebase-database": {
+      "version": "10.13.0",
+      "type": "production",
+      "used_by": ["main.html", "firebase.js"],
+      "invocation": "script tag / import"
+    },
+    "Google Fonts": {
+      "version": "latest",
+      "type": "production",
+      "used_by": ["main.html"],
+      "invocation": "link tag"
+    }
+  }
+}

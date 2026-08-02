@@ -1,0 +1,8 @@
+.venv/
+.idea/
+node_modules/
+resources/
+*.dll
+*.bin
+*.pak
+LICENSES.chromium.html
