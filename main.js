@@ -630,11 +630,26 @@ document.getElementById('pollTimer').textContent=getTimeLeft();
 (function(){
   let p=0;
   const bar=document.getElementById('loadBar'),screen=document.getElementById('loadingScreen');
+  if(!screen) return;
+  const hideScreen = () => {
+    screen.style.opacity='0';
+    screen.style.pointerEvents='none';
+    setTimeout(()=>{
+      screen.style.display='none';
+      if (typeof checkBirthday === 'function') checkBirthday();
+    }, 500);
+  };
   const iv=setInterval(()=>{
-    p+=Math.random()*16;
-    if(p>=100){p=100;clearInterval(iv);setTimeout(()=>{screen.style.opacity='0';setTimeout(()=>{screen.style.display='none';checkBirthday();},900);},350);}
-    bar.style.width=p+'%';
-  },120);
+    p+=Math.random()*25;
+    if(bar) bar.style.width=p+'%';
+    if(p>=100){
+      if(bar) bar.style.width='100%';
+      clearInterval(iv);
+      setTimeout(hideScreen, 150);
+    }
+  },70);
+  // Dự phòng an toàn tối đa 1 giây ẩn màn hình loading
+  setTimeout(hideScreen, 1000);
 })();
 
 // ====== BIRTHDAY ======
