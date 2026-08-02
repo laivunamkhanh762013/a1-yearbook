@@ -494,11 +494,50 @@ function updateSummer(){
   document.getElementById('summerBar').style.width=pct.toFixed(1)+'%';
   document.getElementById('summerPct').textContent=pct.toFixed(1)+'% năm học đã qua';
 }
-setTimeout(() => {
-  updateSummer();
-  document.getElementById('summerBar')?.classList.remove('loading');
-  document.getElementById('schoolBar')?.classList.remove('loading');
-}, 200);
+// Summer
+function updateSummer(){
+  const now=new Date(),summerStart=new Date('2026-05-28T12:00:00'),yearStart=new Date('2025-09-06T00:00:00');
+  const summerStartEl = document.getElementById('summerStart');
+  if (summerStartEl) summerStartEl.textContent='06/09/2025';
+  const summerEndEl = document.getElementById('summerEnd');
+  if (summerEndEl) summerEndEl.textContent='28/5☀️';
+  const diff=summerStart-now;
+  if(diff<=0){
+    const sd=document.getElementById('summerDays');
+    if (sd) { sd.textContent='🎉'; sd.dataset.ended='true'; }
+    const sub = document.getElementById('summerSub');
+    if (sub) sub.textContent='ĐÃ NGHỈ HÈ RỒI!!!';
+    const sbar = document.getElementById('summerBar');
+    if (sbar) sbar.style.width='100%';
+    const spct = document.getElementById('summerPct');
+    if (spct) spct.textContent='100% — Hè đây rồi!!! 🔥';
+    return;
+  }
+  const pct=Math.max(0,Math.min(100,((now-yearStart)/(summerStart-yearStart))*100));
+  const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+  const el = document.getElementById('summerDays');
+  if (el) {
+    const subText = d>=7 ? `${Math.floor(d/7)} tuần` : '';
+    el.innerHTML = subText ? `${d} <span class="cd-count-sub">ngày ( ${subText} )</span>` : `${d} <span class="cd-count-sub">ngày</span>`;
+    if (prevSummerDays !== null && prevSummerDays !== d) animateCountPop(el);
+  }
+  prevSummerDays = d;
+  const subEl = document.getElementById('summerSub');
+  if (subEl) {
+    subEl.innerHTML = `ngày ${buildDigitSpan(h, prevSummerH)}h ${buildDigitSpan(m, prevSummerM)}p ${buildDigitSpan(s, prevSummerS)}s nữa thôi! 🌴`;
+  }
+  prevSummerH = h; prevSummerM = m; prevSummerS = s;
+  const summerBar = document.getElementById('summerBar');
+  if (summerBar) {
+    summerBar.classList.remove('loading');
+    summerBar.style.width=pct.toFixed(1)+'%';
+  }
+  const summerPct = document.getElementById('summerPct');
+  if (summerPct) summerPct.textContent=pct.toFixed(1)+'% năm học đã qua';
+}
+
+updateSummer();
+document.getElementById('summerBar')?.classList.remove('loading');
 setInterval(updateSummer,1000);
 
 // Back to School
@@ -506,10 +545,14 @@ function updateBackToSchool(){
   const now=new Date(), schoolStart=new Date('2026-09-05T07:15:00');
   const diff=schoolStart-now;
   if(diff<=0){
-    const sde=document.getElementById('schoolDays');sde.textContent='🎒';sde.dataset.ended='true';
-    document.getElementById('schoolSub').textContent='ĐÃ ĐI HỌC RỒI!!! 📖';
-    document.getElementById('schoolBar').style.width='100%';
-    document.getElementById('schoolPct').textContent='100% — Hết hè rồi!!! 📚';
+    const sde=document.getElementById('schoolDays');
+    if (sde) { sde.textContent='🎒'; sde.dataset.ended='true'; }
+    const sub = document.getElementById('schoolSub');
+    if (sub) sub.textContent='ĐÃ ĐI HỌC RỒI!!! 📖';
+    const sbar = document.getElementById('schoolBar');
+    if (sbar) sbar.style.width='100%';
+    const spct = document.getElementById('schoolPct');
+    if (spct) spct.textContent='100% — Hết hè rồi!!! 📚';
     return;
   }
   const summerEnd=new Date('2026-05-27T09:00:00');
@@ -517,37 +560,37 @@ function updateBackToSchool(){
   const pct=totalHoliday>0?Math.min(100,Math.max(0,((now-summerEnd)/totalHoliday)*100)):0;
   const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
   const el = document.getElementById('schoolDays');
-  const subText = d>=7 ? `${Math.floor(d/7)} tuần` : '';
-  el.innerHTML = subText ? `${d} <span class="cd-count-sub">ngày ( ${subText} )</span>` : `${d} <span class="cd-count-sub">ngày</span>`;
-  if (prevSchoolDays !== null && prevSchoolDays !== d) animateCountPop(el);
+  if (el) {
+    const subText = d>=7 ? `${Math.floor(d/7)} tuần` : '';
+    el.innerHTML = subText ? `${d} <span class="cd-count-sub">ngày ( ${subText} )</span>` : `${d} <span class="cd-count-sub">ngày</span>`;
+    if (prevSchoolDays !== null && prevSchoolDays !== d) animateCountPop(el);
+  }
   prevSchoolDays = d;
   const subEl = document.getElementById('schoolSub');
-  subEl.innerHTML = `ngày ${buildDigitSpan(h, prevSchoolH)}h ${buildDigitSpan(m, prevSchoolM)}p ${buildDigitSpan(s, prevSchoolS)}s nữa thôi! 📖`;
+  if (subEl) {
+    subEl.innerHTML = `ngày ${buildDigitSpan(h, prevSchoolH)}h ${buildDigitSpan(m, prevSchoolM)}p ${buildDigitSpan(s, prevSchoolS)}s nữa thôi! 📖`;
+  }
   prevSchoolH = h; prevSchoolM = m; prevSchoolS = s;
-  document.getElementById('schoolBar').style.width=pct.toFixed(1)+'%';
-  document.getElementById('schoolPct').textContent=pct.toFixed(1)+'% kỳ nghỉ hè đã qua';
+  const schoolBar = document.getElementById('schoolBar');
+  if (schoolBar) {
+    schoolBar.classList.remove('loading');
+    schoolBar.style.width=pct.toFixed(1)+'%';
+  }
+  const schoolPct = document.getElementById('schoolPct');
+  if (schoolPct) schoolPct.textContent=pct.toFixed(1)+'% kỳ nghỉ hè đã qua';
 }
-setTimeout(() => updateBackToSchool(), 200);
+
+updateBackToSchool();
+document.getElementById('schoolBar')?.classList.remove('loading');
 setInterval(updateBackToSchool,1000);
 
 // ====== POLL ======
 const WEEKLY_POLLS = [
-  {id:"loptruong", q:"🗣️ Bình chọn lớp trưởng A1?", candidates:["Lê Nguyễn Thùy Dương","Ngô Gia Linh","Trần Anh Khôi","Trần Gia Linh","Nguyễn Thùy Chi","Lê Minh Khang"]},
+  {id:"loptruong", q:"🗣️ Bình chọn lớp trưởng A1?", candidates:["Lê Nguyễn Thùy Dương","Ngô Gia Linh","Trần Anh Khôi","Nguyễn Thùy Chi","Lê Minh Khang","Dương Thanh Bình"]},
 ];
 
 const poll = WEEKLY_POLLS[0];
 
-// Tự động thay thế bạn chuyển trường trong poll bằng 1 bạn đang đi học ngẫu nhiên
-const activeStudentNamesList = activeMembers.slice(1).map(m => m.name);
-poll.candidates = poll.candidates.map(candidate => {
-  if (transferredNames.includes(candidate)) {
-    const pool = activeStudentNamesList.filter(n => !poll.candidates.includes(n));
-    if (pool.length > 0) {
-      return pool[Math.floor(Math.random() * pool.length)];
-    }
-  }
-  return candidate;
-});
 const VOTE_KEY = 'polls/votes_' + poll.id;
 const MY_KEY = 'myvote_' + poll.id;
 
@@ -596,7 +639,7 @@ function renderPoll(){
         <span style="color:var(--muted);font-size:12px;">${cnt} vote · ${pct}%</span>
       </div>
 <div class="poll-bar-track${isMine ? ' voted' : ''}"
-     ${canVote ? `onclick='doVote(${JSON.stringify(c)}, event)'` : ''}>        <div class="poll-bar-fill${isMine?' my-vote':''}" style="width:${pct>0?pct:2}%"></div>
+     ${canVote ? `onclick="window.doVote(${JSON.stringify(c)}, event)"` : ''}>        <div class="poll-bar-fill${isMine?' my-vote':''}" style="width:${pct>0?pct:2}%"></div>
         ${canVote?`<div class="poll-bar-label">Bấm để vote</div>`:''}
       </div>
     </div>`;
@@ -606,7 +649,8 @@ function renderPoll(){
   container.innerHTML=html;
   updateMemberRanks();
 }
-async function doVote(candidate,event){
+
+window.doVote = async function(candidate,event){
   if(myVote||isPollLocked())return;
   if(event){
     const track=event.currentTarget,rect=track.getBoundingClientRect();
@@ -616,15 +660,26 @@ async function doVote(candidate,event){
   }
   myVote=candidate; localStorage.setItem(MY_KEY,candidate);
   pollVotes[candidate]=(pollVotes[candidate]||0)+1; renderPoll();
-  const snap=await db.ref(VOTE_KEY).get(); const data=snap.val()||{};
-  data[candidate]=(data[candidate]||0)+1; await db.ref(VOTE_KEY).set(data);
-}
-db.ref(VOTE_KEY).on('value',snap=>{pollVotes=snap.val()||{};renderPoll();});
-function openPollModal(){const m=document.getElementById('pollModal');m.style.display='flex';m.offsetHeight;m.classList.add('open');}
-function closePollModal(){const m=document.getElementById('pollModal');m.classList.remove('open');setTimeout(()=>{m.style.display='none';},300);}
-document.getElementById('pollModal').addEventListener('click',e=>{if(e.target===document.getElementById('pollModal'))closePollModal();});
+  try {
+    const snap=await db.ref(VOTE_KEY).get(); const data=snap.val()||{};
+    data[candidate]=(data[candidate]||0)+1; await db.ref(VOTE_KEY).set(data);
+  } catch(e) { console.log('Vote local saved:', e); }
+};
+
+window.openPollModal = function(){const m=document.getElementById('pollModal');if(m){m.style.display='flex';m.offsetHeight;m.classList.add('open');}};
+window.closePollModal = function(){const m=document.getElementById('pollModal');if(m){m.classList.remove('open');setTimeout(()=>{m.style.display='none';},300);}};
+
+// Render poll immediately
+renderPoll();
+try {
+  db.ref(VOTE_KEY).on('value',snap=>{pollVotes=snap.val()||{};renderPoll();});
+} catch(e) { console.log('Firebase poll error:', e); }
+
+const pModal = document.getElementById('pollModal');
+if (pModal) pModal.addEventListener('click',e=>{if(e.target===pModal)window.closePollModal();});
 setInterval(()=>{const el=document.getElementById('pollTimer');if(el)el.textContent=getTimeLeft();},1000);
-document.getElementById('pollTimer').textContent=getTimeLeft();
+const pTimer = document.getElementById('pollTimer');
+if (pTimer) pTimer.textContent=getTimeLeft();
 
 // ====== LOADING SCREEN ======
 (function(){
