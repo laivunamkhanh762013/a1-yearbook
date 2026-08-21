@@ -197,11 +197,11 @@ setBotStatus(botStatus);
         }
 
         // CLASS SIZE — Sĩ số
-        if ((text.includes('bao nhiêu') && (text.includes('người') || text.includes('thành viên'))) || text.includes('sĩ số') || text.includes('si so')) {
+        if ((text.includes('bao nhiêu') && (text.includes('người') || text.includes('thành viên') || text.includes('hs'))) || text.includes('sĩ số') || text.includes('si so')) {
           if (typeof members !== 'undefined') {
-            return `👥 Lớp A1 có **${members.length} thành viên** (${members.length - 1} học sinh + 1 GVCN). Một tập thể siêu đoàn kết luôn! 🔥`;
+            return `👥 Lớp A1 có **${members.length} người** (${members.length - 1} học sinh + 1 GVCN). Một tập thể siêu đoàn kết luôn! 🔥`;
           }
-          return '👥 Lớp A1 có 43 thành viên nha!';
+          return '👥 Lớp A1 có 36 người nha!';
         }
 
         // BIRTHDAY TODAY — Sinh nhật hôm nay

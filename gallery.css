@@ -15,16 +15,22 @@
 
 .memories-a1-section .memories-a1-title {
   font-family: 'Baloo 2', cursive;
-  font-size: clamp(28px, 7vw, 42px);
-  font-weight: 700;
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 800;
   text-align: center;
   margin-bottom: 50px;
-  background: linear-gradient(135deg, #fff 0%, #2dd4bf 45%, #a78bfa 100%);
-  background-size: 200%;
+  background: linear-gradient(135deg,
+    #fff 0%,
+    #00f5d4 25%,
+    #8b5cf6 55%,
+    #f43f8e 80%,
+    #f59e0b 100%);
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 24px rgba(45, 212, 191, 0.25));
+  animation: memoriesa1RainbowMove 6s linear infinite;
+  filter: drop-shadow(0 0 30px rgba(0,245,212,0.2));
   letter-spacing: 0.5px;
   line-height: 1.4;
 }
@@ -86,9 +92,12 @@
 }
 
 .memories-a1-item:hover {
-  transform: translateY(-10px) scale(1.02);
-  border-color: rgba(45, 212, 191, 0.45);
-  box-shadow: 0 24px 60px rgba(45, 212, 191, 0.15), 0 12px 40px rgba(0,0,0,0.45);
+  transform: translateY(-12px) scale(1.025);
+  border-color: rgba(0, 245, 212, 0.5);
+  box-shadow:
+    0 28px 70px rgba(0, 245, 212, 0.15),
+    0 12px 40px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(0,245,212,0.15);
   z-index: 20;
 }
 
@@ -102,15 +111,18 @@
 
 .memories-a1-item:hover img,
 .memories-a1-item:hover video {
-  transform: scale(1.18);
-  filter: brightness(1.1) saturate(1.1);
+  transform: scale(1.2);
+  filter: brightness(1.12) saturate(1.15);
 }
 
 /* ===== OVERLAY ===== */
 .memories-a1-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+  background: linear-gradient(to top,
+    rgba(0,0,0,0.92) 0%,
+    rgba(0,245,212,0.04) 60%,
+    transparent 100%);
   opacity: 0;
   transition: opacity 0.4s ease;
   display: flex;
@@ -130,6 +142,8 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  background: linear-gradient(90deg, #00f5d4, #8b5cf6);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
 /* ===== VIDEO PREVIEW ===== */
@@ -236,25 +250,34 @@
 .memories-a1-btn {
   padding: 18px 80px;
   border-radius: 100px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #00f5d4, #8b5cf6, #f43f8e);
+  background-size: 300%;
+  animation: memoriesa1RainbowMove 4s linear infinite;
+  border: none;
   color: white;
   font-family: 'Baloo 2', cursive;
   font-size: 26px;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  box-shadow:
+    0 16px 48px rgba(0,245,212,0.35),
+    0 8px 20px rgba(0,0,0,0.4);
   user-select: none;
+  position: relative; overflow: hidden;
+}
+.memories-a1-btn::before {
+  content: '';
+  position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent);
+  pointer-events: none;
 }
 
 .memories-a1-btn:hover {
-  background: var(--cyan);
-  color: #000;
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 20px 60px rgba(0, 229, 255, 0.6);
+  transform: translateY(-10px) scale(1.06);
+  box-shadow:
+    0 24px 70px rgba(0, 245, 212, 0.6),
+    0 0 0 2px rgba(0,245,212,0.3);
 }
 
 .memories-a1-btn:active {
@@ -320,8 +343,8 @@
 /* MODAL CONTENT */
 .memories-a1-modal-content {
   position: relative;
-  max-width: 95%;
-  max-height: 90vh;
+  max-width: 100%;
+  max-height: 96vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -337,17 +360,91 @@
 
 .memories-a1-modal-media {
   max-width: 100%;
-  max-height: 72vh;
-  border-radius: 35px;
+  max-height: min(80vh, calc(100vh - 170px));
+  border-radius: 16px;
   box-shadow: 0 50px 180px rgba(0, 0, 0, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.15);
   object-fit: contain;
   background: #000;
+  will-change: transform;
 }
+
+/* ===== ZOOM TRONG MODAL ===== */
+.memories-a1-modal-media.zoomable {
+  cursor: zoom-in;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+.memories-a1-modal-media.zoomable.zoomed {
+  cursor: move;
+}
+.memories-a1-modal-media.zoomable.zoom-dragging {
+  cursor: grabbing;
+}
+
+/* ===== NÚT TOÀN MÀN HÌNH ===== */
+.memories-a1-fs-btn {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 24px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100010;
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.memories-a1-fs-btn:hover {
+  background: #00b894;
+  border-color: transparent;
+  transform: scale(1.12);
+  box-shadow: 0 0 40px rgba(0, 184, 148, 0.7);
+}
+.memories-a1-fs-btn:active { transform: scale(0.95); }
+
+/* ===== HINT ZOOM ===== */
+.memories-a1-zoom-hint {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 15, 30, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Quicksand', sans-serif;
+  padding: 8px 18px;
+  border-radius: 99px;
+  z-index: 100012;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  white-space: nowrap;
+  max-width: 92vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.memories-a1-zoom-hint.show { opacity: 1; }
 
 /* ===== REACTION BAR ===== */
 .memories-a1-reactions {
-  margin-top: 28px;
+  margin-top: 14px;
   background: rgba(255, 255, 255, 0.07);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -620,8 +717,21 @@
     font-size: 22px;
   }
   .memories-a1-modal-media {
-    max-height: 65vh;
-    border-radius: 24px;
+    max-height: min(70vh, calc(100vh - 150px));
+    border-radius: 14px;
+  }
+  .memories-a1-fs-btn {
+    top: auto;
+    bottom: 15px;
+    right: 15px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+  .memories-a1-zoom-hint {
+    font-size: 10.5px;
+    padding: 6px 14px;
+    top: 74px;
   }
   .memories-a1-emoji-pop {
     font-size: 36px;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0a12">
+<meta name="theme-color" content="#03030c">
 <script>sessionStorage.setItem('a1_authenticated','true');</script>
 <title>A1 ( 2024 - 2028 )</title>
 <link rel="icon" href="Logolop.jpeg">
@@ -118,7 +118,7 @@
   <div class="class-photo-wrap">
     <img src="assets/Lop.jpg" id="classPhoto" loading="lazy" alt="Ảnh lớp A1">
     <div class="class-photo-overlay">
-      <button class="overlay-btn" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">👥 Xem thành viên</button>
+      <button class="overlay-btn" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">👥 Xem người</button>
     </div>
   </div>
 
@@ -140,7 +140,7 @@
       </div>
       <div class="prog-row">
         <span class="prog-label" id="summerStart">--/--</span>
-        <div class="prog-track"><div class="prog-fill summer-fill loading" id="summerBar" style="width:0%"></div></div>
+        <div class="prog-track"><div class="prog-fill summer-fill" id="summerBar" style="width:0%"></div></div>
         <span class="prog-label" id="summerEnd">--/--</span>
       </div>
       <div class="prog-pct" id="summerPct">0%</div>
@@ -157,7 +157,7 @@
       </div>
       <div class="prog-row">
         <span class="prog-label" id="schoolStart">Hè ( 28/05 )</span>
-        <div class="prog-track"><div class="prog-fill school-fill loading" id="schoolBar" style="width:0%"></div></div>
+        <div class="prog-track"><div class="prog-fill school-fill" id="schoolBar" style="width:0%"></div></div>
         <span class="prog-label" id="schoolEnd">05/09</span>
       </div>
       <div class="prog-pct prog-pct-blue" id="schoolPct">0%</div>
@@ -191,17 +191,35 @@
   </div>
 </section>
 
+<!-- GALLERY LIGHTBOX MODAL (required by gallery.js) -->
+<div id="memoryModalA1" class="memories-a1-modal">
+  <div class="memories-a1-modal-inner">
+    <button class="memories-a1-close" id="closeMemoryModal">✕</button>
+    <div class="memories-a1-modal-content">
+      <!-- img/video injected by gallery.js -->
+      <div class="memories-a1-reactions">
+        <button class="memories-a1-reaction-btn">❤️</button>
+        <button class="memories-a1-reaction-btn">😂</button>
+        <button class="memories-a1-reaction-btn">😍</button>
+        <button class="memories-a1-reaction-btn">🔥</button>
+        <button class="memories-a1-reaction-btn">😭</button>
+        <button class="memories-a1-reaction-btn">⭐</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- MEMBERS -->
 <section id="members">
-  <h2 class="section-title">👥 Danh sách thành viên (43 thành viên)</h2>
+  <h2 class="section-title">👥 Danh sách thành viên (37 người)</h2>
   <div class="search-wrap">
     <div class="search-input-wrap">
       <span class="search-icon">🔍</span>
-      <input id="searchInput" placeholder="Tìm thành viên...">
+      <input id="searchInput" placeholder="Tìm người...">
     </div>
   </div>
-  <div id="noResult" style="display:none;">❌ Không tìm thấy thành viên</div>
-  <div class="rainbow-banner"><span>👤 Click vào thành viên để xem Profile &amp; cảm xúc 👤 <br> Nếu không thấy ảnh hãy bấm vào logo lớp A1 góc trên trái!</span></div>
+  <div id="noResult" style="display:none;">❌ Không tìm thấy người</div>
+  <div class="rainbow-banner"><span>👤 Click vào người để xem Profile &amp; cảm xúc 👤 <br> Nếu không thấy ảnh hãy bấm vào logo lớp A1 góc trên trái!</span></div>
 
   <div class="members-grid" id="membersGrid"></div>
 </section>
@@ -306,5 +324,70 @@
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
 <script src="main.js"></script>
 <script src="gallery.js"></script>
+
+<!-- ★ STAR FIELD (performance-optimized) ★ -->
+<canvas id="starCanvas"></canvas>
+<script>
+(function(){
+  // Tắt trên mobile để tránh lag
+  if (window.innerWidth < 769) {
+    var sc = document.getElementById('starCanvas');
+    if (sc) sc.style.display = 'none';
+    return;
+  }
+
+  var canvas = document.getElementById('starCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  // Giảm số sao từ 220 → 80 để không lag
+  var colors = ['#00f5d4','#8b5cf6','#f43f8e','#f59e0b','#ffffff'];
+  var stars = [];
+  var NUM_STARS = 80;
+  for (var i = 0; i < NUM_STARS; i++) {
+    stars.push({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      r: Math.random() * 1.2 + 0.2,
+      a: Math.random(),
+      da: (Math.random() - 0.5) * 0.008,
+      c: colors[Math.floor(Math.random() * colors.length)]
+    });
+  }
+
+  // Frame skip — chỉ vẽ mỗi 2 frame để giảm CPU
+  var frameCount = 0;
+  var starPaused = false;
+  document.addEventListener('visibilitychange', function() { starPaused = document.hidden; });
+  function draw() {
+    if (starPaused) { requestAnimationFrame(draw); return; }
+    frameCount++;
+    if (frameCount % 2 === 0) {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < stars.length; i++) {
+        var s = stars[i];
+        s.a += s.da;
+        if (s.a < 0 || s.a > 1) s.da = -s.da;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = s.c;
+        ctx.globalAlpha = Math.max(0, Math.min(1, s.a)) * 0.75;
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 </body>
 </html>

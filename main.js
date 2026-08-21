@@ -58,6 +58,7 @@ const members = [
   {name:"Ngô Gia Linh",          dob:"11/10/2013", nick:"Ngô Tổng - Thiên Tài mọi môn",           img:"NgoGiaLinh.jpg"},
   {name:"Trần Gia Linh",         dob:"28/05/2013", nick:"Lớp Trưởng - Thiên tài Wushu / Vật lý",  img:"TranGiaLinh.jpg"},
   {name:"Lê Duy Bảo Minh",       dob:"16/12/2013", nick:"Thiên Tài Tiếng Anh",                    img:"LeDuyBaoMinh.jpg"},
+  {name:"Vũ Đặng Hà My",         dob:"01/10/2013", nick:"Bongg",                                   img:"VuDangHaMy.jpg"},
   {name:"Đàm Khánh Ngân",        dob:"30/12/2013", nick:"...",                                    img:"DamKhanhNgan.jpg"},
   {name:"Phạm Tuấn Nghĩa",       dob:"08/05/2013", nick:"Thiên Tài Bóng Đá",                      img:"PhamTuanNghia.jpg"},
   {name:"Phạm Bảo Ngọc",         dob:"25/12/2013", nick:"...",                                    img:"PhamBaoNgoc.jpg"},
@@ -159,6 +160,7 @@ const memberCategories = {
   'Ngô Gia Linh':'math',
   'Trần Gia Linh':'sport',
   'Lê Duy Bảo Minh':'english',
+  'Vũ Đặng Hà My':'other',
   'Đàm Khánh Ngân':'other',
   'Phạm Tuấn Nghĩa':'sport',
   'Phạm Bảo Ngọc':'other',
@@ -230,18 +232,25 @@ function retryFailedImages() {
 // ====== MEMBERS GRID ======
 const transferredNames = [
   "Phạm Tuấn Nghĩa", "Hoàng Cẩm Tú", "Phạm Bảo Ngọc",
-  "Lê Bảo Anh", "Nguyễn Xuân Nhã", "Trần Gia Linh"
+  "Lê Bảo Anh", "Nguyễn Xuân Nhã", "Trần Gia Linh",
+  "Nguyễn Tùng Bách"
 ];
 
 const studentMembers = members.slice(1);
 const pickCount = {};
 const MAX_PICK = 2;
 
-// Update title count
+// Update title count (exclude transferred)
+const activeCount = members.length - transferredNames.length;
 const sectionTitle = document.querySelector('#members .section-title');
 if (sectionTitle) {
-  sectionTitle.textContent = `👥 Danh sách thành viên (${members.length} thành viên)`;
+  sectionTitle.textContent = `👥 Danh sách thành viên (${activeCount} người)`;
 }
+// Sync hero tag & stat card with real count
+const heroTag = document.getElementById('heroMemberTag');
+if (heroTag) heroTag.textContent = `👥 ${activeCount} Thành viên`;
+const statCountEl = document.getElementById('statMemberCount');
+if (statCountEl) statCountEl.textContent = activeCount;
 
 // Render all members in main grid with special highlight for transferred members
 const grid = document.getElementById('membersGrid');
@@ -252,7 +261,7 @@ if (grid) {
     const isTransferred = transferredNames.includes(m.name);
     const card = document.createElement('div');
     card.className = `member-card reveal ${isTransferred ? 'transferred-highlight' : ''}`;
-    card.style.transitionDelay = (i * 0.025) + 's';
+    card.style.transitionDelay = Math.min(i * 0.02, 0.4) + 's';
     card.dataset.name = m.name;
     card.dataset.category = cat;
     const imgSrc = getImgUrl(m.img);
@@ -341,8 +350,8 @@ function openProfile(m) {
   const badgeEl = document.getElementById('pBadge');
   if (badgeEl) {
     badgeEl.textContent = isTransferred 
-      ? '🎯 Đã từng là thành viên lớp A1 – THCS CVA' 
-      : '🎯 Thành viên lớp A1 – THCS CVA';
+      ? '🎯 Đã từng là người lớp A1 – THCS CVA' 
+      : '🎯 Người lớp A1 – THCS CVA';
   }
 
   const img = document.getElementById('pImg');
@@ -474,26 +483,6 @@ function animateCountPop(el) {
   el.classList.add('pop');
 }
 
-// Summer
-function updateSummer(){
-  const now=new Date(),summerStart=new Date('2026-05-28T12:00:00'),yearStart=new Date('2025-09-06T00:00:00');
-  document.getElementById('summerStart').textContent='06/09/2025';
-  document.getElementById('summerEnd').textContent='28/5☀️';
-  const diff=summerStart-now;
-  if(diff<=0){const sd=document.getElementById('summerDays');sd.textContent='🎉';sd.dataset.ended='true';document.getElementById('summerSub').textContent='ĐÃ NGHỈ HÈ RỒI!!!';document.getElementById('summerBar').style.width='100%';document.getElementById('summerPct').textContent='100% — Hè đây rồi!!! 🔥';return;}
-  const pct=Math.max(0,Math.min(100,((now-yearStart)/(summerStart-yearStart))*100));
-  const d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
-  const el = document.getElementById('summerDays');
-  const subText = d>=7 ? `${Math.floor(d/7)} tuần` : '';
-  el.innerHTML = subText ? `${d} <span class="cd-count-sub">ngày ( ${subText} )</span>` : `${d} <span class="cd-count-sub">ngày</span>`;
-  if (prevSummerDays !== null && prevSummerDays !== d) animateCountPop(el);
-  prevSummerDays = d;
-  const subEl = document.getElementById('summerSub');
-  subEl.innerHTML = `ngày ${buildDigitSpan(h, prevSummerH)}h ${buildDigitSpan(m, prevSummerM)}p ${buildDigitSpan(s, prevSummerS)}s nữa thôi! 🌴`;
-  prevSummerH = h; prevSummerM = m; prevSummerS = s;
-  document.getElementById('summerBar').style.width=pct.toFixed(1)+'%';
-  document.getElementById('summerPct').textContent=pct.toFixed(1)+'% năm học đã qua';
-}
 // Summer
 function updateSummer(){
   const now=new Date(),summerStart=new Date('2026-05-28T12:00:00'),yearStart=new Date('2025-09-06T00:00:00');
@@ -695,16 +684,16 @@ if (pTimer) pTimer.textContent=getTimeLeft();
     }, 500);
   };
   const iv=setInterval(()=>{
-    p+=Math.random()*25;
+    p+=Math.random()*38;
     if(bar) bar.style.width=p+'%';
     if(p>=100){
       if(bar) bar.style.width='100%';
       clearInterval(iv);
-      setTimeout(hideScreen, 150);
+      setTimeout(hideScreen, 120);
     }
-  },70);
-  // Dự phòng an toàn tối đa 1 giây ẩn màn hình loading
-  setTimeout(hideScreen, 1000);
+  },45);
+  // Dự phòng an toàn tối đa 0.7 giây ẩn màn hình loading
+  setTimeout(hideScreen, 700);
 })();
 
 // ====== BIRTHDAY ======
@@ -751,7 +740,7 @@ function checkBirthday() {
   const festiveEmojis = ['🎂','🎉','🎊','🥳','🎈','🎁','💖','🌟'];
   emojiEl.textContent = festiveEmojis[Math.floor(Math.random() * festiveEmojis.length)];
   overlay.classList.add('active');
-  spawnConfetti(80);
+  spawnConfetti(40);
   setTimeout(() => { overlay.classList.remove('active'); }, 8000);
 }
 
@@ -818,7 +807,7 @@ if (testerAvatar) {
   let mouseX = -1000, mouseY = -1000;
   let animId = null;
   const isMobile = window.innerWidth < 768;
-  const PARTICLE_COUNT = isMobile ? 30 : 65;
+  const PARTICLE_COUNT = isMobile ? 18 : 45;
   const CONNECT_DIST = 130;
   const MOUSE_CONNECT_DIST = 160;
   let dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -909,13 +898,19 @@ if (testerAvatar) {
     }
   }
 
+  let isPaused = false;
   function animate() {
+    if (isPaused) { animId = requestAnimationFrame(animate); return; }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach(p => { p.update(); p.draw(); });
     drawConnections();
     drawMouseConnection();
     animId = requestAnimationFrame(animate);
   }
+
+  document.addEventListener('visibilitychange', () => {
+    isPaused = document.hidden;
+  });
 
   document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; }, { passive: true });
   document.addEventListener('mouseleave', () => { mouseX = -1000; mouseY = -1000; }, { passive: true });

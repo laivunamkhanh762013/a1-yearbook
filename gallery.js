@@ -49,6 +49,7 @@ const memoriesA1List = [
 const GalleryA1 = {
   settings: {
     totalInitial: 10,
+    batchSize: 12,
     rainThreshold: 5,
     rainDuration: 4000
   },
@@ -60,10 +61,12 @@ const GalleryA1 = {
     isExpanded: false,
     reactionCounts: {},
     initialItems: [],
-    remainingItems: [],
+    allRest: [],
+    queue: [],
     deleteMenuTimeout: null,
     observer: null,
-    hasDeleteMenuOpen: false
+    hasDeleteMenuOpen: false,
+    zoomHintTimeout: null
   },
 
   init() {
@@ -75,9 +78,48 @@ const GalleryA1 = {
     this.reactionBtns = document.querySelectorAll('.memories-a1-reaction-btn');
     this.reactionsWrap = document.querySelector('.memories-a1-reactions');
 
+    this.createModalTools();
     this.prepareMedia();
     this.renderInitial();
     this.bindEvents();
+  },
+
+  // Tạo nút toàn màn hình + hint zoom (một lần duy nhất)
+  createModalTools() {
+    if (!this.modal) return;
+    this.fsBtn = document.createElement('button');
+    this.fsBtn.className = 'memories-a1-fs-btn';
+    this.fsBtn.textContent = '\u26F6';
+    this.fsBtn.title = 'Xem toàn màn hình';
+    this.fsBtn.addEventListener('click', () => {
+      const media = this.modalContent && this.modalContent.querySelector('img, video');
+      if (!media) return;
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else if (media.requestFullscreen) {
+        media.requestFullscreen().catch(() => {});
+      }
+    });
+    this.modal.appendChild(this.fsBtn);
+
+    this.zoomHint = document.createElement('div');
+    this.zoomHint.className = 'memories-a1-zoom-hint';
+    this.zoomHint.textContent = '\uD83D\uDD0D Cu\u1ed9n chu\u1ed9t / kh\u00e9p ng\u00f3n tay \u0111\u1ec3 ph\u00f3ng to \u00b7 Nh\u1ea5n \u0111\u00fap \u0111\u1ec3 thu v\u1ec1';
+    this.modal.appendChild(this.zoomHint);
+  },
+
+  showZoomHint() {
+    if (!this.zoomHint) return;
+    clearTimeout(this.state.zoomHintTimeout);
+    this.zoomHint.classList.add('show');
+    this.state.zoomHintTimeout = setTimeout(() => {
+      this.zoomHint.classList.remove('show');
+    }, 2800);
+  },
+
+  hideZoomHint() {
+    clearTimeout(this.state.zoomHintTimeout);
+    if (this.zoomHint) this.zoomHint.classList.remove('show');
   },
 
   // --- UTILITY ---
@@ -110,15 +152,16 @@ const GalleryA1 = {
       if (topVideos[i]) this.state.initialItems.push({ src: topVideos[i], isVideo: true });
     }
 
-    // Phần còn lại → xen kẽ
+    // Phần còn lại → xen kẽ, giữ bản gốc để build lại queue khi thu gọn
     const restPhotos = photos.slice(5);
     const restVideos = videos.slice(5);
     const maxRest = Math.max(restPhotos.length, restVideos.length);
-    this.state.remainingItems = [];
+    this.state.allRest = [];
     for (let i = 0; i < maxRest; i++) {
-      if (restPhotos[i]) this.state.remainingItems.push({ src: restPhotos[i], isVideo: false });
-      if (restVideos[i]) this.state.remainingItems.push({ src: restVideos[i], isVideo: true });
+      if (restPhotos[i]) this.state.allRest.push({ src: restPhotos[i], isVideo: false });
+      if (restVideos[i]) this.state.allRest.push({ src: restVideos[i], isVideo: true });
     }
+    this.state.queue = [...this.state.allRest];
 
     this.state.isExpanded = false;
   },
@@ -130,7 +173,7 @@ const GalleryA1 = {
       return `
         <div class="memories-a1-item ${item._appended ? 'reveal-anim' : ''}" data-src="${item.src}">
           <div class="memories-a1-video-wrapper">
-            <video src="${item.src}" muted loop playsinline preload="metadata" class="memories-a1-preview-video"></video>
+            <video src="${item.src}" muted loop playsinline preload="none" class="memories-a1-preview-video"></video>
           </div>
           <div class="memories-a1-overlay">
             <div class="memories-a1-caption">\u2728 K\u1ef7 ni\u1ec7m</div>
@@ -139,7 +182,7 @@ const GalleryA1 = {
     }
     return `
       <div class="memories-a1-item" data-src="${item.src}">
-        <img src="${item.src}" loading="lazy" class="memories-a1-img" onerror="this.src='https://via.placeholder.com/400x500/0d0d14/ffffff?text=A1+Moment'">
+        <img src="${item.src}" loading="lazy" decoding="async" class="memories-a1-img" onerror="this.src='https://via.placeholder.com/400x500/0d0d14/ffffff?text=A1+Moment'">
         <div class="memories-a1-overlay">
           <div class="memories-a1-caption">\u2728 K\u1ef7 ni\u1ec7m</div>
         </div>
@@ -151,7 +194,7 @@ const GalleryA1 = {
     this.container.innerHTML = this.state.initialItems.map(item => this.createItemHTML(item)).join('');
     this.state.isExpanded = false;
     if (this.loadBtn) {
-      this.loadBtn.textContent = this.state.remainingItems.length > 0 ? 'Xem thêm' : 'Đã hết';
+      this.loadBtn.textContent = this.state.queue.length > 0 ? 'Xem thêm' : 'Đã hết';
     }
     this.setupVideoAutoplay();
   },
@@ -174,12 +217,13 @@ const GalleryA1 = {
     this.state.observer = observer;
   },
 
-  // --- EXPAND / COLLAPSE ---
+  // --- EXPAND / COLLAPSE (tải theo lọ để nhẹ máy) ---
 
   expand() {
-    if (this.state.remainingItems.length === 0) return;
+    if (this.state.queue.length === 0) return;
+    const batch = this.state.queue.splice(0, this.settings.batchSize);
     const frag = document.createDocumentFragment();
-    this.state.remainingItems.forEach(item => {
+    batch.forEach(item => {
       item._appended = true;
       const temp = document.createElement('div');
       temp.innerHTML = this.createItemHTML(item);
@@ -188,8 +232,12 @@ const GalleryA1 = {
       frag.appendChild(el);
     });
     this.container.appendChild(frag);
-    this.state.isExpanded = true;
-    if (this.loadBtn) this.loadBtn.textContent = 'Thu gọn';
+    if (this.loadBtn) {
+      this.loadBtn.textContent = this.state.queue.length > 0
+        ? `Xem thêm (còn ${this.state.queue.length})`
+        : 'Thu gọn';
+    }
+    if (this.state.queue.length === 0) this.state.isExpanded = true;
     this.setupVideoAutoplay();
   },
 
@@ -213,10 +261,11 @@ const GalleryA1 = {
         if (el.parentNode) el.remove();
       }, 550 + i * 20);
     });
+    // Build lại queue từ bản gốc
+    this.state.queue = [...this.state.allRest];
+    this.state.allRest.forEach(item => { item._appended = false; });
     if (this.loadBtn) this.loadBtn.textContent = 'Xem thêm';
     this.state.isExpanded = false;
-    // Reset remaining items _appended flag
-    this.state.remainingItems.forEach(item => { item._appended = false; });
     setTimeout(() => {
       document.getElementById('memories').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 150);
@@ -241,15 +290,111 @@ const GalleryA1 = {
     } else {
       media = document.createElement('img');
       media.src = src;
+      media.draggable = false;
+      media.classList.add('zoomable');
+      this.attachImageZoom(media);
+      this.showZoomHint();
     }
-    media.className = 'memories-a1-modal-media';
+    media.className = 'memories-a1-modal-media' + (isVid ? '' : ' zoomable');
     const reactions = this.modalContent.querySelector('.memories-a1-reactions');
     this.modalContent.insertBefore(media, reactions);
     this.modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   },
 
+  // Zoom ảnh trong modal: lăn chuột / pinch để phóng, kéo để di chuyển, đúp để reset
+  attachImageZoom(img) {
+    let scale = 1, tx = 0, ty = 0;
+    const pointers = new Map();
+    let lastDist = 0, dragging = false;
+    let lastX = 0, lastY = 0, pinchBase = null;
+
+    const apply = (smooth) => {
+      img.style.transition = smooth ? 'transform 0.18s ease-out' : 'none';
+      img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      img.classList.toggle('zoomed', scale > 1.01);
+      img.classList.toggle('zoom-dragging', dragging);
+    };
+
+    // Phóng quanh điểm (cx, cy) trên màn hình
+    const zoomAt = (cx, cy, factor, smooth) => {
+      const ns = Math.min(6, Math.max(1, scale * factor));
+      if (ns === scale) return;
+      const rect = img.getBoundingClientRect();
+      const ix = cx - rect.left - rect.width / 2;
+      const iy = cy - rect.top - rect.height / 2;
+      const k = ns / scale;
+      tx = ix - k * (ix - tx);
+      ty = iy - k * (iy - ty);
+      scale = ns;
+      if (scale <= 1.001) { scale = 1; tx = 0; ty = 0; }
+      apply(smooth);
+    };
+
+    img.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.18 : 1 / 1.18, false);
+    }, { passive: false });
+
+    img.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      if (scale > 1.01) {
+        scale = 1; tx = 0; ty = 0;
+        apply(true);
+      } else {
+        zoomAt(e.clientX, e.clientY, 2.5, true);
+      }
+    });
+
+    img.addEventListener('pointerdown', (e) => {
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        dragging = scale > 1.01;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      } else if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        lastDist = Math.hypot(a.x - b.x, a.y - b.y);
+        pinchBase = { scale, tx, ty };
+        dragging = false;
+      }
+      if (dragging || pointers.size === 2) {
+        try { img.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    });
+
+    img.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2 && pinchBase && lastDist > 0) {
+        const [a, b] = [...pointers.values()];
+        const dist = Math.hypot(a.x - b.x, a.y - b.y);
+        if (dist > 0) {
+          scale = pinchBase.scale;
+          tx = pinchBase.tx;
+          ty = pinchBase.ty;
+          zoomAt((a.x + b.x) / 2, (a.y + b.y) / 2, dist / lastDist, false);
+        }
+      } else if (dragging) {
+        tx += e.clientX - lastX;
+        ty += e.clientY - lastY;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        apply(false);
+      }
+    });
+
+    const endPointer = (e) => {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) { lastDist = 0; pinchBase = null; }
+      if (pointers.size === 0) { dragging = false; apply(false); }
+    };
+    img.addEventListener('pointerup', endPointer);
+    img.addEventListener('pointercancel', endPointer);
+  },
+
   closeModal() {
+    this.hideZoomHint();
     const modalVideo = this.modalContent.querySelector('video');
     if (modalVideo) {
       const src = modalVideo.getAttribute('src');
@@ -259,6 +404,7 @@ const GalleryA1 = {
         if (v) v.currentTime = modalVideo.currentTime;
       }
     }
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     this.modal.classList.remove('active');
     document.body.style.overflow = '';
     setTimeout(() => {
@@ -452,7 +598,7 @@ const GalleryA1 = {
       this.loadBtn.addEventListener('click', () => {
         if (this.state.isExpanded) {
           this.collapse();
-        } else if (this.state.remainingItems.length > 0) {
+        } else if (this.state.queue.length > 0) {
           this.expand();
         }
       });
