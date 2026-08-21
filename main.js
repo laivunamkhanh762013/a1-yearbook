@@ -160,7 +160,7 @@ const memberCategories = {
   'Ngô Gia Linh':'math',
   'Trần Gia Linh':'sport',
   'Lê Duy Bảo Minh':'english',
-  'Vũ Đặng Hà My':'other',
+  'Vũ Đặng Hà My':'english',
   'Đàm Khánh Ngân':'other',
   'Phạm Tuấn Nghĩa':'sport',
   'Phạm Bảo Ngọc':'other',
@@ -230,11 +230,15 @@ function retryFailedImages() {
 }
 
 // ====== MEMBERS GRID ======
-const transferredNames = [
+// Chuyển lớp (chỉ Tùng Bách)
+const transferredClassNames = ["Nguyễn Tùng Bách"];
+// Chuyển trường (6 bạn còn lại)
+const transferredSchoolNames = [
   "Phạm Tuấn Nghĩa", "Hoàng Cẩm Tú", "Phạm Bảo Ngọc",
-  "Lê Bảo Anh", "Nguyễn Xuân Nhã", "Trần Gia Linh",
-  "Nguyễn Tùng Bách"
+  "Lê Bảo Anh", "Nguyễn Xuân Nhã", "Trần Gia Linh"
 ];
+// Gộp lại để dùng chung (check highlight, profile badge...)
+const transferredNames = [...transferredClassNames, ...transferredSchoolNames];
 
 const studentMembers = members.slice(1);
 const pickCount = {};
@@ -242,15 +246,19 @@ const MAX_PICK = 2;
 
 // Update title count (exclude transferred)
 const activeCount = members.length - transferredNames.length;
+const TOTAL_MEMBERS = 40; // Tổng số thành viên lớp A1
 const sectionTitle = document.querySelector('#members .section-title');
 if (sectionTitle) {
   sectionTitle.textContent = `👥 Danh sách thành viên (${activeCount} người)`;
 }
 // Sync hero tag & stat card with real count
 const heroTag = document.getElementById('heroMemberTag');
-if (heroTag) heroTag.textContent = `👥 ${activeCount} Thành viên`;
+if (heroTag) heroTag.textContent = `👥 ${TOTAL_MEMBERS} Thành viên`;
 const statCountEl = document.getElementById('statMemberCount');
-if (statCountEl) statCountEl.textContent = activeCount;
+if (statCountEl) statCountEl.textContent = TOTAL_MEMBERS;
+
+// Danh sách học sinh mới chuyển vào
+const newStudentNames = ["Vũ Đặng Hà My"];
 
 // Render all members in main grid with special highlight for transferred members
 const grid = document.getElementById('membersGrid');
@@ -258,15 +266,22 @@ if (grid) {
   grid.innerHTML = '';
   members.forEach((m, i) => {
     const cat = memberCategories[m.name] || 'other';
-    const isTransferred = transferredNames.includes(m.name);
+    const isClass  = transferredClassNames.includes(m.name);
+    const isSchool = transferredSchoolNames.includes(m.name);
+    const isTransferred = isClass || isSchool;
+    const isNew = newStudentNames.includes(m.name);
     const card = document.createElement('div');
-    card.className = `member-card reveal ${isTransferred ? 'transferred-highlight' : ''}`;
+    card.className = `member-card reveal ${isTransferred ? 'transferred-highlight' : ''} ${isNew ? 'new-student-highlight' : ''}`;
     card.style.transitionDelay = Math.min(i * 0.02, 0.4) + 's';
     card.dataset.name = m.name;
     card.dataset.category = cat;
     const imgSrc = getImgUrl(m.img);
+    const badgeHtml = isClass  ? '<div class="transferred-badge">🎓 Chuyển Lớp</div>'
+                    : isSchool ? '<div class="transferred-badge">🎓 Chuyển Trường</div>'
+                    : '';
     card.innerHTML = `
-      ${isTransferred ? '<div class="transferred-badge">🎓 Chuyển trường</div>' : ''}
+      ${badgeHtml}
+      ${isNew ? '<div class="new-student-badge">✨ Học Sinh Mới</div>' : ''}
       <img src="${imgSrc}" loading="lazy" data-retry="0" onerror="retryImage(this)" onload="onImageLoaded(this)" alt="${m.name}" class="img-loading">
       <div class="mc-name">${m.name}</div>
       <div class="mc-dob">${m.dob}</div>
@@ -345,17 +360,54 @@ function openProfile(m) {
   document.getElementById('pName').textContent = m.name;
   document.getElementById('pDob').textContent  = '🎂 Ngày sinh: '+m.dob;
   document.getElementById('pNick').textContent = '✨ Biệt danh: '+(m.nick||'...');
-  
-  const isTransferred = transferredNames.includes(m.name);
+
+  const isClass  = transferredClassNames.includes(m.name);
+  const isSchool = transferredSchoolNames.includes(m.name);
+  const isNew    = newStudentNames.includes(m.name);
+
+  // Badge dưới tên trong profile info
   const badgeEl = document.getElementById('pBadge');
   if (badgeEl) {
-    badgeEl.textContent = isTransferred 
-      ? '🎯 Đã từng là người lớp A1 – THCS CVA' 
-      : '🎯 Người lớp A1 – THCS CVA';
+    if (isClass)       badgeEl.textContent = '🎓 Đã chuyển lớp – từng là thành viên A1';
+    else if (isSchool) badgeEl.textContent = '🎓 Đã chuyển trường – từng là thành viên A1';
+    else if (isNew)    badgeEl.textContent = '🌟 Học sinh mới – thành viên A1 – THCS CVA';
+    else               badgeEl.textContent = '🎯 Thành viên lớp A1 – THCS CVA';
+  }
+
+  // Badge góc trái trên profile modal
+  const statusBadge = document.getElementById('profileStatusBadge');
+  if (statusBadge) {
+    if (isClass) {
+      statusBadge.style.display = 'block';
+      statusBadge.className = 'profile-status-badge profile-status-class';
+      statusBadge.textContent = '🎓 Chuyển Lớp';
+    } else if (isSchool) {
+      statusBadge.style.display = 'block';
+      statusBadge.className = 'profile-status-badge profile-status-school';
+      statusBadge.textContent = '🎓 Chuyển Trường';
+    } else if (isNew) {
+      statusBadge.style.display = 'block';
+      statusBadge.className = 'profile-status-badge profile-status-new';
+      statusBadge.textContent = '✨ Học Sinh Mới';
+    } else {
+      statusBadge.style.display = 'none';
+      statusBadge.className = '';
+      statusBadge.textContent = '';
+    }
+  }
+
+  // Đổi màu viền + glow của profile-inner
+  const inner = document.getElementById('profileInner');
+  if (inner) {
+    inner.classList.remove('theme-class','theme-school','theme-new','theme-default');
+    if (isClass)       inner.classList.add('theme-class');
+    else if (isSchool) inner.classList.add('theme-school');
+    else if (isNew)    inner.classList.add('theme-new');
+    else               inner.classList.add('theme-default');
   }
 
   const img = document.getElementById('pImg');
-  img.src = getImgUrl(m.img); // patch: fix local assets/ path
+  img.src = getImgUrl(m.img);
   img.onerror = ()=>{ img.src='https://via.placeholder.com/200/0d0d14/ffffff?text=?'; };
   document.getElementById('pMood').innerHTML = `<span style="font-size:52px;display:block;margin:4px 0;">${mood.emoji}</span><span style="font-size:14px;color:var(--muted);">${mood.label}</span>`;
   const emo = document.getElementById('profileEmoji');

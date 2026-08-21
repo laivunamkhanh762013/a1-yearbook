@@ -949,10 +949,80 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   width: 520px; max-width: 94%;
   background: linear-gradient(135deg, rgba(10,10,24,0.98), rgba(8,8,18,0.98));
   border-radius: 26px; display: flex; overflow: hidden;
-  border: 1px solid rgba(56,217,245,0.1);
+  border: 2px solid rgba(56,217,245,0.15);
   box-shadow: 0 0 80px rgba(56,217,245,0.06), 0 0 50px rgba(167,139,250,0.05), 0 36px 90px rgba(0,0,0,0.75);
   position: relative;
   animation: modalSlideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* ── Theme: mặc định (violet/cyan) ── */
+.profile-inner.theme-default {
+  border-color: rgba(167,139,250,0.35);
+  box-shadow: 0 0 40px rgba(167,139,250,0.15), 0 36px 90px rgba(0,0,0,0.75);
+}
+
+/* ── Theme: Chuyển Lớp (Amber) ── */
+.profile-inner.theme-class {
+  border-color: rgba(251,191,36,0.7);
+  box-shadow: 0 0 40px rgba(251,191,36,0.35), 0 0 80px rgba(251,191,36,0.15), 0 36px 90px rgba(0,0,0,0.75);
+  animation: modalSlideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both, profileAmberPulse 2.5s ease-in-out infinite alternate;
+}
+@keyframes profileAmberPulse {
+  0%   { box-shadow: 0 0 30px rgba(251,191,36,0.3), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(251,191,36,0.5); }
+  100% { box-shadow: 0 0 60px rgba(251,191,36,0.6), 0 0 20px rgba(255,215,0,0.4), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(251,191,36,0.95); }
+}
+
+/* ── Theme: Chuyển Trường (Amber – hơi khác tone) ── */
+.profile-inner.theme-school {
+  border-color: rgba(249,115,22,0.7);
+  box-shadow: 0 0 40px rgba(249,115,22,0.35), 0 0 80px rgba(249,115,22,0.15), 0 36px 90px rgba(0,0,0,0.75);
+  animation: modalSlideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both, profileOrangePulse 2.5s ease-in-out infinite alternate;
+}
+@keyframes profileOrangePulse {
+  0%   { box-shadow: 0 0 30px rgba(249,115,22,0.3), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(249,115,22,0.5); }
+  100% { box-shadow: 0 0 60px rgba(249,115,22,0.65), 0 0 20px rgba(251,191,36,0.35), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(249,115,22,0.95); }
+}
+
+/* ── Theme: Học Sinh Mới (Cyan) ── */
+.profile-inner.theme-new {
+  border-color: rgba(0,245,212,0.7);
+  box-shadow: 0 0 40px rgba(0,245,212,0.35), 0 0 80px rgba(99,102,241,0.15), 0 36px 90px rgba(0,0,0,0.75);
+  animation: modalSlideUp 0.5s cubic-bezier(0.34,1.56,0.64,1) both, profileCyanPulse 2.2s ease-in-out infinite alternate;
+}
+@keyframes profileCyanPulse {
+  0%   { box-shadow: 0 0 30px rgba(0,245,212,0.3), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(0,245,212,0.5); }
+  100% { box-shadow: 0 0 60px rgba(0,245,212,0.65), 0 0 20px rgba(99,102,241,0.4), 0 36px 90px rgba(0,0,0,0.75); border-color: rgba(0,245,212,0.95); }
+}
+
+/* ── Profile Status Badge (góc trái trên) ── */
+.profile-status-badge {
+  position: absolute;
+  top: 12px; left: 14px;
+  font-size: 10.5px; font-weight: 800;
+  padding: 5px 13px; border-radius: 999px;
+  letter-spacing: 0.5px; z-index: 11;
+  border: 1px solid rgba(255,255,255,0.35);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  pointer-events: none;
+}
+.profile-status-class {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(251,191,36,0.6);
+  animation: newBadgePulse 2s ease-in-out infinite alternate;
+}
+.profile-status-school {
+  background: linear-gradient(135deg, #f97316, #ef4444);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(249,115,22,0.6);
+  animation: newBadgePulse 2s ease-in-out infinite alternate;
+}
+.profile-status-new {
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(6,182,212,0.6);
+  animation: newBadgePulse 2s ease-in-out infinite alternate;
 }
 #closeProfile {
   position: absolute; top: 12px; right: 14px;
@@ -1263,6 +1333,56 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   z-index: 5;
   border: 1px solid rgba(255, 255, 255, 0.5);
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+
+/* ═══════════════════════════════════════════
+   HỌC SINH MỚI — NEON CYAN HIGHLIGHT
+   ═══════════════════════════════════════════ */
+.new-student-highlight {
+  position: relative !important;
+  border: 2px solid rgba(0, 245, 212, 0.8) !important;
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.08) 0%, rgba(99, 102, 241, 0.1) 100%) !important;
+  box-shadow: 0 0 22px rgba(0, 245, 212, 0.4), inset 0 0 14px rgba(0, 245, 212, 0.15) !important;
+  animation: newStudentPulse 2.2s ease-in-out infinite alternate !important;
+}
+
+@keyframes newStudentPulse {
+  0% {
+    border-color: rgba(0, 245, 212, 0.5);
+    box-shadow: 0 0 15px rgba(0, 245, 212, 0.3), inset 0 0 8px rgba(0, 245, 212, 0.1);
+  }
+  100% {
+    border-color: #00f5d4;
+    box-shadow: 0 0 32px rgba(0, 245, 212, 0.7), 0 0 14px rgba(99, 102, 241, 0.5), inset 0 0 20px rgba(0, 245, 212, 0.3);
+  }
+}
+
+.new-student-highlight:hover {
+  transform: translateY(-10px) scale(1.05) !important;
+  border-color: #00f5d4 !important;
+  box-shadow: 0 16px 45px rgba(0, 245, 212, 0.7), 0 0 30px rgba(0, 245, 212, 0.9) !important;
+}
+
+.new-student-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  background: linear-gradient(135deg, #06b6d4, #6366f1);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 11px;
+  border-radius: 999px;
+  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.7), 0 0 10px rgba(99, 102, 241, 0.5);
+  letter-spacing: 0.4px;
+  z-index: 5;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  animation: newBadgePulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes newBadgePulse {
+  0%   { box-shadow: 0 4px 12px rgba(6, 182, 212, 0.6); }
+  100% { box-shadow: 0 4px 20px rgba(6, 182, 212, 0.9), 0 0 14px rgba(99, 102, 241, 0.7); }
 }
 
 /* ═══════════════════════════════════════════
