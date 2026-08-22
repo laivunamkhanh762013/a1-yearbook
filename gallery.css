@@ -713,8 +713,8 @@
     font-size: 24px;
   }
   .memories-a1-btn {
-    padding: 16px 50px;
-    font-size: 22px;
+    padding: 14px 40px;
+    font-size: 18px;
   }
   .memories-a1-modal-media {
     max-height: min(70vh, calc(100vh - 150px));
