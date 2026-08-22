@@ -724,6 +724,8 @@ if (pTimer) pTimer.textContent=getTimeLeft();
 
 // ====== LOADING SCREEN ======
 (function(){
+  const MIN_DISPLAY_TIME = 1000; // hiệu ứng chạy ít nhất 1 giây
+  const start = Date.now();
   let p=0;
   const bar=document.getElementById('loadBar'),screen=document.getElementById('loadingScreen');
   if(!screen) return;
@@ -736,16 +738,19 @@ if (pTimer) pTimer.textContent=getTimeLeft();
     }, 500);
   };
   const iv=setInterval(()=>{
-    p+=Math.random()*38;
+    p+=Math.random()*22;
     if(bar) bar.style.width=p+'%';
     if(p>=100){
       if(bar) bar.style.width='100%';
       clearInterval(iv);
-      setTimeout(hideScreen, 120);
+      // Chỉ ẩn sau MIN_DISPLAY_TIME nhưng tối đa 2s để không quá chậm
+      const elapsed = Date.now() - start;
+      const waitTime = Math.max(MIN_DISPLAY_TIME - elapsed, 120);
+      setTimeout(hideScreen, waitTime);
     }
-  },45);
-  // Dự phòng an toàn tối đa 0.7 giây ẩn màn hình loading
-  setTimeout(hideScreen, 700);
+  }, 45);
+  // Dự phòng: tối đa 1.5s thì ẩn luôn
+  setTimeout(hideScreen, 1500);
 })();
 
 // ====== BIRTHDAY ======
