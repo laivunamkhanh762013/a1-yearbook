@@ -40,6 +40,7 @@ const members = [
   {name:"Trần Ngọc Bảo An",      dob:"12/03/2013", nick:"Thiên tài Văn học",                      img:"TranNgocBaoAn.jpg"},
   {name:"Lê Bảo Anh",            dob:"30/06/2013", nick:"Thiên tài Văn học",                      img:"LeBaoAnh.jpg"},
   {name:"Nguyễn Tùng Bách",      dob:"06/01/2013", nick:"Thiên Tài Toán Học",                     img:"NguyenTungBach.jpg"},
+  {name:"Nguyễn Tùng Lâm",       dob:"04/05/2013", nick:"Tý",                                        img:"NguyenTungLam.jpg"},
   {name:"Dương Thanh Bình",      dob:"12/12/2013", nick:"Thiên tài Toán học",                     img:"DuongThanhBinh.jpg"},
   {name:"Nguyễn Ngọc Bảo Châu",  dob:"06/08/2013", nick:"Châu Chấu",                              img:"NguyenNgocBaoChau.jpg"},
   {name:"Nguyễn Thùy Chi",       dob:"08/07/2013", nick:"Thiên Tài mọi môn",                      img:"NguyenThuyChi.jpg"},
@@ -142,6 +143,7 @@ const memberCategories = {
   'Trần Ngọc Bảo An':'literature',
   'Lê Bảo Anh':'literature',
   'Nguyễn Tùng Bách':'math',
+  'Nguyễn Tùng Lâm':'sport',
   'Dương Thanh Bình':'math',
   'Nguyễn Ngọc Bảo Châu':'other',
   'Nguyễn Thùy Chi':'math',
@@ -190,6 +192,11 @@ const PLACEHOLDER_URL = 'https://via.placeholder.com/160/0d0d14/ffffff?text=';
 function retryImage(img) {
   if (img.src.includes('placeholder')) return;
   const retries = parseInt(img.dataset.retry || '0');
+  if (retries === 0 && img.src.includes('/assets/')) {
+    img.dataset.retry = '1';
+    img.src = img.src.replace('/assets/', '/');
+    return;
+  }
   if (retries < MAX_IMG_RETRIES) {
     img.dataset.retry = retries + 1;
     if (!img.dataset.originalSrc) img.dataset.originalSrc = img.src.split('?')[0];
@@ -246,10 +253,11 @@ const MAX_PICK = 2;
 
 // Update title count (exclude transferred)
 const activeCount = members.length - transferredNames.length;
-const TOTAL_MEMBERS = 40; // Tổng số thành viên lớp A1
+const TOTAL_MEMBERS = 44; // Tổng số thành viên lớp A1
 const sectionTitle = document.querySelector('#members .section-title');
 if (sectionTitle) {
-  sectionTitle.textContent = `👥 Danh sách thành viên (${activeCount} người)`;
+  const studentCount = members.length - 1; // bỏ cô giáo
+  sectionTitle.textContent = `👥 Danh sách thành viên (${studentCount} học sinh + 1 GVCN)`;
 }
 // Sync hero tag & stat card with real count
 const heroTag = document.getElementById('heroMemberTag');
@@ -258,7 +266,7 @@ const statCountEl = document.getElementById('statMemberCount');
 if (statCountEl) statCountEl.textContent = TOTAL_MEMBERS;
 
 // Danh sách học sinh mới chuyển vào
-const newStudentNames = ["Vũ Đặng Hà My"];
+const newStudentNames = ["Vũ Đặng Hà My", "Nguyễn Tùng Lâm"];
 
 // Render all members in main grid with special highlight for transferred members
 const grid = document.getElementById('membersGrid');
