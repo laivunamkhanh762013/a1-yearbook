@@ -431,6 +431,11 @@ function closeProfile() {
 }
 document.getElementById('closeProfile').onclick = closeProfile;
 document.getElementById('profileModal').addEventListener('click',e=>{if(e.target===document.getElementById('profileModal'))closeProfile();});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('profileModal').classList.contains('open')) {
+    closeProfile();
+  }
+});
 function openProfileByName(name){const m=members.find(m=>m.name===name);if(m)openProfile(m);}
 
 // ====== ZOOM ======
@@ -717,6 +722,16 @@ window.doVote = async function(candidate,event){
 
 window.openPollModal = function(){const m=document.getElementById('pollModal');if(m){m.style.display='flex';m.offsetHeight;m.classList.add('open');}};
 window.closePollModal = function(){const m=document.getElementById('pollModal');if(m){m.classList.remove('open');setTimeout(()=>{m.style.display='none';},300);}};
+
+// Event listener bindings (CSP compliance & separation of concerns)
+document.getElementById('pollBtn')?.addEventListener('click', window.openPollModal);
+document.getElementById('closePoll')?.addEventListener('click', window.closePollModal);
+document.getElementById('backToTop')?.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('pollModal')?.classList.contains('open')) {
+    window.closePollModal();
+  }
+});
 
 // Render poll immediately
 renderPoll();

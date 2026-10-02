@@ -2,9 +2,8 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#03030c">
-<script>sessionStorage.setItem('a1_authenticated','true');</script>
 <title>A1 ( 2024 - 2028 )</title>
 <link rel="icon" href="Logolop.jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,13 +12,19 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="gallery.css">
 <link rel="stylesheet" href="main.css">
+<script>
+  // Chặn truy cập trái phép nếu chưa login qua index.html
+  if (sessionStorage.getItem('a1_authenticated') !== 'true') {
+    window.location.replace('index.html');
+  }
+</script>
 </head>
 <body>
 
 <!-- BIRTHDAY BANNER -->
 <div class="birthday-overlay" id="birthdayOverlay">
   <div class="birthday-banner" id="birthdayBanner">
-    <button class="birthday-close" id="birthdayClose">✖</button>
+    <button class="birthday-close" id="birthdayClose" aria-label="Đóng thông báo sinh nhật">✖</button>
     <span class="birthday-emoji" id="birthdayEmoji">🎂</span>
     <div class="birthday-name" id="birthdayName"></div>
     <div class="birthday-age" id="birthdayAge"></div>
@@ -49,31 +54,31 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- PARTICLE NETWORK CANVAS -->
-<canvas id="particleCanvas"></canvas>
+<canvas id="particleCanvas" aria-hidden="true"></canvas>
 
 <!-- CURSOR GLOW -->
-<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <!-- NAVBAR -->
 <nav class="navbar" id="mainNavbar">
-  <div class="navbar-logo">
-    <img src="Logolop.jpeg" alt="logo" onclick="location.reload()" style="cursor:pointer;">
-    <div class="navbar-title" style="cursor:pointer;" onclick="location.reload()">A1 — THCS CVA - TT (2024–2028)</div>
+  <div class="navbar-logo" role="button" tabindex="0" onclick="window.scrollTo({top:0,behavior:'smooth'})" onkeydown="if(event.key==='Enter'||event.key===' ')window.scrollTo({top:0,behavior:'smooth'})" aria-label="Về đầu trang">
+    <img src="Logolop.jpeg" alt="Logo Lớp A1" decoding="async">
+    <div class="navbar-title">A1 — THCS CVA - TT (2024–2028)</div>
   </div>
   <div class="navbar-center">
-    <img src="PhamThuyAn.jpg" id="creatorAvatar" onerror="this.style.display='none'" class="navbar-avatar" alt="Creator: Thúy An" style="animation-delay:0.3s;cursor:pointer;">
+    <img src="PhamThuyAn.jpg" id="creatorAvatar" onerror="this.src='Logolop.jpeg'" class="navbar-avatar" alt="Creator: Thúy An" decoding="async" style="animation-delay:0.3s;cursor:pointer;">
     <div>
-      <div class="navbar-made">Made by ChatGPT &amp; Copilot &amp; Claude Code &amp; Gemini CLI &amp; Blackbox AI &amp; DeepSeek V4 Flash 😄</div>
-      <div class="navbar-creator">Creator & Tester: Thúy An &amp; Dev Khánhh</div>
+      <div class="navbar-made">Lưu giữ kỷ niệm thanh xuân 2024–2028 💫</div>
+      <div class="navbar-creator">Creator &amp; Tester: Thúy An &amp; Dev Khánhh</div>
     </div>
-    <img src="LaiVuNamKhanh.jpg" id="testerAvatar" onerror="this.style.display='none'" class="navbar-avatar" alt="Tester: Dev Khánh" style="animation-delay:0.6s;cursor:pointer;">
+    <img src="LaiVuNamKhanh.jpg" id="testerAvatar" onerror="this.src='Logolop.jpeg'" class="navbar-avatar" alt="Tester: Dev Khánh" decoding="async" style="animation-delay:0.6s;cursor:pointer;">
   </div>
-  <nav class="navbar-menu" id="navbarMenu">
+  <div class="navbar-menu" id="navbarMenu" role="navigation" aria-label="Chính">
     <a href="#memories">Khoảnh khắc</a>
     <a href="#members">Thành viên</a>
     <a href="#timeline">Timeline</a>
-  </nav>
-  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+  </div>
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Mở menu điều hướng" aria-expanded="false" aria-controls="mobileOverlay">
     <span></span>
     <span></span>
     <span></span>
@@ -81,14 +86,14 @@
 </nav>
 
 <!-- MOBILE OVERLAY MENU -->
-<div class="mobile-overlay" id="mobileOverlay">
+<div class="mobile-overlay" id="mobileOverlay" role="dialog" aria-modal="true" aria-label="Menu điều hướng di động">
   <a href="#memories" data-close-overlay>📸 Khoảnh khắc</a>
   <a href="#members" data-close-overlay>👥 Thành viên</a>
   <a href="#timeline" data-close-overlay>📅 Timeline</a>
 </div>
 
 <!-- BOTTOM NAV (MOBILE) -->
-<nav class="bottom-nav" id="bottomNav">
+<nav class="bottom-nav" id="bottomNav" aria-label="Điều hướng nhanh di động">
   <a href="#memories">
     <span class="nav-icon">📸</span>
     <span>Khoảnh khắc</span>
@@ -104,26 +109,26 @@
 </nav>
 
 <!-- HOME -->
-<section id="home">
-  <div class="hero-block reveal">
+<section id="home" aria-labelledby="homeTitle">
+  <header class="hero-block reveal">
     <p class="hero-eyebrow">✦ THCS Chu Văn An · Thanh Trì ✦</p>
-    <h1 class="hero-title">🎓 Chào mừng đến lớp A1</h1>
+    <h1 class="hero-title" id="homeTitle">🎓 Chào mừng đến lớp A1</h1>
     <p class="hero-subtitle">Kỷ yếu số · 2024 – 2028 · Lưu giữ khoảnh khắc, kết nối cả lớp 💫</p>
     <div class="hero-tags">
       <span class="hero-tag">📸 149+ Khoảnh khắc</span>
-      <span class="hero-tag" id="heroMemberTag">👥 37 Thành viên</span>
+      <span class="hero-tag" id="heroMemberTag">👥 44 Thành viên</span>
       <span class="hero-tag">🎂 Gen 2013</span>
     </div>
-  </div>
+  </header>
   <div class="class-photo-wrap">
-    <img src="assets/Lop.jpg" id="classPhoto" loading="lazy" alt="Ảnh lớp A1">
+    <img src="assets/Lop.jpg" id="classPhoto" loading="lazy" decoding="async" alt="Ảnh tập thể lớp A1">
     <div class="class-photo-overlay">
-      <button class="overlay-btn" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">👥 Xem người</button>
+      <button type="button" class="overlay-btn" onclick="document.getElementById('members').scrollIntoView({behavior:'smooth'})">👥 Xem danh sách lớp</button>
     </div>
   </div>
 
   <div class="class-stats reveal reveal-children">
-    <div class="class-stat"><span class="class-stat-icon">👥</span><div class="class-stat-info"><div class="class-stat-number" id="statMemberCount">37</div><div class="class-stat-label">Thành viên</div></div></div>
+    <div class="class-stat"><span class="class-stat-icon">👥</span><div class="class-stat-info"><div class="class-stat-number" id="statMemberCount">44</div><div class="class-stat-label">Thành viên</div></div></div>
     <div class="class-stat"><span class="class-stat-icon">👩‍🏫</span><div class="class-stat-info"><div class="class-stat-number">1</div><div class="class-stat-label">Giáo viên</div></div></div>
     <div class="class-stat"><span class="class-stat-icon">📸</span><div class="class-stat-info"><div class="class-stat-number">149+</div><div class="class-stat-label">Khoảnh khắc</div></div></div>
     <div class="class-stat"><span class="class-stat-icon">🎂</span><div class="class-stat-info"><div class="class-stat-number">2013</div><div class="class-stat-label">Năm sinh</div></div></div>
@@ -166,8 +171,8 @@
 
   <div class="random-box reveal">
     <h3>🎲 Thành viên ngẫu nhiên</h3>
-    <div class="rand-card" id="randCard" onclick="handleRandCardClick()">
-      <img id="randImg" src="" onerror="this.style.display='none'" alt="">
+    <div class="rand-card" id="randCard" role="button" tabindex="0" onclick="handleRandCardClick()" onkeydown="if(event.key==='Enter')handleRandCardClick()">
+      <img id="randImg" src="" decoding="async" onerror="this.style.display='none'" alt="Ảnh thành viên ngẫu nhiên">
       <div class="rand-info">
         <div class="rand-emoji" id="randEmoji">🎲</div>
         <strong class="rand-name" id="randName">Bấm Random để bắt đầu!</strong>
@@ -175,68 +180,68 @@
         <small class="rand-detail" id="randNick"></small>
       </div>
     </div>
-    <button class="btn-rainbow" id="btnRandom" onclick="pickRandom()">🔀 Random</button>
+    <button type="button" class="btn-rainbow" id="btnRandom" onclick="pickRandom()">🔀 Random</button>
     <div id="spinStatus"></div>
   </div>
 </section>
 
 <!-- MEMORIES GALLERY -->
-<section id="memories" class="memories-a1-section reveal">
-  <h2 class="memories-a1-title"><span class="title-emoji">📸</span> Khoảnh Khắc Đáng Nhớ <span class="title-sub">( Chi tiết hơn 🥰 )</span></h2>
+<section id="memories" class="memories-a1-section reveal" aria-labelledby="memoriesTitle">
+  <h2 class="memories-a1-title" id="memoriesTitle"><span class="title-emoji">📸</span> Khoảnh Khắc Đáng Nhớ <span class="title-sub">( Chi tiết hơn 🥰 )</span></h2>
   <div class="memories-a1-container">
     <!-- Load tự động từ gallery.js -->
   </div>
   <div class="memories-a1-load-more">
-    <button id="loadMoreA1" class="memories-a1-btn">Xem thêm</button>
+    <button type="button" id="loadMoreA1" class="memories-a1-btn">Xem thêm</button>
   </div>
 </section>
 
 <!-- GALLERY LIGHTBOX MODAL (required by gallery.js) -->
-<div id="memoryModalA1" class="memories-a1-modal">
+<div id="memoryModalA1" class="memories-a1-modal" role="dialog" aria-modal="true" aria-label="Xem chi tiết khoảnh khắc">
   <div class="memories-a1-modal-inner">
-    <button class="memories-a1-close" id="closeMemoryModal">✕</button>
+    <button type="button" class="memories-a1-close" id="closeMemoryModal" aria-label="Đóng cửa sổ">✕</button>
     <div class="memories-a1-modal-content">
       <!-- img/video injected by gallery.js -->
-      <div class="memories-a1-reactions">
-        <button class="memories-a1-reaction-btn">❤️</button>
-        <button class="memories-a1-reaction-btn">😂</button>
-        <button class="memories-a1-reaction-btn">😍</button>
-        <button class="memories-a1-reaction-btn">🔥</button>
-        <button class="memories-a1-reaction-btn">😭</button>
-        <button class="memories-a1-reaction-btn">⭐</button>
+      <div class="memories-a1-reactions" role="toolbar" aria-label="Cảm xúc biểu tượng">
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Thả tim">❤️</button>
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Cười vui">😂</button>
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Yêu thích">😍</button>
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Quá cháy">🔥</button>
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Khóc xúc động">😭</button>
+        <button type="button" class="memories-a1-reaction-btn" aria-label="Ngôi sao">⭐</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- MEMBERS -->
-<section id="members">
-  <h2 class="section-title">👥 Danh sách thành viên (37 người)</h2>
+<section id="members" aria-labelledby="membersTitle">
+  <h2 class="section-title" id="membersTitle">👥 Danh sách thành viên</h2>
   <div class="search-wrap">
     <div class="search-input-wrap">
-      <span class="search-icon">🔍</span>
-      <input id="searchInput" placeholder="Tìm người...">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+      <input id="searchInput" placeholder="Tìm kiếm thành viên..." aria-label="Tìm kiếm thành viên theo tên hoặc biệt danh" autocomplete="off">
     </div>
   </div>
-  <div id="noResult" style="display:none;">❌ Không tìm thấy người</div>
-  <div class="rainbow-banner"><span>👤 Click vào người để xem Profile &amp; cảm xúc 👤 <br> Nếu không thấy ảnh hãy bấm vào logo lớp A1 góc trên trái!</span></div>
+  <div id="noResult" style="display:none;" role="status">❌ Không tìm thấy thành viên phù hợp</div>
+  <div class="rainbow-banner"><span>👤 Click vào thẻ để xem Profile &amp; cảm xúc 👤 <br> Nếu chưa thấy ảnh hãy bấm vào logo lớp A1 góc trên trái!</span></div>
 
   <div class="members-grid" id="membersGrid"></div>
 </section>
 
 <!-- TIMELINE -->
-<section id="timeline">
-  <h2 class="section-title">Dòng thời gian lớp A1</h2>
+<section id="timeline" aria-labelledby="timelineTitle">
+  <h2 class="section-title" id="timelineTitle">Dòng thời gian lớp A1</h2>
   <div class="timeline-enhanced" id="timelineList"></div>
 </section>
 
 <!-- PROFILE -->
-<div id="profileModal">
+<div id="profileModal" role="dialog" aria-modal="true" aria-label="Thông tin cá nhân thành viên">
   <div class="profile-inner" id="profileInner">
-    <span id="closeProfile">✖</span>
+    <button type="button" id="closeProfile" aria-label="Đóng bảng thông tin">✖</button>
     <div id="profileStatusBadge" style="display:none;"></div>
     <div class="profile-img-side">
-      <img id="pImg" src="" alt="" onclick="openZoom(this.src)">
+      <img id="pImg" src="" alt="Ảnh đại diện" decoding="async" onclick="openZoom(this.src)">
       <div class="profile-emoji-overlay" id="profileEmoji"></div>
     </div>
     <div class="profile-info-side">
@@ -250,24 +255,24 @@
 </div>
 
 <!-- ZOOM -- Enhanced -->
-<div id="zoomModal">
-  <button class="zoom-close-btn" id="zoomCloseBtn">✖</button>
+<div id="zoomModal" role="dialog" aria-modal="true" aria-label="Xem ảnh kích thước lớn" style="touch-action: manipulation;">
+  <button type="button" class="zoom-close-btn" id="zoomCloseBtn" aria-label="Đóng phóng to">✖</button>
   <div class="zoom-content">
     <div class="zoom-spinner" id="zoomSpinner"></div>
-    <img id="zoomImg" src="" alt="">
+    <img id="zoomImg" src="" alt="Ảnh phóng to" decoding="async">
   </div>
 </div>
 
 <!-- BACK TO TOP -->
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Lên đầu trang">↑</button>
+<button type="button" class="back-to-top" id="backToTop" aria-label="Lên đầu trang">↑</button>
 
 <!-- POLL BUTTON -->
-<button id="pollBtn" onclick="openPollModal()">🗳️ Bình chọn</button>
+<button type="button" id="pollBtn" aria-label="Mở bảng bình chọn">🗳️ Bình chọn</button>
 
 <!-- POLL MODAL -->
-<div id="pollModal">
-  <div class="poll-inner" onclick="event.stopPropagation()">
-    <span id="closePoll" onclick="closePollModal()">✖</span>
+<div id="pollModal" role="dialog" aria-modal="true" aria-label="Bảng bình chọn lớp A1">
+  <div class="poll-inner">
+    <button type="button" id="closePoll" aria-label="Đóng bảng bình chọn">✖</button>
     <div class="poll-title">🗳️ Bình chọn lớp A1</div>
     <div class="poll-sub">Ẩn danh · Vote 1 lần · Mở vĩnh viễn ♾️</div>
     <div id="pollTimer"></div>
@@ -277,16 +282,16 @@
 </div>
 
 <!-- A1 BOT LAUNCHER -->
-<div class="bot-launcher" id="botLauncher">
+<div class="bot-launcher" id="botLauncher" role="button" tabindex="0" aria-label="Mở trợ lý ảo A1 Bot">
   <div class="launcher-icon">🤖</div>
   <span class="launcher-text">A1 Bot</span>
 </div>
 
 <!-- A1 BOT CHAT BOX -->
-<div class="chat-container" id="chatContainer">
+<div class="chat-container" id="chatContainer" role="dialog" aria-label="Hộp thoại A1 Bot">
   <header class="chat-header">
     <div class="bot-info">
-      <div class="bot-avatar">🤖</div>
+      <div class="bot-avatar" aria-hidden="true">🤖</div>
       <div class="bot-details">
         <h3>A1 Bot</h3>
         <div class="bot-status">
@@ -295,25 +300,25 @@
         </div>
       </div>
     </div>
-    <button class="close-btn" id="closeBtn">×</button>
+    <button type="button" class="close-btn" id="closeBtn" aria-label="Đóng hộp chat">×</button>
   </header>
   <main class="message-area" id="messageArea">
     <div class="message bot">Hế lô! A1 Bot đang cập nhật nha =)</div>
     <div class="typing-indicator" id="typingIndicator">
       <span></span><span></span><span></span>
     </div>
-  </main>
-    <div class="suggestion-chips" id="chatChips">
-      <span class="chip" data-msg="Lớp mình có bao nhiêu người?">👥 Sĩ số</span>
-      <span class="chip" data-msg="Sự kiện sắp tới của lớp">📅 Sự kiện</span>
-      <span class="chip" data-msg="Hôm nay sinh nhật ai?">🎂 Sinh nhật</span>
-      <span class="chip" data-msg="Ai là lớp trưởng?">👑 Lớp trưởng</span>
-      <span class="chip" data-msg="Cô chủ nhiệm là ai?">👩‍🏫 GVCN</span>
+    <div class="suggestion-chips" id="chatChips" role="group" aria-label="Gợi ý câu hỏi nhanh">
+      <button type="button" class="chip" data-msg="Lớp mình có bao nhiêu người?">👥 Sĩ số</button>
+      <button type="button" class="chip" data-msg="Sự kiện sắp tới của lớp">📅 Sự kiện</button>
+      <button type="button" class="chip" data-msg="Hôm nay sinh nhật ai?">🎂 Sinh nhật</button>
+      <button type="button" class="chip" data-msg="Ai là lớp trưởng?">👑 Lớp trưởng</button>
+      <button type="button" class="chip" data-msg="Cô chủ nhiệm là ai?">👩‍🏫 GVCN</button>
     </div>
+  </main>
   <footer class="input-area">
     <div class="input-group">
-      <input type="text" id="userInput" placeholder="Nhập tin nhắn..." autocomplete="off">
-      <button id="sendBtn" title="Gửi tin nhắn">
+      <input type="text" id="userInput" placeholder="Nhập tin nhắn..." aria-label="Nhập tin nhắn gửi A1 Bot" autocomplete="off">
+      <button type="button" id="sendBtn" title="Gửi tin nhắn" aria-label="Gửi tin nhắn">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
       </button>
     </div>
@@ -326,12 +331,12 @@
 <script src="main.js"></script>
 <script src="gallery.js"></script>
 
-<!-- ★ STAR FIELD (performance-optimized) ★ -->
-<canvas id="starCanvas"></canvas>
+<!-- ★ STAR FIELD (Smooth Delta-time & Battery-efficient) ★ -->
+<canvas id="starCanvas" role="img" aria-label="Hiệu ứng sao nền lung linh">Hiệu ứng không gian</canvas>
 <script>
 (function(){
-  // Tắt trên mobile để tránh lag
-  if (window.innerWidth < 769) {
+  // Tắt trên mobile để chống lag và tiết kiệm pin
+  if (window.innerWidth < 769 || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4)) {
     var sc = document.getElementById('starCanvas');
     if (sc) sc.style.display = 'none';
     return;
@@ -349,45 +354,53 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  // Giảm số sao từ 220 → 80 để không lag
   var colors = ['#00f5d4','#8b5cf6','#f43f8e','#f59e0b','#ffffff'];
   var stars = [];
-  var NUM_STARS = 80;
+  var NUM_STARS = 75;
   for (var i = 0; i < NUM_STARS; i++) {
     stars.push({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       r: Math.random() * 1.2 + 0.2,
       a: Math.random(),
-      da: (Math.random() - 0.5) * 0.008,
+      speed: (0.15 + Math.random() * 0.35) * (Math.random() < 0.5 ? -1 : 1),
       c: colors[Math.floor(Math.random() * colors.length)]
     });
   }
 
-  // Frame skip — chỉ vẽ mỗi 2 frame để giảm CPU
-  var frameCount = 0;
-  var starPaused = false;
-  document.addEventListener('visibilitychange', function() { starPaused = document.hidden; });
-  function draw() {
-    if (starPaused) { requestAnimationFrame(draw); return; }
-    frameCount++;
-    if (frameCount % 2 === 0) {
-      ctx.clearRect(0, 0, W, H);
-      for (var i = 0; i < stars.length; i++) {
-        var s = stars[i];
-        s.a += s.da;
-        if (s.a < 0 || s.a > 1) s.da = -s.da;
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = s.c;
-        ctx.globalAlpha = Math.max(0, Math.min(1, s.a)) * 0.75;
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
+  var lastTime = performance.now();
+  var isTabActive = true;
+  document.addEventListener('visibilitychange', function() {
+    isTabActive = !document.hidden;
+    if (isTabActive) lastTime = performance.now();
+  });
+
+  function render(now) {
+    if (!isTabActive) {
+      requestAnimationFrame(render);
+      return;
     }
-    requestAnimationFrame(draw);
+    var dt = (now - lastTime) / 1000;
+    lastTime = now;
+    if (dt > 0.1) dt = 0.1; // clamp lag spike
+
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      s.a += s.speed * dt;
+      if (s.a <= 0) { s.a = 0; s.speed = Math.abs(s.speed); }
+      else if (s.a >= 1) { s.a = 1; s.speed = -Math.abs(s.speed); }
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.c;
+      ctx.globalAlpha = s.a * 0.75;
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(render);
   }
-  draw();
+  requestAnimationFrame(render);
 })();
 </script>
 </body>
