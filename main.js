@@ -36,7 +36,7 @@ function getImgUrl(path) {
 const members = [
   {name:"Nguyễn Thùy Linh",      dob:"25/07/1998", nick:"Linhh Sử (GVCN)",                       img:"Teacher.jpg"},
   {name:"Nguyễn Vũ Bảo An",      dob:"13/04/2013", nick:"Thiên Tài Tiếng Anh",                    img:"assets/NguyenVuBaoAn.jpg"},
-  {name:"Phạm Thúy An",          dob:"06/06/2013", nick:"An hay Sleep...",                        img:"PhamThuyAn.jpg"},
+  {name:"Phạm Thúy An",          dob:"06/06/2013", nick:"Đứa trẻ im lặng",                        img:"PhamThuyAn.jpg"},
   {name:"Trần Ngọc Bảo An",      dob:"12/03/2013", nick:"Thiên tài Văn học",                      img:"TranNgocBaoAn.jpg"},
   {name:"Lê Bảo Anh",            dob:"30/06/2013", nick:"Thiên tài Văn học",                      img:"LeBaoAnh.jpg"},
   {name:"Nguyễn Tùng Bách",      dob:"06/01/2013", nick:"Thiên Tài Toán Học",                     img:"NguyenTungBach.jpg"},
