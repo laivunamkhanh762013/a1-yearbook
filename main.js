@@ -487,8 +487,13 @@ if (document.getElementById('zoomModal')) {
 // ====== RANDOM MEMBER ======
 let spinning=false, chosenMember=null;
 function getPool(){
-  const pool=studentMembers.filter(m=>(pickCount[m.name]||0)<MAX_PICK);
-  if(pool.length===0){studentMembers.forEach(m=>pickCount[m.name]=0);return studentMembers.slice();}
+  // Exclude transferred members (chuyển lớp & chuyển trường) and teacher
+  const eligible = studentMembers.filter(m => !transferredNames.includes(m.name));
+  const pool = eligible.filter(m => (pickCount[m.name] || 0) < MAX_PICK);
+  if(pool.length === 0){
+    eligible.forEach(m => pickCount[m.name] = 0);
+    return eligible.slice();
+  }
   return pool;
 }
 function showMember(m){
