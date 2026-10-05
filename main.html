@@ -6,7 +6,10 @@
 <meta name="theme-color" content="#03030c">
 <title>A1 ( 2024 - 2028 )</title>
 <link rel="icon" href="Logolop.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="gallery.css">
 <link rel="stylesheet" href="main.css">
 <script>
@@ -293,6 +296,51 @@
   </div>
 </div>
 
+<!-- A1 BOT LAUNCHER -->
+<div class="bot-launcher" id="botLauncher" role="button" tabindex="0" aria-label="Mở trợ lý ảo A1 Bot">
+  <div class="launcher-icon">🤖</div>
+  <span class="launcher-text">A1 Bot</span>
+</div>
+
+<!-- A1 BOT CHAT BOX -->
+<div class="chat-container" id="chatContainer" role="dialog" aria-label="Hộp thoại A1 Bot">
+  <header class="chat-header">
+    <div class="bot-info">
+      <div class="bot-avatar" aria-hidden="true">🤖</div>
+      <div class="bot-details">
+        <h3>A1 Bot</h3>
+        <div class="bot-status">
+          <span class="status-dot"></span>
+          Đang hoạt động
+        </div>
+      </div>
+    </div>
+    <button type="button" class="close-btn" id="closeBtn" aria-label="Đóng hộp chat">×</button>
+  </header>
+  <main class="message-area" id="messageArea">
+    <div class="message bot">Hế lô! A1 Bot đang cập nhật nha =)</div>
+    <div class="typing-indicator" id="typingIndicator">
+      <span></span><span></span><span></span>
+    </div>
+    <div class="suggestion-chips" id="chatChips" role="group" aria-label="Gợi ý câu hỏi nhanh">
+      <button type="button" class="chip" data-msg="Lớp mình có bao nhiêu người?">👥 Sĩ số</button>
+      <button type="button" class="chip" data-msg="Sự kiện sắp tới của lớp">📅 Sự kiện</button>
+      <button type="button" class="chip" data-msg="Hôm nay sinh nhật ai?">🎂 Sinh nhật</button>
+      <button type="button" class="chip" data-msg="Ai là lớp trưởng?">👑 Lớp trưởng</button>
+      <button type="button" class="chip" data-msg="Cô chủ nhiệm là ai?">👩‍🏫 GVCN</button>
+    </div>
+  </main>
+  <footer class="input-area">
+    <div class="input-group">
+      <input type="text" id="userInput" placeholder="Nhập tin nhắn..." aria-label="Nhập tin nhắn gửi A1 Bot" autocomplete="off">
+      <button type="button" id="sendBtn" title="Gửi tin nhắn" aria-label="Gửi tin nhắn">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+      </button>
+    </div>
+  </footer>
+</div>
+
+<script src="script.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
 <script src="main.js"></script>
