@@ -4,8 +4,9 @@
 (() => {
   'use strict';
 
-  // Salted SHA-256 Hashes of authorized PINs ("2024", "1234") with salt "_a1cva_2026"
+  // Salted SHA-256 Hashes of authorized PINs ("2013", "2024", "1234") with salt "_a1cva_2026"
   const VALID_PIN_HASHES = new Set([
+    "dfc1fa7bcc67406d6901e1b2f9329d1a9192f05b1b66f4760896e16056ae6253", // 2013 (Năm sinh chuẩn của lớp)
     "e361fd2d75e6341a9ea2fdfc9f0129d524a8710ca0df180bc8b02263006bb43b", // 2024
     "a9bf3a7f387deb75e2a620d63a4ea67609038fa90e819e34d7d81729ae6ad93f"  // 1234
   ]);
@@ -77,7 +78,7 @@
 
     const hashedAttempt = await sha256(currentPin + PIN_SALT);
 
-    if (VALID_PIN_HASHES.has(hashedAttempt) || currentPin === "2024" || currentPin === "1234") {
+    if (VALID_PIN_HASHES.has(hashedAttempt) || currentPin === "2013" || currentPin === "2024" || currentPin === "1234") {
       statusEl.textContent = "⚡ XÁC THỰC THÀNH CÔNG! ĐANG VÀO...";
       statusEl.className = "status-text";
       failCount = 0;
