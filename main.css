@@ -761,8 +761,8 @@ section { padding-top: 100px; min-height: 100vh; text-align: center; scroll-marg
 /* ── Members Grid ── */
 .members-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
-  gap: 16px; padding: 16px; max-width: 1260px; margin: 0 auto;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 20px; padding: 20px 16px; max-width: 1380px; margin: 0 auto;
 }
 
 /* ── Member Card ── */
@@ -770,14 +770,14 @@ section { padding-top: 100px; min-height: 100vh; text-align: center; scroll-marg
   background: rgba(255,255,255,0.025);
   backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255,255,255,0.06);
-  border-radius: var(--radius-md);
-  padding: 10px; cursor: pointer; position: relative;
+  border-radius: var(--radius-lg);
+  padding: 14px; cursor: pointer; position: relative;
   transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
   overflow: hidden; opacity: 1 !important;
 }
 /* Hover glow underlay */
 .member-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
+  content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
   background: linear-gradient(135deg, rgba(56,217,245,0.08), rgba(167,139,250,0.08));
   opacity: 0; transition: opacity 0.4s; pointer-events: none;
 }
@@ -800,15 +800,15 @@ section { padding-top: 100px; min-height: 100vh; text-align: center; scroll-marg
 .member-card:hover::before { opacity: 1; }
 
 .member-card img {
-  width: 100%; border-radius: var(--radius-sm); display: block;
+  width: 100%; border-radius: var(--radius-md); display: block;
   transition: transform 0.4s, filter 0.35s;
   aspect-ratio: 3/4; object-fit: cover; object-position: 50% 20%;
   position: relative; z-index: 0;
 }
 .member-card:hover img { transform: scale(1.04); filter: brightness(1.06); }
-.member-card .mc-name { font-weight: 700; font-size: 12.5px; margin-top: 8px; color: var(--text); position: relative; z-index: 2; }
-.member-card .mc-dob  { font-size: 10.5px; color: var(--muted); position: relative; z-index: 2; }
-.member-card .mc-nick { font-size: 10.5px; color: var(--cyan); margin-top: 2px; position: relative; z-index: 2; }
+.member-card .mc-name { font-weight: 700; font-size: 15.5px; margin-top: 10px; color: var(--text); position: relative; z-index: 2; }
+.member-card .mc-dob  { font-size: 12.5px; color: var(--muted); margin-top: 3px; position: relative; z-index: 2; }
+.member-card .mc-nick { font-size: 12.5px; color: var(--cyan); margin-top: 3px; font-weight: 500; position: relative; z-index: 2; }
 
 /* Search states */
 .member-card.search-hidden  { opacity: 0; transform: scale(0.94) translateY(-8px); pointer-events: none; margin: 0; padding: 0; border: none; overflow: hidden; }
@@ -1407,7 +1407,11 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   .back-to-top    { bottom: 14px; left: 14px; width: 46px; height: 46px; font-size: 18px; }
   .class-stats    { grid-template-columns: repeat(2,1fr); gap: 10px; }
   .hero-subtitle  { font-size: 13.5px; }
-  .members-grid   { grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); gap: 12px; padding: 12px; }
+  .members-grid   { grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 14px; padding: 12px; }
+  .member-card    { padding: 12px; }
+  .member-card .mc-name { font-size: 14px; }
+  .member-card .mc-dob  { font-size: 11.5px; }
+  .member-card .mc-nick { font-size: 11.5px; }
   .class-toggle-wrap { max-width: 380px; }
 
   .section-title  { font-size: clamp(20px,5vw,28px); word-break: break-word; }
@@ -1424,7 +1428,11 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   .timeline-enhanced::before { left: 18px; }
   .tl-enhanced-item  { padding-left: 50px; }
   .tl-enhanced-dot   { left: 12px; width: 13px; height: 13px; }
-  .members-grid      { grid-template-columns: repeat(auto-fill,minmax(115px,1fr)); gap: 9px; padding: 9px; }
+  .members-grid      { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 12px; padding: 10px; }
+  .member-card       { padding: 10px; }
+  .member-card .mc-name { font-size: 13px; }
+  .member-card .mc-dob  { font-size: 11px; }
+  .member-card .mc-nick { font-size: 11px; }
   #particleCanvas    { opacity: 0.1; }
   .back-to-top       { bottom: 12px; left: 12px; width: 42px; height: 42px; font-size: 17px; }
   .class-toggle-wrap { max-width: 340px; gap: 3px; margin: 18px auto 22px; }
@@ -1480,14 +1488,14 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   background: rgba(255,255,255,0.022);
   backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255,255,255,0.055);
-  border-radius: var(--radius-md);
-  padding: 10px; cursor: pointer; position: relative;
+  border-radius: var(--radius-lg);
+  padding: 14px; cursor: pointer; position: relative;
   transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
   overflow: hidden; opacity: 1 !important;
   transform-style: preserve-3d;
 }
 .member-card::before {
-  content: ''; position: absolute; inset: 0; border-radius: var(--radius-md);
+  content: ''; position: absolute; inset: 0; border-radius: var(--radius-lg);
   background: conic-gradient(from 0deg at 50% 50%,
     rgba(0,245,212,0.06),
     rgba(139,92,246,0.06),
@@ -1515,9 +1523,9 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
 .member-card:hover::before { opacity: 1; }
 
 /* Member card name/details */
-.member-card .mc-name { font-weight: 700; font-size: 12.5px; margin-top: 8px; color: var(--text); position: relative; z-index: 2; }
-.member-card .mc-dob  { font-size: 10.5px; color: var(--muted); position: relative; z-index: 2; }
-.member-card .mc-nick { font-size: 10.5px; color: var(--cyan); margin-top: 2px; position: relative; z-index: 2; }
+.member-card .mc-name { font-weight: 700; font-size: 15.5px; margin-top: 10px; color: var(--text); position: relative; z-index: 2; }
+.member-card .mc-dob  { font-size: 12.5px; color: var(--muted); margin-top: 3px; position: relative; z-index: 2; }
+.member-card .mc-nick { font-size: 12.5px; color: var(--cyan); margin-top: 3px; font-weight: 500; position: relative; z-index: 2; }
 
 /* ── Bento Class Stats ── */
 .class-stats {
