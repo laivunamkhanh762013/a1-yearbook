@@ -364,64 +364,75 @@ document.getElementById('searchInput').addEventListener('input', function() {
 
 // ====== PROFILE ======
 function openProfile(m) {
-  const mood = moods[Math.floor(Math.random()*moods.length)];
-  document.getElementById('pName').textContent = m.name;
-  document.getElementById('pDob').textContent  = '🎂 Ngày sinh: '+m.dob;
-  document.getElementById('pNick').textContent = '✨ Biệt danh: '+(m.nick||'...');
+  const defaultInner = document.getElementById('profileInner');
+  const devCard = document.getElementById('devProfileCard');
 
-  const isClass  = transferredClassNames.includes(m.name);
-  const isSchool = transferredSchoolNames.includes(m.name);
-  const isNew    = newStudentNames.includes(m.name);
+  if (m.name === 'Lại Vũ Nam Khánh') {
+    if (defaultInner) defaultInner.style.display = 'none';
+    if (devCard) devCard.style.display = 'block';
+  } else {
+    if (devCard) devCard.style.display = 'none';
+    if (defaultInner) defaultInner.style.display = 'flex';
 
-  // Badge dưới tên trong profile info
-  const badgeEl = document.getElementById('pBadge');
-  if (badgeEl) {
-    if (isClass)       badgeEl.textContent = '🎓 Đã chuyển lớp – từng là thành viên A1';
-    else if (isSchool) badgeEl.textContent = '🎓 Đã chuyển trường – từng là thành viên A1';
-    else if (isNew)    badgeEl.textContent = '🌟 Học sinh mới – thành viên A1 – THCS CVA';
-    else               badgeEl.textContent = '🎯 Thành viên lớp A1 – THCS CVA';
-  }
+    const mood = moods[Math.floor(Math.random()*moods.length)];
+    document.getElementById('pName').textContent = m.name;
+    document.getElementById('pDob').textContent  = '🎂 Ngày sinh: '+m.dob;
+    document.getElementById('pNick').textContent = '✨ Biệt danh: '+(m.nick||'...');
 
-  // Badge góc trái trên profile modal
-  const statusBadge = document.getElementById('profileStatusBadge');
-  if (statusBadge) {
-    if (isClass) {
-      statusBadge.style.display = 'block';
-      statusBadge.className = 'profile-status-badge profile-status-class';
-      statusBadge.textContent = '🎓 Chuyển Lớp';
-    } else if (isSchool) {
-      statusBadge.style.display = 'block';
-      statusBadge.className = 'profile-status-badge profile-status-school';
-      statusBadge.textContent = '🎓 Chuyển Trường';
-    } else if (isNew) {
-      statusBadge.style.display = 'block';
-      statusBadge.className = 'profile-status-badge profile-status-new';
-      statusBadge.textContent = '✨ Học Sinh Mới';
-    } else {
-      statusBadge.style.display = 'none';
-      statusBadge.className = '';
-      statusBadge.textContent = '';
+    const isClass  = transferredClassNames.includes(m.name);
+    const isSchool = transferredSchoolNames.includes(m.name);
+    const isNew    = newStudentNames.includes(m.name);
+
+    // Badge dưới tên trong profile info
+    const badgeEl = document.getElementById('pBadge');
+    if (badgeEl) {
+      if (isClass)       badgeEl.textContent = '🎓 Đã chuyển lớp – từng là thành viên A1';
+      else if (isSchool) badgeEl.textContent = '🎓 Đã chuyển trường – từng là thành viên A1';
+      else if (isNew)    badgeEl.textContent = '🌟 Học sinh mới – thành viên A1 – THCS CVA';
+      else               badgeEl.textContent = '🎯 Thành viên lớp A1 – THCS CVA';
     }
+
+    // Badge góc trái trên profile modal
+    const statusBadge = document.getElementById('profileStatusBadge');
+    if (statusBadge) {
+      if (isClass) {
+        statusBadge.style.display = 'block';
+        statusBadge.className = 'profile-status-badge profile-status-class';
+        statusBadge.textContent = '🎓 Chuyển Lớp';
+      } else if (isSchool) {
+        statusBadge.style.display = 'block';
+        statusBadge.className = 'profile-status-badge profile-status-school';
+        statusBadge.textContent = '🎓 Chuyển Trường';
+      } else if (isNew) {
+        statusBadge.style.display = 'block';
+        statusBadge.className = 'profile-status-badge profile-status-new';
+        statusBadge.textContent = '✨ Học Sinh Mới';
+      } else {
+        statusBadge.style.display = 'none';
+        statusBadge.className = '';
+        statusBadge.textContent = '';
+      }
+    }
+
+    // Đổi màu viền + glow của profile-inner
+    if (defaultInner) {
+      defaultInner.classList.remove('theme-class','theme-school','theme-new','theme-default');
+      if (isClass)       defaultInner.classList.add('theme-class');
+      else if (isSchool) defaultInner.classList.add('theme-school');
+      else if (isNew)    defaultInner.classList.add('theme-new');
+      else               defaultInner.classList.add('theme-default');
+    }
+
+    const img = document.getElementById('pImg');
+    img.src = getImgUrl(m.img);
+    img.onerror = ()=>{ img.src='https://via.placeholder.com/200/0d0d14/ffffff?text=?'; };
+    document.getElementById('pMood').innerHTML = `<span style="font-size:52px;display:block;margin:4px 0;">${mood.emoji}</span><span style="font-size:14px;color:var(--muted);">${mood.label}</span>`;
+    const emo = document.getElementById('profileEmoji');
+    emo.textContent=mood.emoji; emo.style.display='block'; emo.style.animation='none'; emo.offsetHeight;
+    emo.style.animation='emojiPop 0.5s ease both';
+    setTimeout(()=>{emo.style.display='none';},1200);
   }
 
-  // Đổi màu viền + glow của profile-inner
-  const inner = document.getElementById('profileInner');
-  if (inner) {
-    inner.classList.remove('theme-class','theme-school','theme-new','theme-default');
-    if (isClass)       inner.classList.add('theme-class');
-    else if (isSchool) inner.classList.add('theme-school');
-    else if (isNew)    inner.classList.add('theme-new');
-    else               inner.classList.add('theme-default');
-  }
-
-  const img = document.getElementById('pImg');
-  img.src = getImgUrl(m.img);
-  img.onerror = ()=>{ img.src='https://via.placeholder.com/200/0d0d14/ffffff?text=?'; };
-  document.getElementById('pMood').innerHTML = `<span style="font-size:52px;display:block;margin:4px 0;">${mood.emoji}</span><span style="font-size:14px;color:var(--muted);">${mood.label}</span>`;
-  const emo = document.getElementById('profileEmoji');
-  emo.textContent=mood.emoji; emo.style.display='block'; emo.style.animation='none'; emo.offsetHeight;
-  emo.style.animation='emojiPop 0.5s ease both';
-  setTimeout(()=>{emo.style.display='none';},1200);
   const modal = document.getElementById('profileModal');
   modal.style.display='flex'; modal.offsetHeight; modal.classList.add('open');
 }
@@ -430,6 +441,8 @@ function closeProfile() {
   setTimeout(()=>{modal.style.display='none';},300);
 }
 document.getElementById('closeProfile').onclick = closeProfile;
+const closeDevProfileBtn = document.getElementById('closeDevProfile');
+if (closeDevProfileBtn) closeDevProfileBtn.onclick = closeProfile;
 document.getElementById('profileModal').addEventListener('click',e=>{if(e.target===document.getElementById('profileModal'))closeProfile();});
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('profileModal').classList.contains('open')) {

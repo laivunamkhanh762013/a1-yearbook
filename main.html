@@ -260,6 +260,7 @@
 
 <!-- PROFILE -->
 <div id="profileModal" role="dialog" aria-modal="true" aria-label="Thông tin cá nhân thành viên">
+  <!-- Default Profile Inner -->
   <div class="profile-inner" id="profileInner">
     <button type="button" id="closeProfile" aria-label="Đóng bảng thông tin">✖</button>
     <div id="profileStatusBadge" style="display:none;"></div>
@@ -273,6 +274,52 @@
       <p id="pNick"></p>
       <div class="profile-badge" id="pBadge">🎯 Thành viên lớp A1 – THCS CVA</div>
       <div id="pMood"></div>
+    </div>
+  </div>
+
+  <!-- Custom Discord / Dev Profile Card for Lại Vũ Nam Khánh -->
+  <div class="discord-profile-card" id="devProfileCard" style="display:none;">
+    <div class="discord-profile-topbar">
+      <span class="discord-topbar-title">Profile</span>
+      <button type="button" class="discord-close-btn" id="closeDevProfile" aria-label="Đóng cửa sổ">✕</button>
+    </div>
+    <div class="discord-banner-wrap">
+      <img src="assets/vnk_banner.png" alt="VNK Bách Hóa Bảng" class="discord-banner-img" onclick="openZoom(this.src)">
+    </div>
+    <div class="discord-avatar-section">
+      <div class="discord-avatar-wrap">
+        <img src="assets/LaiVuNamKhanh.jpg" alt="Dev Khánhh" class="discord-avatar-img" onclick="openZoom(this.src)">
+        <span class="discord-avatar-badge" title="Developer">📷</span>
+      </div>
+      <div class="discord-user-header">
+        <div class="discord-user-name">Dev Khánhh <span class="discord-edit-icon" title="Creator">✎</span></div>
+        <div class="discord-user-sub">Lại Vũ Nam Khánh · Web Developer</div>
+      </div>
+    </div>
+    <div class="discord-profile-body">
+      <div class="discord-section-title">Personal information</div>
+      
+      <div class="discord-info-row">
+        <div class="discord-info-label">Bio</div>
+        <div class="discord-info-val discord-bio-content">
+          <div>Web lớp : <a href="https://a1cvatt.vercel.app" target="_blank" rel="noopener">A1cvatt.vercel.app 🔥</a></div>
+          <div>Mua bảng tại đây : <a href="https://bachhoabang.vn" target="_blank" rel="noopener">Bachhoabang.vn 📎</a></div>
+          <div>Thông thạo Coding Agent 😏</div>
+        </div>
+      </div>
+
+      <div class="discord-info-row">
+        <div class="discord-info-label">Roles</div>
+        <div class="discord-badges-wrap">
+          <span class="discord-role-pill dev-role">💻 Web Creator &amp; Lead Dev</span>
+          <span class="discord-role-pill a1-role">🎓 Lớp A1 · THCS CVA</span>
+        </div>
+      </div>
+
+      <div class="discord-info-row">
+        <div class="discord-info-label">Birthday</div>
+        <div class="discord-info-val">07/06/2013 (🎂 13 tuổi · Thiên Tài IT)</div>
+      </div>
     </div>
   </div>
 </div>
