@@ -178,6 +178,12 @@ body {
   border-color: rgba(0, 245, 212, 0.5);
   box-shadow: 0 8px 24px rgba(0, 245, 212, 0.25);
 }
+.key-btn:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.5);
+}
 .key-btn:hover::before { opacity: 1; }
 .key-btn:active {
   transform: scale(0.92);
