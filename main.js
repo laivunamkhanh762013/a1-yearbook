@@ -809,19 +809,31 @@ function checkBirthday() {
   if (!birthdayMember) return;
   const overlay = document.getElementById('birthdayOverlay');
   const nameEl = document.getElementById('birthdayName');
+  const nickEl = document.getElementById('birthdayNick');
+  const dobEl = document.getElementById('birthdayDob');
   const ageEl = document.getElementById('birthdayAge');
-  const emojiEl = document.getElementById('birthdayEmoji');
+  const avatarEl = document.getElementById('birthdayAvatar');
+  const msgEl = document.getElementById('birthdayMsg');
+  
   const parts = birthdayMember.dob.split('/');
   const birthYear = parseInt(parts[2]);
-  const age = new Date().getFullYear() - birthYear;
-  nameEl.textContent = birthdayMember.name;
+  const age = isNaN(birthYear) ? '' : (new Date().getFullYear() - birthYear);
+  
+  if (nameEl) nameEl.textContent = birthdayMember.name;
+  if (nickEl) nickEl.textContent = birthdayMember.nick && birthdayMember.nick !== '...' ? `✨ ${birthdayMember.nick}` : '🌟 Thành viên Tập thể A1';
+  if (dobEl) dobEl.textContent = `📅 ${birthdayMember.dob}`;
+  if (ageEl) ageEl.textContent = age ? `🎂 ${age} tuổi` : '🎂 Sinh nhật hôm nay';
+  if (avatarEl) {
+    avatarEl.src = getImgUrl(birthdayMember.img);
+    avatarEl.alt = birthdayMember.name;
+  }
+  if (msgEl) {
+    msgEl.innerHTML = `🎉 Chúc mừng sinh nhật <strong>${birthdayMember.name}</strong>! 🎂 Chúc bạn tuổi mới luôn ngập tràn niềm vui, học thật giỏi và tỏa sáng rực rỡ cùng đại gia đình A1 nhé! 💖✨`;
+  }
+  
   birthdayMemberCache = birthdayMember;
-  ageEl.textContent = `🎂 ${age} tuổi`;
-  const festiveEmojis = ['🎂','🎉','🎊','🥳','🎈','🎁','💖','🌟'];
-  emojiEl.textContent = festiveEmojis[Math.floor(Math.random() * festiveEmojis.length)];
   overlay.classList.add('active');
-  spawnConfetti(40);
-  setTimeout(() => { overlay.classList.remove('active'); }, 8000);
+  spawnConfetti(60);
 }
 
 document.getElementById('birthdayClose').addEventListener('click', () => {
@@ -834,11 +846,30 @@ document.getElementById('birthdayOverlay').addEventListener('click', (e) => {
 });
 
 let birthdayMemberCache = null;
+const birthdayProfileBtn = document.getElementById('birthdayProfileBtn');
+if (birthdayProfileBtn) {
+  birthdayProfileBtn.addEventListener('click', () => {
+    if (birthdayMemberCache) {
+      document.getElementById('birthdayOverlay').classList.remove('active');
+      openProfileByName(birthdayMemberCache.name);
+    }
+  });
+}
 document.getElementById('birthdayName').addEventListener('click', function() {
   if (birthdayMemberCache) {
+    document.getElementById('birthdayOverlay').classList.remove('active');
     openProfileByName(birthdayMemberCache.name);
   }
 });
+const birthdayAvatar = document.getElementById('birthdayAvatar');
+if (birthdayAvatar) {
+  birthdayAvatar.addEventListener('click', function() {
+    if (birthdayMemberCache) {
+      document.getElementById('birthdayOverlay').classList.remove('active');
+      openProfileByName(birthdayMemberCache.name);
+    }
+  });
+}
 
 // CLICK CREATOR & TESTER AVATARS → OPEN PROFILE
 const creatorAvatar = document.getElementById('creatorAvatar');
