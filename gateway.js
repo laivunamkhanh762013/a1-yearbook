@@ -20,8 +20,6 @@
   }
 
   let currentPin = "";
-  let isTurnstileVerified = false;
-  let turnstileAvailable = false;
   let failCount = parseInt(sessionStorage.getItem('a1_fail_count') || '0', 10);
   let lockUntil = parseInt(sessionStorage.getItem('a1_lock_until') || '0', 10);
 
@@ -64,18 +62,6 @@
       return;
     }
 
-    // Nếu Turnstile được tải thành công thì yêu cầu xác minh, nếu môi trường offline/unreachable thì cho phép xác minh mã PIN
-    if (turnstileAvailable && !isTurnstileVerified) {
-      statusEl.textContent = "⚠️ Vui lòng hoàn thành xác minh Cloudflare trước!";
-      statusEl.className = "status-text warn";
-      dots.forEach(d => d.classList.add('error'));
-      setTimeout(() => {
-        currentPin = "";
-        updateDots();
-      }, 700);
-      return;
-    }
-
     const hashedAttempt = await sha256(currentPin + PIN_SALT);
 
     if (VALID_PIN_HASHES.has(hashedAttempt) || currentPin === "2013" || currentPin === "2024" || currentPin === "1234") {
@@ -87,7 +73,7 @@
       sessionStorage.setItem('a1_authenticated', 'true');
       setTimeout(() => {
         window.location.replace('main.html');
-      }, 400);
+      }, 350);
     } else {
       failCount++;
       sessionStorage.setItem('a1_fail_count', failCount.toString());
@@ -146,17 +132,6 @@
       updateDots();
     }
   });
-
-  window.onTurnstileSuccess = function() {
-    turnstileAvailable = true;
-    isTurnstileVerified = true;
-    statusEl.textContent = "✓ Đã xác minh. Mời nhập mã PIN!";
-    statusEl.className = "status-text";
-  };
-
-  window.onloadTurnstileCallback = function() {
-    turnstileAvailable = true;
-  };
 
   // Particles generator
   const pLayer = document.getElementById('particlesLayer');
