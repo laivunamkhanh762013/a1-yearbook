@@ -107,6 +107,110 @@ body::after {
   50%      { transform: translateY(-8px); }
 }
 
+/* ── Scroll Reveal System ── */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 30px, 0);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: opacity, transform;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ── Loading Screen ── */
+#loadingScreen {
+  position: fixed; inset: 0;
+  background: var(--bg-deep);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  z-index: 999999;
+  transition: opacity 0.5s ease;
+}
+.load-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 6vw, 44px); font-weight: 800;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet), var(--neon-rose), var(--neon-gold));
+  background-size: 300%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: holoRainbow 3s linear infinite;
+  margin-bottom: 24px; text-align: center;
+}
+.load-bar-wrap {
+  width: 85%; max-width: 320px; height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-pill); overflow: hidden;
+}
+.load-bar {
+  height: 100%; width: 0%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet), var(--neon-rose));
+  background-size: 200%;
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+.load-sub {
+  color: var(--text-muted); font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; margin-top: 14px; text-transform: uppercase;
+}
+
+/* ── Birthday Overlay ── */
+.birthday-overlay {
+  position: fixed; inset: 0; z-index: 50000;
+  display: none; justify-content: center; align-items: flex-start;
+  padding: 100px 16px 0; pointer-events: none;
+}
+.birthday-overlay.active { display: flex; }
+.birthday-banner {
+  background: rgba(10, 10, 26, 0.95);
+  backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  border-radius: 28px; padding: 32px 36px; text-align: center;
+  max-width: 440px; width: 100%;
+  box-shadow: 0 0 60px rgba(251, 191, 36, 0.2), 0 20px 60px rgba(0, 0, 0, 0.8);
+  pointer-events: all; position: relative;
+  animation: cardEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.birthday-close {
+  position: absolute; top: 12px; right: 16px; font-size: 20px;
+  cursor: pointer; color: var(--text-muted); background: none; border: none;
+}
+.birthday-emoji { font-size: 64px; display: block; margin-bottom: 6px; }
+.birthday-name {
+  font-family: var(--font-display); font-size: 26px; color: var(--neon-gold);
+  font-weight: 800; cursor: pointer;
+}
+.birthday-age { font-size: 14px; color: var(--text-muted); margin: 4px 0 2px; }
+.birthday-msg { font-size: 14.5px; color: #fff; margin-top: 10px; line-height: 1.6; }
+
+/* ── Confetti ── */
+.confetti-piece {
+  position: fixed; top: -20px; z-index: 50001; pointer-events: none;
+  animation: confettiFall var(--fall-dur, 3s) linear forwards; opacity: 0;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(105vh) rotate(var(--rot, 720deg)) scale(0.4); opacity: 0; }
+}
+
+/* ── Mobile Overlay Drawer ── */
+.mobile-overlay {
+  position: fixed; inset: 0; z-index: 99998;
+  background: rgba(3, 3, 12, 0.94);
+  backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+  display: none; flex-direction: column; justify-content: center; align-items: center;
+  gap: 16px; opacity: 0; transition: opacity 0.35s ease;
+}
+.mobile-overlay.active { display: flex; opacity: 1; }
+.mobile-overlay a {
+  font-family: var(--font-display); font-size: 26px; font-weight: 800;
+  color: #fff; text-decoration: none; padding: 12px 28px;
+  border-radius: var(--radius-pill); transition: all 0.3s ease;
+}
+.mobile-overlay a:hover {
+  color: var(--neon-cyan);
+  background: rgba(0, 245, 212, 0.1);
+}
+
 /* ── Scroll Progress Bar ── */
 .scroll-progress {
   position: fixed; top: 0; left: 0; height: 3px; width: 0%;
