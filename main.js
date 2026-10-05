@@ -851,15 +851,6 @@ document.getElementById('birthdayOverlay').addEventListener('click', (e) => {
 });
 
 let birthdayMemberCache = null;
-const birthdayProfileBtn = document.getElementById('birthdayProfileBtn');
-if (birthdayProfileBtn) {
-  birthdayProfileBtn.addEventListener('click', () => {
-    if (birthdayMemberCache) {
-      document.getElementById('birthdayOverlay').classList.remove('active');
-      openProfileByName(birthdayMemberCache.name);
-    }
-  });
-}
 document.getElementById('birthdayName').addEventListener('click', function() {
   if (birthdayMemberCache) {
     document.getElementById('birthdayOverlay').classList.remove('active');
