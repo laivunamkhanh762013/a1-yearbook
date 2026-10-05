@@ -828,26 +828,6 @@ mark { background: rgba(255,215,0,0.25); border-radius: 3px; padding: 0 2px; col
 .rank-silver { background: linear-gradient(135deg,#E5E7EB,#BFC5CE); color: #111; }
 .rank-bronze { background: linear-gradient(135deg,#CD7F32,#A85A1F); color: white; }
 
-/* Transferred badge (Top Right) */
-.transferred-badge {
-  position: absolute;
-  top: 8px; right: 8px;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-  font-size: 9.5px;
-  font-weight: 800;
-  padding: 3px 8px;
-  border-radius: 999px;
-  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.6);
-  letter-spacing: 0.2px;
-  z-index: 8;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  max-width: calc(100% - 48px);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* Cat badge */
 .cat-badge {
   position: absolute; bottom: 7px; right: 7px; z-index: 6;
@@ -857,25 +837,6 @@ mark { background: rgba(255,215,0,0.25); border-radius: 3px; padding: 0 2px; col
   pointer-events: none; opacity: 0; transition: opacity 0.3s;
 }
 .member-card:hover .cat-badge { opacity: 1; }
-
-/* ── Transferred Member Highlight ── */
-.member-card.transferred-card {
-  border: 1.5px solid rgba(251,191,36,0.4) !important;
-  background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(244,114,182,0.06)) !important;
-  box-shadow: 0 0 18px rgba(251,191,36,0.15) !important;
-}
-.member-card.transferred-card:hover {
-  transform: translateY(-8px) scale(1.03) !important;
-  box-shadow: 0 0 28px rgba(251,191,36,0.35), 0 0 14px rgba(244,114,182,0.2) !important;
-  border-color: rgba(251,191,36,0.7) !important;
-}
-.transferred-badge {
-  position: absolute; top: 7px; left: 7px; z-index: 6;
-  padding: 3px 9px; border-radius: 999px; font-size: 9.5px; font-weight: 800;
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  color: #000; box-shadow: 0 2px 8px rgba(251,191,36,0.35);
-  letter-spacing: 0.2px; display: inline-flex; align-items: center; gap: 3px;
-}
 
 /* Card tilt */
 .member-card.tilt-active { transition: transform 0.08s ease !important; will-change: transform; }
@@ -1319,20 +1280,35 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
   35%, 100% { transform: translateX(110%) rotate(30deg); }
 }
 
+.transferred-badge,
+.new-student-badge {
+  position: absolute !important;
+  top: 22px !important;
+  left: 22px !important;
+  right: auto !important;
+  bottom: auto !important;
+  width: auto !important;
+  max-width: calc(100% - 44px) !important;
+  padding: 5px 14px !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.3px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  white-space: nowrap !important;
+  z-index: 6 !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
+  pointer-events: none !important;
+}
+
 .transferred-badge {
-  position: absolute;
-  top: 10px; right: 10px;
-  background: linear-gradient(135deg, #f97316, #f59e0b);
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 4px 11px;
-  border-radius: 999px;
-  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.7), 0 0 8px rgba(255, 215, 0, 0.5);
-  letter-spacing: 0.4px;
-  z-index: 5;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.6), 0 0 12px rgba(249, 115, 22, 0.4) !important;
 }
 
 /* ═══════════════════════════════════════════
@@ -1364,20 +1340,10 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
 }
 
 .new-student-badge {
-  position: absolute;
-  top: 10px; left: 10px;
-  background: linear-gradient(135deg, #06b6d4, #6366f1);
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 4px 11px;
-  border-radius: 999px;
-  box-shadow: 0 4px 15px rgba(6, 182, 212, 0.7), 0 0 10px rgba(99, 102, 241, 0.5);
-  letter-spacing: 0.4px;
-  z-index: 5;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  animation: newBadgePulse 2s ease-in-out infinite alternate;
+  background: linear-gradient(135deg, #06b6d4, #6366f1) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.6), 0 0 12px rgba(99, 102, 241, 0.4) !important;
+  animation: newBadgePulse 2s ease-in-out infinite alternate !important;
 }
 
 @keyframes newBadgePulse {
@@ -2021,10 +1987,13 @@ body::before {
     display: none;
   }
 
-  .transferred-badge {
-    max-width: calc(100% - 16px) !important;
-    font-size: 8px !important;
-    padding: 3px 7px !important;
+  .transferred-badge,
+  .new-student-badge {
+    top: 18px !important;
+    left: 18px !important;
+    font-size: 10px !important;
+    padding: 4px 11px !important;
+    max-width: calc(100% - 36px) !important;
   }
 
   .back-to-top {
@@ -2072,10 +2041,13 @@ body::before {
     line-height: 1.3;
   }
 
-  .transferred-badge {
-    font-size: 7px !important;
-    padding: 2px 6px !important;
-    max-width: calc(100% - 14px) !important;
+  .transferred-badge,
+  .new-student-badge {
+    top: 14px !important;
+    left: 14px !important;
+    font-size: 9.5px !important;
+    padding: 3px 9px !important;
+    max-width: calc(100% - 28px) !important;
   }
 
   .class-stats {
@@ -2100,36 +2072,6 @@ body::before {
    TRANSFERRED MEMBERS — PREMIUM 2025
    Badge, card highlight, section
    ════════════════════════════════════════════ */
-
-/* Badge đẹp hơn */
-.transferred-badge {
-  position: absolute !important;
-  top: 8px !important;
-  left: 8px !important;
-  z-index: 8 !important;
-  padding: 4px 11px !important;
-  border-radius: 999px !important;
-  font-size: 9px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.3px !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  /* Gradient vàng-cam xịn */
-  background: linear-gradient(135deg, #f59e0b, #f97316) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255,255,255,0.3) !important;
-  box-shadow:
-    0 2px 12px rgba(245,158,11,0.5),
-    0 0 20px rgba(245,158,11,0.2),
-    inset 0 1px 0 rgba(255,255,255,0.3) !important;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3) !important;
-  animation: badgePulse 3s ease-in-out infinite !important;
-}
-@keyframes badgePulse {
-  0%, 100% { box-shadow: 0 2px 12px rgba(245,158,11,0.5), 0 0 20px rgba(245,158,11,0.2); }
-  50%       { box-shadow: 0 2px 18px rgba(245,158,11,0.8), 0 0 35px rgba(245,158,11,0.4); }
-}
 
 /* Card chuyển trường highlight — premium */
 .member-card.transferred-highlight,
