@@ -1155,3 +1155,40 @@ if (testerAvatar) {
     });
   });
 })();
+
+// ====== REALTIME ONLINE USERS TRACKER ======
+(function initOnlinePresence() {
+  try {
+    if (typeof firebase === 'undefined' || !firebase.database) return;
+    const db = firebase.database();
+    const connectedRef = db.ref('.info/connected');
+    const presenceRef = db.ref('online_presence');
+    const myPresenceRef = presenceRef.push();
+
+    connectedRef.on('value', (snap) => {
+      if (snap.val() === true) {
+        myPresenceRef.onDisconnect().remove();
+        myPresenceRef.set({
+          joined: firebase.database.ServerValue.TIMESTAMP,
+          device: window.innerWidth < 768 ? 'mobile' : 'desktop'
+        });
+      }
+    });
+
+    presenceRef.on('value', (snap) => {
+      const count = Math.max(1, snap.numChildren() || 1);
+      const text = `${count} người đang xem`;
+      const el1 = document.getElementById('onlineCountText');
+      const el2 = document.getElementById('liveOnlineCount');
+      if (el1) el1.textContent = text;
+      if (el2) el2.textContent = text;
+    });
+
+    // Cleanup on tab hide / close
+    window.addEventListener('beforeunload', () => {
+      try { myPresenceRef.remove(); } catch(e){}
+    });
+  } catch (err) {
+    console.warn('Realtime presence error:', err);
+  }
+})();

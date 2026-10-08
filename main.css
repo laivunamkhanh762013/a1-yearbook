@@ -1402,6 +1402,72 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
 .birthday-msg strong { color: var(--gold); font-weight: 700; }
 .confetti-piece { position: fixed; top: -20px; z-index: 50001; pointer-events: none; animation: confettiFall var(--fall-dur,3s) linear forwards; opacity: 0; }
 
+/* ═══════════════════════════════════════════
+   REALTIME ONLINE INDICATOR
+   ═══════════════════════════════════════════ */
+.online-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 10px #22c55e;
+  display: inline-block;
+  animation: onlinePulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes onlinePulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 6px #22c55e; }
+  50% { transform: scale(1.35); opacity: 0.8; box-shadow: 0 0 14px #22c55e, 0 0 20px rgba(34, 197, 94, 0.6); }
+}
+
+.hero-tag.online-counter-tag {
+  background: rgba(34, 197, 94, 0.1);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #86efac;
+}
+
+.online-floating-pill {
+  position: fixed;
+  bottom: 22px;
+  left: 82px;
+  z-index: 29000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(12, 12, 28, 0.88);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(34, 197, 94, 0.2);
+  color: #86efac;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: default;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+.online-floating-pill:hover {
+  transform: translateY(-2px);
+  border-color: rgba(34, 197, 94, 0.7);
+  box-shadow: 0 6px 24px rgba(34, 197, 94, 0.35);
+}
+
+@media (max-width: 768px) {
+  .online-floating-pill {
+    bottom: 74px;
+    left: 64px;
+    padding: 6px 12px;
+    font-size: 11.5px;
+  }
+}
+@media (max-width: 480px) {
+  .online-floating-pill {
+    display: none;
+  }
+}
 
 /* ═══════════════════════════════════════════
    BACK TO TOP
