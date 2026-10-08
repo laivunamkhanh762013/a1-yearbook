@@ -13,7 +13,7 @@
  */
 
 const memoriesA1List = [
-  "A1/1791217235661_405223355446798242_6444900636588119117.mp4", "A1/7879257806846.mp4", "A1/anh145.jpg", "A1/video7.mp4", "A1/anh132.jpg", "A1/video8.mp4", "A1/anh133.jpg",
+  "A1/SanPhamVideoLop8A1.mp4", "A1/1791217235661_405223355446798242_6444900636588119117.mp4", "A1/7879257806846.mp4", "A1/anh145.jpg", "A1/video7.mp4", "A1/anh132.jpg", "A1/video8.mp4", "A1/anh133.jpg",
   "A1/video9.mp4", "A1/anh134.jpg", "A1/video6.mp4", "A1/anh136.jpg", "A1/video2.mp4",
   "A1/anh135.jpg", "A1/video3.mp4", "A1/anh137.jpg", "A1/video5.mp4", "A1/anh138.jpg",
   "A1/video4.mp4", "A1/anh139.jpg", "A1/video1.mp4", "A1/anh141.jpg", "A1/anh140.jpg",
