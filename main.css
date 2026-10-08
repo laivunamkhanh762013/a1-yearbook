@@ -1240,72 +1240,7 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
 #zoomModal .zoom-content img.loaded   { opacity: 1; }
 
 
-/* ═══════════════════════════════════════════
-   POLL BUTTON & MODAL
-   ═══════════════════════════════════════════ */
-#pollBtn {
-  position: fixed; bottom: 22px; right: 22px; z-index: 8000;
-  padding: 12px 26px; border: none; border-radius: 999px; cursor: pointer;
-  font-family: var(--font-display); font-size: 16px; font-weight: 800; letter-spacing: 0.2px;
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--cyan), var(--violet));
-  background-size: 200%; animation: rainbowMove 4s linear infinite;
-  box-shadow: 0 6px 28px rgba(56,217,245,0.35), 0 3px 14px rgba(0,0,0,0.25);
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-#pollBtn:hover { transform: scale(1.06) translateY(-2px); box-shadow: 0 12px 40px rgba(56,217,245,0.5); }
 
-#pollModal {
-  position: fixed; inset: 0; z-index: 9500;
-  background: rgba(0,0,0,0); backdrop-filter: blur(0px);
-  display: none; justify-content: center; align-items: center;
-  transition: background 0.35s, backdrop-filter 0.35s;
-}
-#pollModal.open { background: rgba(0,0,0,0.72); backdrop-filter: blur(16px); }
-.poll-inner {
-  width: 640px; max-width: 95%; max-height: 90vh; overflow-y: auto;
-  background: rgba(8,8,20,0.98); border-radius: 26px; padding: 28px 32px;
-  border: 1px solid rgba(56,217,245,0.1);
-  box-shadow: 0 0 70px rgba(56,217,245,0.06), 0 0 50px rgba(167,139,250,0.04), 0 28px 70px rgba(0,0,0,0.55);
-  position: relative; animation: modalSlideUp 0.45s cubic-bezier(0.34,1.56,0.64,1) both;
-}
-.poll-inner::-webkit-scrollbar { width: 3px; }
-.poll-inner::-webkit-scrollbar-thumb { background: rgba(56,217,245,0.18); border-radius: 3px; }
-.poll-title { font-family: var(--font-display); text-align: center; color: var(--gold); font-size: 22px; margin-bottom: 4px; }
-.poll-sub   { text-align: center; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
-#pollTimer  { text-align: center; font-size: 12.5px; color: var(--orange); font-weight: 600; margin-bottom: 18px; }
-#closePoll {
-  position: absolute; top: 12px; right: 14px; font-size: 20px; cursor: pointer;
-  color: var(--muted); transition: color 0.2s, transform 0.2s; width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center; border-radius: 50%;
-}
-#closePoll:hover { color: white; transform: rotate(90deg); background: rgba(255,255,255,0.06); }
-.poll-q { font-size: 15px; font-weight: 700; text-align: center; margin-bottom: 16px; }
-.poll-option { margin-bottom: 10px; }
-.poll-option-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 12.5px; align-items: center; }
-.poll-bar-track {
-  height: 34px; background: rgba(255,255,255,0.04); border-radius: 10px; overflow: hidden;
-  position: relative; cursor: pointer; border: 1px solid transparent; transition: border-color 0.25s, transform 0.18s;
-}
-.poll-bar-track:hover { border-color: rgba(255,255,255,0.14); transform: scaleY(1.04); }
-.poll-bar-track.voted { border-color: var(--cyan); cursor: default; }
-.poll-bar-track.voted:hover { transform: none; }
-.poll-bar-fill {
-  height: 100%; border-radius: 10px; min-width: 5px; width: 0;
-  transition: width 0.9s cubic-bezier(0.22,1,0.36,1);
-  background: linear-gradient(90deg, rgba(56,217,245,0.35), rgba(99,102,241,0.25));
-  box-shadow: 0 0 10px rgba(56,217,245,0.18);
-}
-.poll-bar-fill.my-vote {
-  background: linear-gradient(90deg, rgba(255,215,0,0.5), rgba(244,114,182,0.35));
-  box-shadow: 0 0 14px rgba(255,200,0,0.3);
-}
-.poll-bar-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11.5px; color: rgba(255,255,255,0.35); pointer-events: none; }
-.poll-total { text-align: right; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
-.ripple-effect {
-  position: absolute; border-radius: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px;
-  background: rgba(255,255,255,0.3); animation: ripple 0.6s ease-out forwards; pointer-events: none; z-index: 10;
-}
 
 
 /* ═══════════════════════════════════════════
@@ -1911,30 +1846,7 @@ img[loading="lazy"] { background: rgba(255,255,255,0.015); }
 }
 .tl-enhanced-card:hover::before { opacity: 1; }
 
-/* ── Poll Button — holographic ── */
-#pollBtn {
-  position: fixed; bottom: 22px; right: 22px; z-index: 8000;
-  padding: 13px 28px; border: none; border-radius: 999px; cursor: pointer;
-  font-family: var(--font-display); font-size: 16px; font-weight: 800; letter-spacing: 0.2px;
-  color: var(--bg);
-  background: linear-gradient(135deg, var(--cyan), var(--violet), var(--rose));
-  background-size: 300%; animation: rainbowMove 4s linear infinite;
-  box-shadow:
-    0 6px 28px rgba(0,245,212,0.35),
-    0 3px 14px rgba(0,0,0,0.3),
-    0 0 0 1px rgba(255,255,255,0.1);
-  transition: transform 0.25s, box-shadow 0.25s;
-  position: relative; overflow: hidden;
-}
-#pollBtn::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-  pointer-events: none;
-}
-#pollBtn:hover {
-  transform: scale(1.07) translateY(-3px);
-  box-shadow: 0 14px 44px rgba(0,245,212,0.55), 0 0 0 2px rgba(0,245,212,0.3);
-}
+
 
 /* ── Back to top upgrade ── */
 .back-to-top {
@@ -2196,44 +2108,7 @@ body::before {
   body::before { animation: none !important; }
 }
 
-/* ── FIX: Poll button — luôn hiện và không bị che ── */
-#pollBtn {
-  position: fixed !important;
-  bottom: 22px !important;
-  right: 22px !important;
-  z-index: 8000 !important;
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: all !important;
-  padding: 13px 28px !important;
-  border: none !important;
-  border-radius: 999px !important;
-  cursor: pointer !important;
-  font-family: var(--font-display) !important;
-  font-size: 16px !important;
-  font-weight: 800 !important;
-  color: #03030c !important;
-  background: linear-gradient(135deg, #00f5d4, #8b5cf6, #f43f8e) !important;
-  background-size: 300% !important;
-  animation: rainbowMove 4s linear infinite !important;
-  box-shadow: 0 6px 28px rgba(0,245,212,0.4), 0 3px 14px rgba(0,0,0,0.3) !important;
-  transition: transform 0.25s, box-shadow 0.25s !important;
-}
-#pollBtn:hover {
-  transform: scale(1.07) translateY(-3px) !important;
-  box-shadow: 0 14px 44px rgba(0,245,212,0.6) !important;
-}
 
-/* ── FIX: Poll button bị che bởi bottom nav trên mobile ── */
-@media (max-width: 768px) {
-  #pollBtn {
-    bottom: 72px !important;
-    right: 14px !important;
-    padding: 10px 18px !important;
-    font-size: 13px !important;
-  }
-}
 
 /* ════════════════════════════════════════════
    GALLERY MODAL INNER WRAPPER — Premium
@@ -2300,13 +2175,7 @@ body::before {
     font-size: 24px;
   }
 
-  #pollBtn {
-    bottom: 130px !important;
-    right: 10px !important;
-    padding: 10px 18px !important;
-    font-size: 13px !important;
-    z-index: 7999 !important;
-  }
+
 
   .memories-a1-btn {
     padding: 14px 36px;

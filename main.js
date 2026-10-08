@@ -656,112 +656,7 @@ updateBackToSchool();
 document.getElementById('schoolBar')?.classList.remove('loading');
 setInterval(updateBackToSchool,1000);
 
-// ====== POLL ======
-const WEEKLY_POLLS = [
-  {id:"loptruong", q:"🗣️ Bình chọn lớp trưởng A1?", candidates:["Lê Nguyễn Thùy Dương","Ngô Gia Linh","Trần Anh Khôi","Nguyễn Thùy Chi","Lê Minh Khang","Dương Thanh Bình"]},
-];
 
-const poll = WEEKLY_POLLS[0];
-
-const VOTE_KEY = 'polls/votes_' + poll.id;
-const MY_KEY = 'myvote_' + poll.id;
-
-function getTimeLeft(){
-  return '🟢 Bình chọn đang mở vĩnh viễn';
-}
-function isPollLocked(){
-  return false;
-}
-let pollVotes={};
-let myVote=localStorage.getItem(MY_KEY)||null;
-
-function getTopRanks(){
-  const sorted=[...poll.candidates].map(n=>({name:n,votes:pollVotes[n]||0})).sort((a,b)=>b.votes-a.votes);
-  return{first:sorted[0]?.name,second:sorted[1]?.name,third:sorted[2]?.name};
-}
-function updateMemberRanks(){
-  document.querySelectorAll('.rank-badge').forEach(e=>e.remove());
-  const ranks=getTopRanks();
-  document.querySelectorAll('.member-card').forEach(card=>{
-    const name=card.dataset.name; let badge='';
-    if(name===ranks.first)       badge='<div class="rank-badge rank-gold">🥇</div>';
-    else if(name===ranks.second) badge='<div class="rank-badge rank-silver">🥈</div>';
-    else if(name===ranks.third)  badge='<div class="rank-badge rank-bronze">🥉</div>';
-    if(badge) card.insertAdjacentHTML('beforeend',badge);
-  });
-}
-function renderPoll(){
-  const container=document.getElementById('pollContainer'); if(!container)return;
-  const locked=isPollLocked(), canVote=!myVote&&!locked;
-  const total=poll.candidates.reduce((s,c)=>s+(pollVotes[c]||0),0);
-  const sorted=[...poll.candidates].sort((a,b)=>(pollVotes[b]||0)-(pollVotes[a]||0));
-  let html='';
-  html+=`<div class="poll-q">${poll.q}</div>`;
-  sorted.forEach((c,idx)=>{
-    const cnt=pollVotes[c]||0,pct=total>0?Math.round(cnt/total*100):0,isMine=myVote===c;
-    const medal=idx===0?'🥇 ':idx===1?'🥈 ':idx===2?'🥉 ':'';
-    html+=`<div class="poll-option">
-      <div class="poll-option-label">
-<button type="button"
-  data-name="${c}"
-  onclick="event.stopPropagation(); openProfileByName(this.dataset.name)"
-  style="background:none;border:none;padding:0;cursor:pointer;color:${isMine?'var(--gold)':'var(--text)'};font-weight:${isMine?700:400};font-size:13px;font-family:'Quicksand',sans-serif;text-align:left;">
-          ${medal}${isMine?'✓ ':''}${c}
-        </button>
-        <span style="color:var(--muted);font-size:12px;">${cnt} vote · ${pct}%</span>
-      </div>
-<div class="poll-bar-track${isMine ? ' voted' : ''}"
-     ${canVote ? `onclick="window.doVote(${JSON.stringify(c)}, event)"` : ''}>        <div class="poll-bar-fill${isMine?' my-vote':''}" style="width:${pct>0?pct:2}%"></div>
-        ${canVote?`<div class="poll-bar-label">Bấm để vote</div>`:''}
-      </div>
-    </div>`;
-  });
-  html+=`    <div class="poll-total">Tổng: ${total} lượt${myVote?' · Bạn đã vote ✓':''}${locked?' · 🔒 Đã khóa':''}</div>
-`;
-  container.innerHTML=html;
-  updateMemberRanks();
-}
-
-window.doVote = async function(candidate,event){
-  if(myVote||isPollLocked())return;
-  if(event){
-    const track=event.currentTarget,rect=track.getBoundingClientRect();
-    const rip=document.createElement('div'); rip.className='ripple-effect';
-    rip.style.left=(event.clientX-rect.left)+'px'; rip.style.top=(event.clientY-rect.top)+'px';
-    track.appendChild(rip); setTimeout(()=>rip.remove(),700);
-  }
-  myVote=candidate; localStorage.setItem(MY_KEY,candidate);
-  pollVotes[candidate]=(pollVotes[candidate]||0)+1; renderPoll();
-  try {
-    const snap=await db.ref(VOTE_KEY).get(); const data=snap.val()||{};
-    data[candidate]=(data[candidate]||0)+1; await db.ref(VOTE_KEY).set(data);
-  } catch(e) { console.log('Vote local saved:', e); }
-};
-
-window.openPollModal = function(){const m=document.getElementById('pollModal');if(m){m.style.display='flex';m.offsetHeight;m.classList.add('open');}};
-window.closePollModal = function(){const m=document.getElementById('pollModal');if(m){m.classList.remove('open');setTimeout(()=>{m.style.display='none';},300);}};
-
-// Event listener bindings (CSP compliance & separation of concerns)
-document.getElementById('pollBtn')?.addEventListener('click', window.openPollModal);
-document.getElementById('closePoll')?.addEventListener('click', window.closePollModal);
-document.getElementById('backToTop')?.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && document.getElementById('pollModal')?.classList.contains('open')) {
-    window.closePollModal();
-  }
-});
-
-// Render poll immediately
-renderPoll();
-try {
-  db.ref(VOTE_KEY).on('value',snap=>{pollVotes=snap.val()||{};renderPoll();});
-} catch(e) { console.log('Firebase poll error:', e); }
-
-const pModal = document.getElementById('pollModal');
-if (pModal) pModal.addEventListener('click',e=>{if(e.target===pModal)window.closePollModal();});
-setInterval(()=>{const el=document.getElementById('pollTimer');if(el)el.textContent=getTimeLeft();},1000);
-const pTimer = document.getElementById('pollTimer');
-if (pTimer) pTimer.textContent=getTimeLeft();
 
 // ====== LOADING SCREEN ======
 (function(){
@@ -898,6 +793,7 @@ if (testerAvatar) {
 (function(){
   const btn = document.getElementById('backToTop');
   if(!btn) return;
+  btn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
   const onScroll = debounce(() => {
     btn.classList.toggle('visible', window.scrollY > 500);
   }, 50);
