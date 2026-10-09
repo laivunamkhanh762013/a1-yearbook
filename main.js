@@ -55,7 +55,7 @@ const members = [
   {name:"Lại Vũ Nam Khánh",      dob:"07/06/2013", nick:"Thiên Tài IT",                           img:"LaiVuNamKhanh.jpg"},
   {name:"Đỗ Khắc Nguyên Khôi",   dob:"22/02/2013", nick:"...",                                    img:"DoKhacNguyenKhoi.jpg"},
   {name:"Trần Anh Khôi",         dob:"21/03/2013", nick:"Thiên Tài Sinh học",                     img:"TranAnhKhoi.jpg"},
-  {name:"Lê Trần Khánh Linh",    dob:"05/03/2013", nick:"Học giỏi Tiếng Anh",                     img:"LeTranKhanhLinh.jpg"},
+  {name:"Lê Trần Khánh Linh",    dob:"05/03/2013", nick:"Thiên Tài Tiếng Anh",                    img:"LeTranKhanhLinh.jpg"},
   {name:"Ngô Gia Linh",          dob:"11/10/2013", nick:"Ngô Tổng - Thiên Tài mọi môn",           img:"NgoGiaLinh.jpg"},
   {name:"Trần Gia Linh",         dob:"28/05/2013", nick:"Lớp Trưởng - Thiên tài Wushu / Vật lý",  img:"TranGiaLinh.jpg"},
   {name:"Lê Duy Bảo Minh",       dob:"16/12/2013", nick:"Thiên Tài Tiếng Anh",                    img:"LeDuyBaoMinh.jpg"},
